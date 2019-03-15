@@ -1,5 +1,5 @@
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
-//陌陌注册版本1.0.0
+//陌陌注册版本1.0.1
 let 陌陌注册 = {
     开始:function(){
         if(!requestScreenCapture()){
@@ -171,9 +171,11 @@ let 陌陌注册 = {
             封装API.text("允许").click();
             sleep(2500)
             recents();
-            sleep(1500)
-            a = text("多开分身").findOne(2000)
-            封装API.longClickParent(a)
+            sleep(3000)
+            if(text("多开分身").exists()==true){
+                a = text("多开分身").findOne(1000)
+                封装API.longClickParent(a)
+            }
             sleep(1500)
             while(desc("应用详情").exists()!=true){
                 this.返回主界面()
