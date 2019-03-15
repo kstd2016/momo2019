@@ -1,5 +1,5 @@
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
-//陌陌注册版本1.0.1
+//陌陌注册版本1.0.2
 let 陌陌注册 = {
     开始:function(){
         if(!requestScreenCapture()){
@@ -616,7 +616,11 @@ let 陌陌注册 = {
         封装API.等待(500,1000)
         封装API.text("下一步").click()
         封装API.等待(500,1000)
-        if(textContains("提升自身魅力").exists()==true){log("还在填写资料页面")}
+        if(textContains("提升自身魅力").exists()==true){
+            toastLog("还在填写资料页面")
+            封装API.text("下一步").click()
+            封装API.等待(500,1000)
+        }
         else{}
         this.加载头像();
         if(text("完成进入").exists()==true){封装API.text("完成进入").click()}
@@ -647,8 +651,9 @@ let 陌陌注册 = {
             this.清理内存(); 
             封装API.等待(1000,2000)               
             launchApp("多开分身")
-            for(let a=0;a<3;a++){
+            for(let a=0;a<5;a++){
                 封装API.等待(1000,2000)
+                封装API.text("允许").click();
                 if(id("iv_logo").exists()==true){
                     封装API.id("iv_logo").click()
                     sleep(1000)
