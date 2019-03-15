@@ -1,5 +1,5 @@
+//陌陌注册版本1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
-//陌陌注册版本1.0.2
 let 陌陌注册 = {
     开始:function(){
         if(!requestScreenCapture()){
@@ -7,7 +7,6 @@ let 陌陌注册 = {
             exit();
         }
         this.综合变量();
-        this.打开允许();
         this.返回主界面();
         this.手机品牌判断();
         this.清理APP数据()
@@ -214,6 +213,10 @@ let 陌陌注册 = {
             scrollDown()
             if(text("立即体验").exists()==true){
                 break;
+            }
+            if(text("立即重试").exists()==true){
+                this.返回主界面()
+                this.无极IP();
             }        
         }
         封装API.等待(1000,2000)
@@ -488,6 +491,7 @@ let 陌陌注册 = {
         //var 释放号码 = TW短信API.释放号码(登陆,获取号码);
         //var 心跳 = TW短信API.心跳(登陆);
         //token="5894503cc8c5d2f05ee3000b66f1a6f6"
+        this.打开允许();
         TW短信API = require('./TW短信API');
         登陆 = TW短信API.登陆();
         if(登陆.indexOf("登陆失败")!=-1 ){
@@ -548,6 +552,7 @@ let 陌陌注册 = {
         }
         释放号码 = TW短信API.释放号码(登陆,获取号码);
         toastLog(释放号码)
+        threads.shutDownAll()
         封装API.等待(2000,3000)
         for(let a=0;a<10;a++){
             if(id("rl_birth").exists()==true){
@@ -784,8 +789,9 @@ let 陌陌注册 = {
     打开允许:function(){
         threads.start(function(){
             while(true){
-                sleep(2000)
+                sleep(1000)
                 if(text("允许").exists()==true){
+                    toastLog("找到允许,开始点击...")
                     封装API.text("允许").click();
                 }
             }
