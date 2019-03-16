@@ -9,8 +9,8 @@ let 陌陌注册 = {
             exit();
         }
         this.综合变量();
-        this.返回主界面();
         this.手机品牌判断();
+        this.返回主界面();
         this.清理APP数据()
         this.返回主界面();
         this.文件清理();
