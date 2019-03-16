@@ -224,11 +224,18 @@ let 陌陌注册 = {
         封装API.text("立即体验").click()
         sleep(6000)
         封装API.press(500,1750,500)
-        封装API.等待(2000,3000)        
+        封装API.等待(3000,5000)        
         while(id("iv_btn_create").exists()!=true){
+            toastLog("没有找到添加分身的控件ID...,准备返回")
             sleep(1000)
             back();
             sleep(1000)
+            if(text("电话").exists()==true){
+                toastLog("判断在主页面...,准备重新打开")
+                封装API.text("多开分身").click();
+                sleep(1000)
+                封装API.text("允许").click();
+            }
         }
         封装API.id("iv_btn_create").click();
         for(let a=0;a<5;a++){
