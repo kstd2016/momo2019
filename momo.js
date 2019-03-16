@@ -957,18 +957,17 @@ let 陌陌注册 = {
     陌陌修改密码:function(){
         封装API.等待(2000,3000)
         封装API.text("更多").click()
-        封装API.等待(3000,5000)
-        for(let a=0;a<5;a++){
-            封装API.快速上滑()
+        for(let a=0;a<10;a++){
+            封装API.等待(3000,5000)
+            封装API.随机上滑()
             封装API.等待(500,1000)
-            if(text("设置").exists()==true){
-                封装API.text("设置").click();
+            封装API.text("设置").click();
+            if(text("帐号与安全").exists()==true){
+                封装API.text("帐号与安全").click();
                 break;
             }
         }
         封装API.等待(3000,5000)
-        封装API.text("帐号与安全").click();
-        封装API.等待(500,1000)
         for(let a=0;a<15;a++){
             封装API.等待(2000,3000)
             if(text("设置密码").exists()==true){
