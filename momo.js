@@ -1,7 +1,7 @@
 //1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
 //1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
-//1.0.6修改了TW短信API的一些设置,修复了时间不显示
+//1.0.6修改了TW短信API的一些设置,修复了时间不显示，优化了一些细节
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -533,9 +533,7 @@ let 陌陌注册 = {
         this.打开允许();
         TW短信API = require('./TW短信API');
         登陆 = TW短信API.登陆();
-        if(登陆.indexOf("登陆失败")!=-1 ){
-            toastLog(登陆)
-        }
+        log(登陆)
         sleep(1000)
         获取号码 = TW短信API.获取号码(登陆,"144");
         for(let a=0;a<20;a++){
@@ -662,8 +660,9 @@ let 陌陌注册 = {
         封装API.text("女生").click()
         封装API.等待(500,1000)
         封装API.text("下一步").click()
+        封装API.等待(2000,3000)
         for(let a=0;a<5;a++){
-            sleep(2000)
+            封装API.等待(2000,3000)
             if(textContains("提升自身魅力").exists()==true){
                 toastLog("还在填写资料页面")
                 if(text("填写昵称").exists()==true){
@@ -857,15 +856,15 @@ let 陌陌注册 = {
         toastLog("开始陌陌留痕...")
         封装API.等待(5000,10000)
         封装API.text("消息").click()
-        封装API.等待(1000,3000)
+        封装API.等待(2000,4000)
         封装API.id("action_jump_contact").click();
-        封装API.等待(1000,3000)
+        封装API.等待(2000,4000)
         封装API.id("friend_action_add").click();
-        封装API.等待(1000,3000)
+        封装API.等待(2000,4000)
         封装API.text("搜索").click()
-        封装API.等待(1000,3000)
+        封装API.等待(2000,4000)
         setText("482438947")
-        封装API.等待(1000,3000)
+        封装API.等待(2000,4000)
         封装API.text("搜索用户：").click();
         for(let a=0;a<10;a++){
             if(text("迷失在地球的超人").exists()==true){
@@ -1061,16 +1060,19 @@ let 陌陌注册 = {
                 sleep(500)
                 if(widget.bounds().centerX() >= 0 && widget.bounds().centerY() >= 0){
                     封装API.press(widget.bounds().centerX(), widget.bounds().centerY(),1000);
+                    sleep(500)
+                    封装API.text("全选").click()
+                    sleep(500)
+                    封装API.text("删除").click()
+                    sleep(500)
+                    封装API.text("确定").click()
                     break;
                 }
             }
+            if(text("文件夹为空").exists()==true){
+                toastLog("没有找到任何文件夹，准备返回...")
+            }
         }
-        sleep(500)
-        封装API.text("全选").click()
-        sleep(500)
-        封装API.text("删除").click()
-        sleep(500)
-        封装API.text("确定").click()
         sleep(1000)
         back();
         sleep(1000)
