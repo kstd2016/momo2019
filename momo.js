@@ -1,6 +1,7 @@
 //1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
 //1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
+//1.0.6修改了TW短信API的一些设置,修复了时间不显示
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -524,7 +525,7 @@ let 陌陌注册 = {
         //var TW短信API = require('./TW短信API');
         //var 登陆 = TW短信API.登陆();
         //var 获取项目 = TW短信API.获取项目(登陆);
-        //var 获取号码 = TW短信API.获取号码(登陆);
+        //var 获取号码 = TW短信API.获取号码(登陆,"144");
         //var 获取验证码 = TW短信API.获取验证码(登陆,获取号码);
         //var 释放号码 = TW短信API.释放号码(登陆,获取号码);
         //var 心跳 = TW短信API.心跳(登陆);
@@ -536,7 +537,7 @@ let 陌陌注册 = {
             toastLog(登陆)
         }
         sleep(1000)
-        获取号码 = TW短信API.获取号码(登陆);
+        获取号码 = TW短信API.获取号码(登陆,"144");
         for(let a=0;a<20;a++){
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
             if(text("账号登录").exists()==true){封装API.text("手机号登录注册").click()}
@@ -547,8 +548,8 @@ let 陌陌注册 = {
                     break;
                 }
                 else{
-                    sleep(5000)
-                    获取号码 = TW短信API.获取号码(登陆);
+                    sleep(3000)
+                    获取号码 = TW短信API.获取号码(登陆,"144");
                 }
             }
             sleep(3000)
@@ -586,7 +587,7 @@ let 陌陌注册 = {
         分割验证码 =num.split("")
         for(let a=0;a<6;a++){
             input(分割验证码[a])
-            封装API.等待(200,500)
+            封装API.等待(300,500)
         }
         释放号码 = TW短信API.释放号码(登陆,获取号码);
         toastLog(释放号码)
@@ -594,7 +595,7 @@ let 陌陌注册 = {
         封装API.等待(2000,3000)
         for(let a=0;a<10;a++){
             if(id("rl_birth").exists()==true){
-                封装API.id("rl_birth").click();
+                封装API.id("rl_birth").click();//设置选择生日
                 break;
             }
             else{封装API.等待(3000,4000)}
@@ -629,7 +630,10 @@ let 陌陌注册 = {
     },
     陌陌填写资料:function(){
         封装API.等待(500,1000)
-        this.年龄滑动_年()
+        for(let a=0;a<random(1,2);a++){
+            this.年龄滑动_年()
+            封装API.等待(500,1000)
+        }
         for(let a=0;a<random(1,5);a++){
             this.年龄滑动_月()
             封装API.等待(500,1000)
@@ -658,13 +662,35 @@ let 陌陌注册 = {
         封装API.text("女生").click()
         封装API.等待(500,1000)
         封装API.text("下一步").click()
-        封装API.等待(500,1000)
-        if(textContains("提升自身魅力").exists()==true){
-            toastLog("还在填写资料页面")
-            封装API.text("下一步").click()
-            封装API.等待(500,1000)
+        for(let a=0;a<5;a++){
+            sleep(2000)
+            if(textContains("提升自身魅力").exists()==true){
+                toastLog("还在填写资料页面")
+                if(text("填写昵称").exists()==true){
+                    text("填写昵称").setText(昵称)
+                }
+                if(text("填写生日").exists()==true){
+                    封装API.id("rl_birth").click();
+                    封装API.等待(500,1000)
+                    for(let a=0;a<random(1,2);a++){
+                        this.年龄滑动_年()
+                        封装API.等待(500,1000)
+                    }
+                    for(let a=0;a<random(1,5);a++){
+                        this.年龄滑动_月()
+                        封装API.等待(500,1000)
+                    }
+                    for(let a=0;a<random(1,5);a++){
+                        this.年龄滑动_日()
+                        封装API.等待(500,1000)
+                    }
+                }
+                封装API.text("女生").click()
+                封装API.text("下一步").click()
+                封装API.等待(500,1000)
+            }
+            else{break;}
         }
-        else{}
         this.加载头像();
         if(text("完成进入").exists()==true){封装API.text("完成进入").click()}
         else{this.加载头像()}
@@ -709,7 +735,8 @@ let 陌陌注册 = {
         this.陌陌留痕();
     },
     加载头像:function(){
-        for(let a=0;a<15;a++){
+        for(let a=0;a<20;a++){
+            sleep(2000)
             if(id("img_photo").exists()==true){
                 封装API.id("img_photo").click();
                 封装API.等待(1000,2000)
@@ -717,31 +744,20 @@ let 陌陌注册 = {
                     封装API.快速上滑();
                     封装API.等待(500,1000);
                 }
-                break;
             }
-            else{sleep(2000)}
-        }
-        for(let a=0;a<5;a++){
-            封装API.等待(1000,2000)
-            a = className("android.widget.ImageView").find()
-            log(a.length)
-            图片控件 = className("android.widget.ImageView").findOnce(random(0,a.length))
-            封装API.setView(图片控件).click()
-            封装API.等待(1000,2000)
-            if(text("确认").exists()==true){
-                封装API.text("确认").click()
-                break;
-            }
-            else{
-                toastLog("没有找到图片ID控件...")
-                back();
+            if(text("相册").exists()==true){
+                封装API.等待(500,1000)
+                a = className("android.widget.ImageView").find()
+                图片控件 = className("android.widget.ImageView").findOnce(random(0,a.length))
+                封装API.setView(图片控件).click()
                 封装API.等待(1000,2000)
-                if(text("下一步").exists()==true){
-                    封装API.text("下一步").click()
+                if(text("确认").exists()==true){
+                    封装API.text("确认").click()
+                    break;
                 }
             }
         }
-        封装API.等待(1000,2000)
+        封装API.等待(2000,4000)
         while(text("正在为你下载素材包，请稍等").exists()==true){
             sleep(1000)
         }
@@ -758,7 +774,7 @@ let 陌陌注册 = {
         files.append("/sdcard/陌陌账号.txt","===>");
         files.append("/sdcard/陌陌账号.txt",昵称);
         files.append("/sdcard/陌陌账号.txt","===>");
-        files.append("/sdcard/陌陌账号.txt",+时间);
+        files.append("/sdcard/陌陌账号.txt",时间);
         files.append("/sdcard/陌陌账号.txt","\n");
     },
     获取昵称:function(){
@@ -769,7 +785,7 @@ let 陌陌注册 = {
     获取手机号验证码:function(){
         登陆 = TW短信API.登陆();
         sleep(1000)
-        获取号码 = TW短信API.获取号码(登陆);
+        获取号码 = TW短信API.获取号码(登陆,"144");
         封装API.id("login_account_clear").click()
         sleep(1000)
         for(let a=0;a<10;a++){
@@ -781,7 +797,7 @@ let 陌陌注册 = {
                 }
                 else{
                     sleep(5000)
-                    获取号码 = TW短信API.获取号码(登陆);
+                    获取号码 = TW短信API.获取号码(登陆,"144");
                 }
             }
             sleep(3000)
@@ -954,20 +970,21 @@ let 陌陌注册 = {
         封装API.等待(3000,5000)
         封装API.text("帐号与安全").click();
         封装API.等待(500,1000)
-        for(let a=0;a<10;a++){
+        for(let a=0;a<15;a++){
+            封装API.等待(2000,3000)
             if(text("设置密码").exists()==true){
                 封装API.text("密码修改").click();
+                封装API.等待(2000,3000)
+                setText("cctv1995")
+            }
+            if(text("修改").exists()==true){
+                封装API.text("修改").click();
+                封装API.等待(2000,3000)
+                封装API.text("确认").click();
+                封装API.等待(2000,3000)
                 break;
             }
-            else{封装API.等待(2000,3000)}
         }
-        封装API.等待(2000,3000)
-        setText("cctv1995")
-        封装API.等待(2000,3000)
-        封装API.text("修改").click();
-        封装API.等待(2000,3000)
-        封装API.text("确认").click();
-        封装API.等待(2000,3000)
     },
     是否在主页面:function(){
         return text("全部").exists() == true; 
