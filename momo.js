@@ -1,6 +1,6 @@
 //1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
-//1.0.5增加小米双击清理任务
+//1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -8,20 +8,24 @@ let 陌陌注册 = {
             toast("请求截图失败");
             exit();
         }
-        this.综合变量();
-        this.手机品牌判断();
-        this.返回主界面();
-        this.清理APP数据()
-        this.返回主界面();
-        this.文件清理();
-        this.返回主界面();
-        this.清理内存()
-        this.无极IP();
-        this.返回主界面();
-        this.多开分身();
-        this.制作分身();
-        this.陌陌接码注册();
-        this.陌陌注册善后()
+        while(true){
+            this.综合变量();
+            this.手机品牌判断();
+            this.返回主界面();
+            this.清理APP数据()
+            this.返回主界面();
+            this.文件清理();
+            this.返回主界面();
+            this.清理内存()
+            this.无极IP();
+            this.返回主界面();
+            this.多开分身();
+            this.制作分身();
+            this.陌陌接码注册();
+            this.陌陌注册善后()
+            toastLog("准备下一个账号...")
+            sleep(5000)
+        }
     },
     综合变量:function(){
         陌陌账号参数=0
@@ -311,7 +315,13 @@ let 陌陌注册 = {
         this.虚拟定位设置();
         sleep(1000)
         if(text("开始制作").exists()==true){封装API.text("开始制作").click();}
-        else{alert("没有找到开始制作控件")}
+        else{
+            this.返回主界面()
+            this.无极IP();
+            this.多开分身();
+            this.制作分身();
+            return
+        }
         if(手机判断参数=="华为系统"){
             while(textContains("我已充分了解该风险").exists()!=true){
                 sleep(500);
