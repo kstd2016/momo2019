@@ -63,7 +63,7 @@ let 陌陌注册 = {
                 home();
             }
             else if(text("电话").exists()==true){
-                if(手机判断参数= "魔趣系统"){
+                if(手机判断参数== "魔趣系统"){
                     if(text("FM 电台").exists()!=true){
                         return;
                         }
@@ -814,7 +814,7 @@ let 陌陌注册 = {
             while(true){
                 sleep(1000)
                 if(text("允许").exists()==true){
-                    toastLog("找到允许,开始点击...")
+                    log("找到允许,开始点击...")
                     封装API.text("允许").click();
                 }
             }
