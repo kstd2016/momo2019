@@ -79,9 +79,10 @@ let 陌陌注册 = {
     清理内存:function(){
         recents();
         封装API.等待(2000,3000);
+        log(手机判断参数)
         if(手机判断参数=="小米系统"){
-            封装API.id("clearAnimView").click();
-            封装API.id("clearAnimView").click();
+            封装API.descCon("双击清理全部任务").click()
+            封装API.descCon("双击清理全部任务").click()
             log("===清理手机系统内存===");
             封装API.等待(2000,3000);
         }
