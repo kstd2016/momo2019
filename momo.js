@@ -1,4 +1,4 @@
-//陌陌注册版本1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间。
+//1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -471,6 +471,16 @@ let 陌陌注册 = {
         sleep(5000)
         if(text("申请失败").exists()==true){
             封装API.text("申请失败").click();
+            sleep(2000)
+            this.返回主界面();
+            sleep(2000)
+            launchApp("无极")
+            sleep(1000)
+            封装API.text("允许").click();
+            sleep(5000)
+        }
+        if(text("报告").exists()==true){
+            封装API.text("报告").click();
             sleep(2000)
             this.返回主界面();
             sleep(2000)
