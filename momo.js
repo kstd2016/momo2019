@@ -1,4 +1,4 @@
-//陌陌注册版本1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节
+//陌陌注册版本1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间。
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -639,12 +639,13 @@ let 陌陌注册 = {
         //封装API.text("确认").click()
         封装API.等待(1000,2000)
         封装API.text("完成进入").click()
-        for(let a=0;a<10;a++){
+
+        for(let a=0;a<20;a++){
             if(text("跳过").exists()==true){
                 封装API.text("跳过").click();
                 break;
             }
-            else{封装API.等待(2000,5000)}
+            else{封装API.等待(3000,5000)}
         }
         封装API.等待(2000,3000)
         if(text("查看我的陌陌等级").exists()==true){
