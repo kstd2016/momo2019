@@ -231,6 +231,7 @@ let 陌陌注册 = {
                 break;
             }
             if(text("立即重试").exists()==true){
+                toastLog("网路连接有问题,准备切换IP...")
                 this.返回主界面()
                 this.无极IP();
             }        
@@ -239,7 +240,8 @@ let 陌陌注册 = {
         封装API.text("立即体验").click()
         sleep(6000)
         封装API.press(500,1750,500)
-        封装API.等待(3000,5000)        
+        封装API.等待(3000,5000) 
+        var 多开分身添加变量 = 0       
         while(id("iv_btn_create").exists()!=true){
             log("没有找到添加分身的控件ID...,准备返回")
             sleep(1000)
@@ -247,7 +249,15 @@ let 陌陌注册 = {
             sleep(1000)
             if(text("电话").exists()==true){
                 log("判断在主页面...,准备重新打开")
-                封装API.text("多开分身").click();
+                launchApp("多开分身")
+                sleep(1000)
+                封装API.text("允许").click();
+            }
+            //N次循环都没有找到,重新打开多开分身
+            多开分身添加变量++
+            if(多开分身添加变量>30){
+                this.返回主界面();
+                launchApp("多开分身")
                 sleep(1000)
                 封装API.text("允许").click();
             }
@@ -684,6 +694,11 @@ let 陌陌注册 = {
                         封装API.等待(500,1000)
                     }
                 }
+                var point = findColor(images.read("/sdcard/A.png"), "#000000", {
+                    region: [590,1100,350,350],
+                    threads: 15
+                });
+                if(point){封装API.press(point.x,point.y)}
                 封装API.text("女生").click()
                 封装API.text("下一步").click()
                 封装API.等待(500,1000)
