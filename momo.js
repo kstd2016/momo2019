@@ -1,6 +1,6 @@
 //1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
-//1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法
+//1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -709,28 +709,28 @@ let 陌陌注册 = {
         this.陌陌留痕();
     },
     加载头像:function(){
-        for(let a=0;a<5;a++){
+        for(let a=0;a<15;a++){
             if(id("img_photo").exists()==true){
                 封装API.id("img_photo").click();
+                封装API.等待(1000,2000)
+                for(let a=0;a<random(1,20);a++){
+                    封装API.快速上滑();
+                    封装API.等待(500,1000);
+                }
                 break;
             }
-            else{封装API.等待(1000,2000)}
-        }
-        封装API.等待(1000,2000)
-        for(let a=0;a<random(1,20);a++){
-            封装API.快速上滑();
-            封装API.等待(500,1000);
+            else{sleep(2000)}
         }
         for(let a=0;a<5;a++){
+            封装API.等待(1000,2000)
             a = className("android.widget.ImageView").find()
-            if(a!=null){
-                log(a.length)
-                className("android.widget.ImageView").findOnce(random(0,a.length)).click()
-                封装API.等待(1000,2000)
-                if(text("确认").exists()==true){
-                    封装API.text("确认").click()
-                    break;
-                }
+            log(a.length)
+            图片控件 = className("android.widget.ImageView").findOnce(random(0,a.length))
+            封装API.setView(图片控件).click()
+            封装API.等待(1000,2000)
+            if(text("确认").exists()==true){
+                封装API.text("确认").click()
+                break;
             }
             else{
                 toastLog("没有找到图片ID控件...")
@@ -853,7 +853,7 @@ let 陌陌注册 = {
         封装API.text("搜索用户：").click();
         for(let a=0;a<10;a++){
             if(text("迷失在地球的超人").exists()==true){
-                封装API.等待(1000,2000)
+                封装API.等待(5000,10000)
                 break;
             }
             else{封装API.等待(2000,3000)}
