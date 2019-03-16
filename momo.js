@@ -218,7 +218,7 @@ let 陌陌注册 = {
     多开分身:function(){
         sleep(1000)
         launchApp("多开分身")
-        sleep(1000)
+        sleep(2000)
         封装API.text("允许").click();
         for(let a=0;a<10;a++){
             封装API.等待(3000,4000)
@@ -587,13 +587,13 @@ let 陌陌注册 = {
             this.获取手机号验证码();
         }
         封装API.等待(500,100)
-        /*num= 获取验证码.replace(/[^0-9]/ig,"");
-        分割验证码 =num.split("")
+        num= 获取验证码.replace(/[^0-9]/ig,"");
+        /*分割验证码 =num.split("")
         for(let a=0;a<6;a++){
             input(分割验证码[a])
             封装API.等待(300,500)
         }*/
-        setText(获取验证码)
+        setText(num)
         封装API.等待(500,600)
         释放号码 = TW短信API.释放号码(登陆,获取号码);
         log(释放号码)
@@ -1099,7 +1099,7 @@ let 陌陌注册 = {
             sleep(2000)
             if(textContains("momo").exists()==true){
                 let widget = textContains("momo").findOne(2000)
-                sleep(500)
+                sleep(1000)
                 if(widget.bounds().centerX() >= 0 && widget.bounds().centerY() >= 0){
                     封装API.press(widget.bounds().centerX(), widget.bounds().centerY(),1000);
                     sleep(500)
@@ -1113,6 +1113,7 @@ let 陌陌注册 = {
             }
             if(text("文件夹为空").exists()==true){
                 toastLog("没有找到任何文件夹，准备返回...")
+                break;
             }
         }
         sleep(1000)
