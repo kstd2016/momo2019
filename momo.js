@@ -2,6 +2,7 @@
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
 //1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
 //1.0.6修改了TW短信API的一些设置,修复了时间不显示，优化了一些细节,修复了陌陌返回主页卡死的情况
+//1.0.7增加了多线程报告.修改了验证码输入方式
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -11,6 +12,7 @@ let 陌陌注册 = {
         }
         while(true){
             this.综合变量();
+            this.打开报告();
             this.手机品牌判断();
             this.返回主界面();
             this.清理APP数据()
@@ -224,7 +226,7 @@ let 陌陌注册 = {
         sleep(1000)
         封装API.text("允许").click();
         封装API.等待(3000,5000)
-        for(let a=0;a<5;a++){
+        for(let a=0;a<10;a++){
             封装API.等待(2000,3000)
             scrollDown()
             if(text("立即体验").exists()==true){
@@ -586,19 +588,21 @@ let 陌陌注册 = {
             封装API.等待(500,1000)
             封装API.id("login_account_clear").click()
             释放号码 = TW短信API.释放号码(登陆,获取号码);
-            toastLog(释放号码)
+            log(释放号码)
             封装API.等待(500,1000)
             this.获取手机号验证码();
         }
-        封装API.等待(500,1000)
-        num= 获取验证码.replace(/[^0-9]/ig,"");
+        封装API.等待(500,600)
+        /*num= 获取验证码.replace(/[^0-9]/ig,"");
         分割验证码 =num.split("")
         for(let a=0;a<6;a++){
             input(分割验证码[a])
             封装API.等待(300,500)
-        }
+        }*/
+        setText(获取验证码)
+        封装API.等待(500,600)
         释放号码 = TW短信API.释放号码(登陆,获取号码);
-        toastLog(释放号码)
+        log(释放号码)
         threads.shutDownAll()
         封装API.等待(2000,3000)
         for(let a=0;a<10;a++){
@@ -717,8 +721,13 @@ let 陌陌注册 = {
         //封装API.text("确认").click()
         封装API.等待(1000,2000)
         封装API.text("完成进入").click()
-
-        for(let a=0;a<30;a++){
+        sleep(12000)
+        if(text("完成进入").exists()==true){
+            back();
+            封装API.等待(1000,2000)
+            封装API.text("完成进入").click()
+        }
+        for(let a=0;a<28;a++){
             if(text("跳过").exists()==true){
                 封装API.text("跳过").click();
                 break;
@@ -863,6 +872,17 @@ let 陌陌注册 = {
                 if(text("允许").exists()==true){
                     log("找到允许,开始点击...")
                     封装API.text("允许").click();
+                }
+            }
+        });
+    },
+    打开报告:function(){
+        threads.start(function(){
+            while(true){
+                sleep(1000)
+                if(text("报告").exists()==true){
+                    log("找到报告,开始点击...")
+                    封装API.text("报告").click();
                 }
             }
         });
