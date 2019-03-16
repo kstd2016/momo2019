@@ -30,6 +30,13 @@ let 陌陌注册 = {
     },
     手机品牌判断:function(){
         sleep(500)
+        for(let a=0;a<5;a++){
+            if(text("电话").exists()==false&&desc("拨号").exists()==false){
+                home();
+                sleep(1000)
+            }
+            else{break;}
+        }
         if(text("电话").exists()==true){
             if(text("电话").findOne(1000).packageName()=="com.miui.home"){
                 toastLog("鉴定为小米系统")
@@ -63,7 +70,7 @@ let 陌陌注册 = {
                 home();
             }
             else if(text("电话").exists()==true){
-                if(手机判断参数== "魔趣系统"){
+                if(手机判断参数 == "魔趣系统"){
                     if(text("FM 电台").exists()!=true){
                         return;
                         }
