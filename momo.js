@@ -1,4 +1,5 @@
 //1.0.3,增加了多开分身没有网络的解决办法,优化了一些小细节，增加了完成进入后的等待时间，增加了无极停止运行的处理方案
+//1.0.4,修复加载头像函数错误的问题
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -682,11 +683,16 @@ let 陌陌注册 = {
         this.陌陌留痕();
     },
     加载头像:function(){
+        for(let a=0;a<5;a++){
+            if(id("img_photo").exists()=true){
+                封装API.id("img_photo").click();
+                break;
+            }
+            else{封装API.等待(1000,2000)}
+        }
         封装API.等待(1000,2000)
-        封装API.id("img_photo").click();
-        封装API.等待(1000,2000)
-        for(let a=0;a<random(1,15);a++){
-            封装API.随机上滑();
+        for(let a=0;a<random(1,20);a++){
+            封装API.快速上滑();
             封装API.等待(500,1000);
         }
         for(let a=0;a<5;a++){
@@ -698,9 +704,6 @@ let 陌陌注册 = {
                 if(text("确认").exists()==true){
                     封装API.text("确认").click()
                     break;
-                }
-                else{
-
                 }
             }
             else{
