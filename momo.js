@@ -2,7 +2,7 @@
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
 //1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
 //1.0.6修改了TW短信API的一些设置,修复了时间不显示，优化了一些细节,修复了陌陌返回主页卡死的情况
-//1.0.7增加了多线程报告.修改了验证码输入方式
+//1.0.7增加了多线程报告.修改了验证码输入方式,优化整体效率
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -70,7 +70,7 @@ let 陌陌注册 = {
         }
     },
     返回主界面:function(){
-        封装API.等待(1000,2000);
+        sleep(500)
         while(true){
             封装API.等待(1000,2000);
             if(text("电话").exists()==false&&desc("拨号").exists()==false){
@@ -91,29 +91,30 @@ let 陌陌注册 = {
         }
     },
     清理内存:function(){
+        sleep(500)
         recents();
-        封装API.等待(2000,3000);
+        sleep(2000);
         log(手机判断参数)
         if(手机判断参数=="小米系统"){
             封装API.descCon("双击清理全部任务").click()
             封装API.descCon("双击清理全部任务").click()
             log("===清理手机系统内存===");
-            封装API.等待(2000,3000);
+            sleep(2000);
         }
         if(手机判断参数=="VIVO系统"){
             封装API.text("关闭全部").click();
             log("===清理手机系统内存===");
-            封装API.等待(2000,3000);
+            sleep(2000);
         }
         else if(手机判断参数=="华为系统"){
             封装API.id("recent_igmbutton_clear_all").click();
             log("===清理手机系统内存===");
-            封装API.等待(2000,3000);
+            sleep(2000);
         }
         else if(手机判断参数=="魔趣系统"){
             封装API.text("全部清除").click();
             log("===清理手机系统内存===");
-            封装API.等待(2000,3000);
+            sleep(2000);
         }
     },
     清理APP数据:function(){
@@ -150,22 +151,22 @@ let 陌陌注册 = {
         else if(手机判断参数=="小米系统"){
             toastLog("准备清理MOMO陌陌数据...")
             launchApp("MOMO陌陌")
-            sleep(1500)
+            sleep(1000)
             封装API.text("允许").click();
-            sleep(2500)
+            sleep(2000)
             recents();
-            sleep(1500)
+            sleep(2000)
             a = text("MOMO陌陌").findOne(2000)
             封装API.longClickParent(a)
             sleep(1500)
             while(desc("应用详情").exists()!=true){
                 this.返回主界面()
                 launchApp("MOMO陌陌")
-                sleep(1500)
+                sleep(1000)
                 封装API.text("允许").click();
-                sleep(2500)
+                sleep(2000)
                 recents();
-                sleep(1500)
+                sleep(2000)
                 a = text("MOMO陌陌").findOne(2000)
                 if(a!=null){
                     封装API.longClickParent(a)
@@ -173,22 +174,19 @@ let 陌陌注册 = {
                 }
             }
             封装API.desc("应用详情").click();
-            sleep(500)
             封装API.text("清除数据").click();
-            sleep(500)
             封装API.text("清除全部数据").click();
-            sleep(500)
             封装API.text("确定").click();
-            sleep(1000)
+            sleep(500)
             this.返回主界面()
             toastLog("准备清理多开分身数据...")
             launchApp("多开分身")
-            sleep(1500)
+            sleep(1000)
             封装API.text("允许").click();
             封装API.text("允许").click();
-            sleep(2500)
+            sleep(2000)
             recents();
-            sleep(3000)
+            sleep(2000)
             if(text("多开分身").exists()==true){
                 a = text("多开分身").findOne(1000)
                 封装API.longClickParent(a)
@@ -197,12 +195,12 @@ let 陌陌注册 = {
             while(desc("应用详情").exists()!=true){
                 this.返回主界面()
                 launchApp("多开分身")
-                sleep(1500)
+                sleep(1000)
                 封装API.text("允许").click();
                 封装API.text("允许").click();
-                sleep(2500)
+                sleep(2000)
                 recents();
-                sleep(1500)
+                sleep(2000)
                 a = text("多开分身").findOne(2000)
                 if(a!=null){
                     封装API.longClickParent(a)
@@ -210,24 +208,20 @@ let 陌陌注册 = {
                 }
             }
             封装API.desc("应用详情").click();
-            sleep(500)
             封装API.text("清除数据").click();
-            sleep(500)
             封装API.text("清除全部数据").click();
-            sleep(500)
             封装API.text("确定").click();
-            sleep(1000)
+            sleep(500)
             this.返回主界面()
         }
     },
     多开分身:function(){
-        sleep(2000)
-        封装API.text("多开分身").click();
+        sleep(1000)
+        launchApp("多开分身")
         sleep(1000)
         封装API.text("允许").click();
-        封装API.等待(3000,5000)
         for(let a=0;a<10;a++){
-            封装API.等待(2000,3000)
+            封装API.等待(3000,4000)
             scrollDown()
             if(text("立即体验").exists()==true){
                 break;
@@ -238,11 +232,10 @@ let 陌陌注册 = {
                 this.无极IP();
             }        
         }
-        封装API.等待(1000,2000)
         封装API.text("立即体验").click()
         sleep(6000)
         封装API.press(500,1750,500)
-        封装API.等待(3000,5000) 
+        sleep(3000)
         var 多开分身添加变量 = 0       
         while(id("iv_btn_create").exists()!=true){
             log("没有找到添加分身的控件ID...,准备返回")
@@ -298,6 +291,7 @@ let 陌陌注册 = {
         sleep(1000)
     },
     制作分身:function(){
+        sleep(1000)
         while(text("开始制作").exists()!=true){
             this.返回主界面()
             this.多开分身()
@@ -428,10 +422,10 @@ let 陌陌注册 = {
         sleep(1000);
         if(text("请打开GPS").exists()==true){
             back();
-            sleep(1000)
+            sleep(500)
         }
         封装API.id("tv_search").click()
-        sleep(500)
+        sleep(1000)
         //setText("嘉兴中学")//测试位置
         setText(地理位置+"中学")
         for(let a=0;a<15;a++){
@@ -503,7 +497,7 @@ let 陌陌注册 = {
         封装API.text("允许").click();
         sleep(1000)
         封装API.text("切换").click();
-        sleep(2000)
+        sleep(3000)
         this.返回主界面();
         sleep(3000)
         launchApp("无极")
@@ -512,9 +506,9 @@ let 陌陌注册 = {
         sleep(5000)
         if(text("申请失败").exists()==true){
             封装API.text("申请失败").click();
-            sleep(2000)
+            sleep(3000)
             this.返回主界面();
-            sleep(2000)
+            sleep(3000)
             launchApp("无极")
             sleep(1000)
             封装API.text("允许").click();
@@ -522,9 +516,9 @@ let 陌陌注册 = {
         }
         if(text("报告").exists()==true){
             封装API.text("报告").click();
-            sleep(2000)
+            sleep(3000)
             this.返回主界面();
-            sleep(2000)
+            sleep(3000)
             launchApp("无极")
             sleep(1000)
             封装API.text("允许").click();
@@ -573,15 +567,15 @@ let 陌陌注册 = {
             }
             else{break;}
         }
-        for(let a=0;a<5;a++){
-            sleep(12000)
+        for(let a=0;a<6;a++){
+            sleep(10000)
             获取验证码 = TW短信API.获取验证码(登陆,获取号码);
             if(获取验证码.indexOf("获取验证码失败")!=-1 ){toastLog(获取验证码)}
             else{break;}
         }
         if(获取验证码.indexOf("获取验证码失败")!=-1 ){
             for(let a=0;a<5;a++){
-                封装API.等待(1000,12000)
+                封装API.等待(1000,2000)
                 if(text("手机号登录注册").exists()==true){break;}
                 else{back();封装API.等待(500,1000)}
             }
@@ -592,7 +586,7 @@ let 陌陌注册 = {
             封装API.等待(500,1000)
             this.获取手机号验证码();
         }
-        封装API.等待(500,600)
+        封装API.等待(500,100)
         /*num= 获取验证码.replace(/[^0-9]/ig,"");
         分割验证码 =num.split("")
         for(let a=0;a<6;a++){
@@ -604,18 +598,18 @@ let 陌陌注册 = {
         释放号码 = TW短信API.释放号码(登陆,获取号码);
         log(释放号码)
         threads.shutDownAll()
-        封装API.等待(2000,3000)
         for(let a=0;a<10;a++){
+            封装API.等待(3000,4000)
             if(id("rl_birth").exists()==true){
                 封装API.id("rl_birth").click();//设置选择生日
                 break;
             }
-            else{封装API.等待(3000,4000)}
             if(text("首页").exists()==true){
                 陌陌账号参数="已被使用"
                 break;
             }
             else if(text("同步到动态").exists()==true){
+                log("同步到动态...")
                 封装API.text("同步到动态").click()
                 陌陌账号参数 == "已被使用"
                 break;
@@ -655,12 +649,12 @@ let 陌陌注册 = {
             封装API.等待(500,1000)
         }
         //华为6X确定按钮位置找色
-        for(let a=0;a<5;a++){
+        for(let a=0;a<6;a++){
             captureScreen("/sdcard/A.png");
             封装API.等待(1000,2000)
             var point = findColor(images.read("/sdcard/A.png"), "#000000", {
                 region: [590,1100,350,350],
-                threads: 15
+                threads: 16
             });
             if(point){封装API.press(point.x,point.y);break;}
         }
@@ -674,9 +668,9 @@ let 陌陌注册 = {
         封装API.text("女生").click()
         封装API.等待(500,1000)
         封装API.text("下一步").click()
-        封装API.等待(2000,3000)
+        sleep(2000)
         for(let a=0;a<5;a++){
-            封装API.等待(2000,3000)
+            sleep(2000)
             if(textContains("提升自身魅力").exists()==true){
                 toastLog("还在填写资料页面")
                 if(text("填写昵称").exists()==true){
@@ -698,11 +692,6 @@ let 陌陌注册 = {
                         封装API.等待(500,1000)
                     }
                 }
-                var point = findColor(images.read("/sdcard/A.png"), "#000000", {
-                    region: [590,1100,350,350],
-                    threads: 15
-                });
-                if(point){封装API.press(point.x,point.y)}
                 封装API.text("女生").click()
                 封装API.text("下一步").click()
                 封装API.等待(500,1000)
@@ -780,7 +769,7 @@ let 陌陌注册 = {
                 }
             }
         }
-        封装API.等待(2000,4000)
+        sleep(3000)
         while(text("正在为你下载素材包，请稍等").exists()==true){
             sleep(1000)
         }
@@ -903,7 +892,7 @@ let 陌陌注册 = {
         封装API.text("搜索用户：").click();
         for(let a=0;a<10;a++){
             if(text("迷失在地球的超人").exists()==true){
-                封装API.等待(5000,10000)
+                sleep(10000)
                 break;
             }
             else{封装API.等待(2000,3000)}
