@@ -174,8 +174,11 @@ let 陌陌注册 = {
                 }
             }
             封装API.desc("应用详情").click();
+            sleep(500)
             封装API.text("清除数据").click();
+            sleep(500)
             封装API.text("清除全部数据").click();
+            sleep(500)
             封装API.text("确定").click();
             sleep(500)
             this.返回主界面()
@@ -208,8 +211,11 @@ let 陌陌注册 = {
                 }
             }
             封装API.desc("应用详情").click();
+            sleep(500)
             封装API.text("清除数据").click();
+            sleep(500)
             封装API.text("清除全部数据").click();
+            sleep(500)
             封装API.text("确定").click();
             sleep(500)
             this.返回主界面()
@@ -297,7 +303,9 @@ let 陌陌注册 = {
             this.多开分身()
         }
         封装API.text("去LOGO水印").click();
+        sleep(500)
         封装API.text("高级选项").click();
+        sleep(500)
         封装API.text("虚拟化SD卡").click();
         var 机型伪装坐标 = text("机型伪装").findOne(1000).parent().parent().bounds()
         var X1 = 机型伪装坐标.left
@@ -368,6 +376,9 @@ let 陌陌注册 = {
             for(let a=0;a<12;a++){
                 if(text("允许").exists()==true){
                     封装API.text("允许").click();
+                    break;
+                }
+                if(text("账号登录").exists==true){
                     break;
                 }
                 else{sleep(5000)}
@@ -531,7 +542,7 @@ let 陌陌注册 = {
         //var TW短信API = require('./TW短信API');
         //var 登陆 = TW短信API.登陆();
         //var 获取项目 = TW短信API.获取项目(登陆);
-        //var 获取号码 = TW短信API.获取号码(登陆,"144");
+        //var 获取号码 = TW短信API.获取号码(登陆,"1","144");
         //var 获取验证码 = TW短信API.获取验证码(登陆,获取号码);
         //var 释放号码 = TW短信API.释放号码(登陆,获取号码);
         //var 心跳 = TW短信API.心跳(登陆);
@@ -541,7 +552,7 @@ let 陌陌注册 = {
         登陆 = TW短信API.登陆();
         log(登陆)
         sleep(1000)
-        获取号码 = TW短信API.获取号码(登陆,"144");
+        获取号码 = TW短信API.获取号码(登陆,"1","144");
         for(let a=0;a<20;a++){
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
             if(text("账号登录").exists()==true){封装API.text("手机号登录注册").click()}
@@ -553,7 +564,7 @@ let 陌陌注册 = {
                 }
                 else{
                     sleep(3000)
-                    获取号码 = TW短信API.获取号码(登陆,"144");
+                    获取号码 = TW短信API.获取号码(登陆,"1","144");
                 }
             }
             sleep(3000)
@@ -797,7 +808,7 @@ let 陌陌注册 = {
     获取手机号验证码:function(){
         登陆 = TW短信API.登陆();
         sleep(1000)
-        获取号码 = TW短信API.获取号码(登陆,"144");
+        获取号码 = TW短信API.获取号码(登陆,"1","144");
         封装API.id("login_account_clear").click()
         sleep(1000)
         for(let a=0;a<10;a++){
@@ -809,7 +820,7 @@ let 陌陌注册 = {
                 }
                 else{
                     sleep(5000)
-                    获取号码 = TW短信API.获取号码(登陆,"144");
+                    获取号码 = TW短信API.获取号码(登陆,"1","144");
                 }
             }
             sleep(3000)
@@ -1091,7 +1102,7 @@ let 陌陌注册 = {
             sleep(1000)
             var point = findColor(images.read("/sdcard/A.png"), "#FF642B", {
                 region: [880,1720,200,200],
-                threads: 10
+                threads: 16
             });
             if(point){封装API.press(point.x,point.y);break;}
         }
