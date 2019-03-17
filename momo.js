@@ -2,7 +2,7 @@
 //1.0.4,修复加载头像函数错误的问题，修复694行错误,修复清理内存失败的问题,增加了跳过等待时长
 //1.0.5增加小米双击清理任务,增加了整体循环代码,增加了没有定位地址的解决办法,增加了设置头像时间
 //1.0.6修改了TW短信API的一些设置,修复了时间不显示，优化了一些细节,修复了陌陌返回主页卡死的情况
-//1.0.7增加了多线程报告.修改了验证码输入方式,优化整体效率
+//1.0.7增加了多线程报告.修改了验证码输入方式,优化整体效率,增加了Q跳登陆
 let 封装API = require(engines.myEngine().cwd() +"/封装API.js");
 let 陌陌注册 = {
     开始:function(){
@@ -24,7 +24,8 @@ let 陌陌注册 = {
             this.返回主界面();
             this.多开分身();
             this.制作分身();
-            this.陌陌接码注册();
+            //this.陌陌接码注册();
+            this.陌陌Q跳注册()
             this.陌陌注册善后()
             toastLog("准备下一个账号...")
             sleep(5000)
@@ -538,6 +539,62 @@ let 陌陌注册 = {
         this.无极IP地址()
         toastLog("无极IP运行完毕...")
     },
+    陌陌Q跳注册:function(){
+        for(let a=0;a<20;a++){
+            sleep(3000)
+            if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
+            if(text("账号登录").exists()==true){封装API.text("手机号登录注册").click()}
+            if(text("手机号登录注册").exists()==true){
+                封装API.id("img_qq").click();
+            }
+            if(text("新用户").exists()==true&text("登 录").exists()==true){
+                封装API.text("登 录").click()
+                break;
+            }
+        }
+        for(let a=0;a<20;a++){
+            sleep(3000)
+            if(text("新用户注册").exists()==true){
+                this.Q跳账号();
+                QQ账号 = Q跳数据[0]
+                log("QQ账号===>"+QQ账号)
+                QQ密码 = Q跳数据[1]
+                log("QQ密码===>"+QQ账号)
+                setText(QQ账号)
+                sleep(500)
+                id("password").setText(QQ密码)
+                sleep(500)
+                封装API.text("登 录").click()
+            }
+            if(text("登陆失败").exists()==true){
+                封装API.text("确定").click()
+            }
+            if(id("rl_birth").exists()==true){
+                封装API.id("rl_birth").click();//设置选择生日
+                break;
+            }
+            else if(text("绑定手机").exists()==true){
+                陌陌账号参数="已被使用"
+                alert("该QQ号已被使用...")
+                break;
+            }
+            else if(text("首页").exists()==true){
+                陌陌账号参数="已被使用"
+                alert("该QQ号已被使用...")
+                break;
+            }
+            else if(text("同步到动态").exists()==true){
+                alert("该QQ号已被使用...")
+                封装API.text("同步到动态").click()
+                陌陌账号参数 == "已被使用"
+                break;
+            }
+        }
+        if(陌陌账号参数!="已被使用"){
+            this.陌陌填写资料();
+        }
+        //id = auth_module_dialog_iv_close//绑定手机提示ID       
+    },
     陌陌接码注册:function(){
         //var TW短信API = require('./TW短信API');
         //var 登陆 = TW短信API.登陆();
@@ -672,9 +729,7 @@ let 陌陌注册 = {
         //华为6X确定按钮位置找色
         封装API.等待(500,1000)
         昵称=this.获取昵称()
-        if(text("填写昵称").exists()==true){
-            text("填写昵称").setText(昵称)
-        }
+        id("et_name").setText(昵称)
         封装API.等待(500,1000)
         封装API.text("女生").click()
         封装API.等待(500,1000)
@@ -709,25 +764,34 @@ let 陌陌注册 = {
             }
             else{break;}
         }
-        this.加载头像();
-        if(text("完成进入").exists()==true){封装API.text("完成进入").click()}
-        else{this.加载头像()}
-        封装API.等待(1000,2000)
-        if(id("img_photo").exists()==true){
-            this.加载头像()
+        sleep(2000)
+        if(text("绑定手机").exists()==true){
+            封装API.text("跳过").click();
         }
-        //封装API.text("屏蔽").click()
-        //封装API.等待(500,1000)
-        //封装API.text("确认").click()
-        封装API.等待(1000,2000)
-        封装API.text("完成进入").click()
-        sleep(12000)
-        if(text("完成进入").exists()==true){
-            back();
+        else{
+            this.加载头像();
+            if(text("完成进入").exists()==true){封装API.text("完成进入").click()}
+            else{this.加载头像()}
+            封装API.等待(1000,2000)
+            if(id("img_photo").exists()==true){
+                this.加载头像()
+            }
+            //封装API.text("屏蔽").click()
+            //封装API.等待(500,1000)
+            //封装API.text("确认").click()
             封装API.等待(1000,2000)
             封装API.text("完成进入").click()
+            sleep(12000)
+            if(text("完成进入").exists()==true){
+                back();
+                封装API.等待(1000,2000)
+                封装API.text("完成进入").click()
+            }
         }
         for(let a=0;a<28;a++){
+            if(id("auth_module_dialog_iv_close").exists()==true){
+                封装API.id("auth_module_dialog_iv_close").click()
+            }            
             if(text("跳过").exists()==true){
                 封装API.text("跳过").click();
                 break;
@@ -891,29 +955,45 @@ let 陌陌注册 = {
         toastLog("开始陌陌留痕...")
         封装API.等待(5000,10000)
         封装API.text("消息").click()
-        封装API.等待(2000,4000)
+        封装API.等待(3000,5000)
         封装API.id("action_jump_contact").click();
-        封装API.等待(2000,4000)
+        封装API.等待(3000,5000)
         封装API.id("friend_action_add").click();
-        封装API.等待(2000,4000)
-        封装API.text("搜索").click()
-        封装API.等待(2000,4000)
-        setText("482438947")
-        封装API.等待(2000,4000)
-        封装API.text("搜索用户：").click();
-        for(let a=0;a<10;a++){
-            if(text("迷失在地球的超人").exists()==true){
-                sleep(10000)
-                break;
+        封装API.等待(3000,5000)
+        if(text("首页").exists()==true){
+            this.返回主界面();
+            this.清理内存(); 
+            封装API.等待(1000,2000)               
+            launchApp("多开分身")
+                封装API.等待(1000,2000)
+                封装API.text("允许").click();
+                if(id("iv_logo").exists()==true){
+                    封装API.id("iv_logo").click()
+                    sleep(1000)
+                    封装API.text("允许").click();
+                    this.陌陌留痕();
+                }
+        }
+        else{
+            封装API.text("搜索").click()
+            封装API.等待(3000,5000)
+            setText("482438947")
+            封装API.等待(2000,4000)
+            封装API.text("搜索用户：").click();
+            for(let a=0;a<10;a++){
+                if(text("迷失在地球的超人").exists()==true){
+                    sleep(10000)
+                    break;
+                }
+                else{封装API.等待(2000,3000)}
             }
-            else{封装API.等待(2000,3000)}
+            for(let a=0;a<10;a++){
+                if(text("首页").exists()==true){break;}
+                else{back();封装API.等待(500,1500)}
+            }
+            封装API.等待(10000,15000)
+            this.动态浏览()
         }
-        for(let a=0;a<10;a++){
-            if(text("首页").exists()==true){break;}
-            else{back();封装API.等待(500,1500)}
-        }
-        封装API.等待(10000,15000)
-        this.动态浏览()
     },
     动态浏览:function(){
         toastLog("===开始浏览动态===");
@@ -1143,7 +1223,21 @@ let 陌陌注册 = {
         var hour = da.getHours()+'时'
         var minute = da.getMinutes()+'分'
         return [year,month,date,hour,minute].join('-')
-    }
+    },
+    Q跳账号:function(){
+        Q跳数据 = []
+        var 读取文本 = files.read("/sdcard/Q跳数据.txt");
+        var 分割文本=读取文本.split("\n");
+        var copyList=分割文本.slice(0);
+        读取文本.split("\n").forEach(line=>{
+            Q跳数据 = line.split("----")
+            //对复制的副本做删除操作
+            copyList.shift();
+            //将新的数据写入
+            files.write("/sdcard/Q跳数据.txt",copyList.join("\n"));
+            return
+        })
+    },
 }
 module.exports = 陌陌注册
 /*文件清理华为版:function(){
