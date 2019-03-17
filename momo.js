@@ -559,7 +559,7 @@ let 陌陌注册 = {
                 QQ账号 = Q跳数据[0]
                 log("QQ账号===>"+QQ账号)
                 QQ密码 = Q跳数据[1]
-                log("QQ密码===>"+QQ账号)
+                log("QQ密码===>"+QQ密码)
                 setText(QQ账号)
                 sleep(500)
                 id("password").setText(QQ密码)
@@ -1229,13 +1229,13 @@ let 陌陌注册 = {
         var 读取文本 = files.read("/sdcard/Q跳数据.txt");
         var 分割文本=读取文本.split("\n");
         var copyList=分割文本.slice(0);
-        读取文本.split("\n").forEach(line=>{
+        读取文本.split("\n").some(line=>{
             Q跳数据 = line.split("----")
             //对复制的副本做删除操作
             copyList.shift();
             //将新的数据写入
             files.write("/sdcard/Q跳数据.txt",copyList.join("\n"));
-            return
+            return true//此代码的作用是让some只运行一次
         })
     },
 }
