@@ -540,7 +540,7 @@ let 陌陌注册 = {
         toastLog("无极IP运行完毕...")
     },
     陌陌Q跳注册:function(){
-        for(let a=0;a<20;a++){
+        for(let a=0;a<100;a++){
             sleep(3000)
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
             if(text("账号登录").exists()==true){封装API.text("手机号登录注册").click()}
