@@ -552,8 +552,8 @@ let 陌陌注册 = {
                 break;
             }
         }
-        for(let a=0;a<20;a++){
-            sleep(3000)
+        for(let a=0;a<90;a++){
+            sleep(1000)
             if(text("新用户注册").exists()==true){
                 this.Q跳账号();
                 QQ账号 = Q跳数据[0]
@@ -568,6 +568,9 @@ let 陌陌注册 = {
             }
             if(text("登陆失败").exists()==true){
                 封装API.text("确定").click()
+            }
+            if(text("授权并登录").exists()==true){
+                封装API.text("授权并登录").click()
             }
             if(id("rl_birth").exists()==true){
                 封装API.id("rl_birth").click();//设置选择生日
@@ -591,6 +594,15 @@ let 陌陌注册 = {
             }
         }
         if(陌陌账号参数!="已被使用"){
+            for(let a=0;a<90;a++){
+                sleep(1000)
+                if(textContains("提升自身魅力").exists()==true){
+                    if(id("rl_birth").exists()==true){
+                        封装API.id("rl_birth").click();//设置选择生日
+                        break;
+                    }
+                }
+            }
             this.陌陌填写资料();
         }
         //id = auth_module_dialog_iv_close//绑定手机提示ID       
