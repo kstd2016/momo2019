@@ -552,14 +552,15 @@ let 陌陌注册 = {
                 break;
             }
         }
+        this.Q跳账号();
+        QQ账号 = Q跳数据[0]
+        log("QQ账号===>"+QQ账号)
+        QQ密码 = Q跳数据[1]
+        log("QQ密码===>"+QQ密码)
         for(let a=0;a<90;a++){
             sleep(1000)
             if(text("新用户注册").exists()==true){
-                this.Q跳账号();
-                QQ账号 = Q跳数据[0]
-                log("QQ账号===>"+QQ账号)
-                QQ密码 = Q跳数据[1]
-                log("QQ密码===>"+QQ密码)
+
                 setText(QQ账号)
                 sleep(500)
                 id("password").setText(QQ密码)
@@ -571,6 +572,7 @@ let 陌陌注册 = {
             }
             if(text("授权并登录").exists()==true){
                 封装API.text("授权并登录").click()
+                break;
             }
             if(id("rl_birth").exists()==true){
                 封装API.id("rl_birth").click();//设置选择生日
