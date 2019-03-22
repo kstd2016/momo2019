@@ -1279,7 +1279,7 @@ let 陌陌注册 = {
     },
     Q跳账号:function(){
         Q跳数据 = []
-        var 读取文本 = files.read("/sdcard/Q跳数据.txt");
+        var 读取文本 = files.read("/sdcard/脚本/Q跳文件.txt");
         var 分割文本=读取文本.split("\n");
         var copyList=分割文本.slice(0);
         读取文本.split("\n").some(line=>{
@@ -1287,7 +1287,7 @@ let 陌陌注册 = {
             //对复制的副本做删除操作
             copyList.shift();
             //将新的数据写入
-            files.write("/sdcard/Q跳数据.txt",copyList.join("\n"));
+            files.write("/sdcard/脚本/Q跳文件.txt",copyList.join("\n"));
             return true//此代码的作用是让some只运行一次
         })
     },
