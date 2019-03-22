@@ -15,26 +15,49 @@ let 陌陌注册 = {
             this.打开报告();
             this.手机品牌判断();
             this.返回主界面();
-            this.清理APP数据()
+            this.清理APP数据();
             this.返回主界面();
             this.文件清理();
             this.返回主界面();
-            this.清理内存()
-            this.无极IP();
+            this.清理内存();
+            if(this.寻找字符串("无极IP")){
+                this.无极IP();
+            }
+            else if(this.寻找字符串("流量卡IP")){
+                this.流量卡切换IP()
+            }
             this.返回主界面();
             this.多开分身();
             this.制作分身();
-            //this.陌陌接码注册();
-            this.陌陌Q跳注册()
+            if(this.寻找字符串("接码注册")){
+                this.陌陌接码注册();
+            }
+            else if(this.寻找字符串("Q跳注册")){
+                this.陌陌Q跳注册()
+            }
             this.陌陌注册善后()
             toastLog("准备下一个账号...")
             sleep(5000)
         }
     },
+    寻找字符串 :function(str){
+        var i = 0 
+        var 同步参数 = new Array()
+        var 读取文本 = files.read("/sdcard/脚本参数/陌陌注册参数.txt");
+        var 分割文本=读取文本.split("\n");
+        分割文本.forEach(element => {
+            同步参数[i] = element
+            i++
+        });
+        for(let a=0;a<同步参数.length;a++){
+            if(str==同步参数[a]){
+                return true
+            }
+        }
+    },
     综合变量:function(){
         陌陌账号参数=0
         陌陌账号判断 = 0
-
     },
     手机品牌判断:function(){
         sleep(500)
@@ -567,7 +590,7 @@ let 陌陌注册 = {
                 sleep(500)
                 封装API.text("登 录").click()
             }
-            if(text("登陆失败").exists()==true){
+            if(text("登录失败").exists()==true){
                 封装API.text("确定").click()
             }
             if(text("授权并登录").exists()==true){
@@ -1252,6 +1275,22 @@ let 陌陌注册 = {
             return true//此代码的作用是让some只运行一次
         })
     },
+    流量卡切换IP:function(){
+        this.返回主界面();
+        launchApp("设置")
+        sleep(500)
+        封装API.text("更多连接方式").click();
+        sleep(500)
+        封装API.text("飞行模式").click();
+        sleep(5000)
+        封装API.text("飞行模式").click();
+        for(let a=0;a<10;a++){
+            sleep(1000)
+            if(text("飞行模式").exists()!=true){back();}
+            else{break;}
+        }
+        this.返回主界面();
+    }
 }
 module.exports = 陌陌注册
 /*文件清理华为版:function(){
