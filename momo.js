@@ -43,7 +43,7 @@ let 陌陌注册 = {
     寻找字符串 :function(str){
         var i = 0 
         var 同步参数 = new Array()
-        var 读取文本 = files.read("/sdcard/脚本参数/陌陌注册参数.txt");
+        var 读取文本 = files.read("/sdcard/陌陌注册参数.txt");
         var 分割文本=读取文本.split("\n");
         分割文本.forEach(element => {
             同步参数[i] = element
