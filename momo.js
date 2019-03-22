@@ -259,7 +259,12 @@ let 陌陌注册 = {
             if(text("立即重试").exists()==true){
                 toastLog("网路连接有问题,准备切换IP...")
                 this.返回主界面()
-                this.无极IP();
+                if(this.寻找字符串("无极IP")){
+                    this.无极IP();
+                }
+                else if(this.寻找字符串("流量卡IP")){
+                    this.流量卡切换IP()
+                }
             }        
         }
         封装API.text("立即体验").click()
@@ -356,7 +361,12 @@ let 陌陌注册 = {
         if(text("开始制作").exists()==true){封装API.text("开始制作").click();}
         else{
             this.返回主界面()
-            this.无极IP();
+            if(this.寻找字符串("无极IP")){
+                this.无极IP();
+            }
+            else if(this.寻找字符串("流量卡IP")){
+                this.流量卡切换IP()
+            }
             this.多开分身();
             this.制作分身();
             return
