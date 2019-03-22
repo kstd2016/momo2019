@@ -55,17 +55,30 @@ function onClick(脚本名称){
     if(无极IP参数){无极IP参数 = "无极IP"}
     if(流量卡IP参数){流量卡IP参数 = "流量卡IP"}
     files.ensureDir("/sdcard/陌陌注册参数.txt");
-    files.write("/sdcard/陌陌注册参数.txt",Q跳注册参数);
-    files.append("/sdcard/陌陌注册参数.txt","\n");
-    files.append("/sdcard/陌陌注册参数.txt",接码注册参数);
-    files.append("/sdcard/陌陌注册参数.txt","\n");  
-    files.append("/sdcard/陌陌注册参数.txt",语音注册参数);
-    files.append("/sdcard/陌陌注册参数.txt","\n");  
-    files.append("/sdcard/陌陌注册参数.txt",微信注册参数);
-    files.append("/sdcard/陌陌注册参数.txt","\n"); 
-    files.append("/sdcard/陌陌注册参数.txt",无极IP参数);
-    files.append("/sdcard/陌陌注册参数.txt","\n");   
-    files.append("/sdcard/陌陌注册参数.txt",流量卡IP参数);
+    if(Q跳注册参数!=null){
+        files.write("/sdcard/陌陌注册参数.txt",Q跳注册参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n");
+    }
+    else if(接码注册参数!=null){
+        files.write("/sdcard/陌陌注册参数.txt",接码注册参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n");  
+    }
+    else if(语音注册参数!=null){
+        files.write("/sdcard/陌陌注册参数.txt",语音注册参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n");  
+    }
+    else if(微信注册参数!=null){
+        files.write("/sdcard/陌陌注册参数.txt",微信注册参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n"); 
+    }
+    if(无极IP参数!=null){
+        files.append("/sdcard/陌陌注册参数.txt",无极IP参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n");   
+    }
+    else if(流量卡IP参数!=null){
+        files.append("/sdcard/陌陌注册参数.txt",流量卡IP参数);
+        files.append("/sdcard/陌陌注册参数.txt","\n");  
+    }
     onClick("陌陌注册执行器")
     ui.finish();
 });
