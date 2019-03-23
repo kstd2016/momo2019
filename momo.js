@@ -401,23 +401,21 @@ let 陌陌注册 = {
             threads.shutDownAll()
         } 
         else if(手机判断参数=="小米系统"){
-            while(text("安装").exists()!=true){
-                sleep(500);
-            }
-            封装API.text("安装").click();
-            while(text("打开").exists()!=true){
-                sleep(500);
-            }
-            封装API.text("打开").click();
-            for(let a=0;a<12;a++){
+            for(let a=0;a<150;a++){
+                sleep(1000)
+                if(text("安装").exists()==true){
+                    封装API.text("安装").click();
+                }
+                if(text("打开").exists()==true){
+                    封装API.text("打开").click();
+                }
                 if(text("允许").exists()==true){
                     封装API.text("允许").click();
                     break;
                 }
                 if(text("账号登录").exists==true){
                     break;
-                }
-                else{sleep(5000)}
+                }        
             }
         }
     },
@@ -607,6 +605,9 @@ let 陌陌注册 = {
                 id("password").setText(QQ密码)
                 sleep(500)
                 封装API.text("登 录").click()
+            }
+            if(textContains("拖动下方滑块完成拼图").exists()==true||descContains("拖动下方滑块完成拼图").exists()==true){
+                this.接码模块()
             }
             if(text("登录失败").exists()==true){
                 封装API.text("确定").click()
@@ -1313,6 +1314,87 @@ let 陌陌注册 = {
             else{break;}
         }
         this.返回主界面();
+    },
+    接码模块:function(){
+        for(let a=0;a<10;a++){
+            sleep(3000)
+            if(desc("拖动下方滑块完成拼图").exists()==true||text("拖动下方滑块完成拼图").exists()==true){
+                log("找到滑块,准备拼图...")
+                接码成功 = 1
+                滑块按钮 = className("android.view.View").idContains("tcaptcha_drag_button").findOne(1000)
+                if(滑块按钮!=null){
+                    滑块按钮坐标 = 滑块按钮.bounds()
+                    var 滑块按钮坐标X1 = 滑块按钮坐标.left
+                    log(滑块按钮坐标X1)
+                    var 滑块按钮坐标Y1 = 滑块按钮坐标.top
+                    log(滑块按钮坐标Y1)
+                    if(滑块按钮坐标X1>="100"){
+                        log("1号方案")
+                        滑块 = className("Image").idContains("slideBg").findOne(1000)
+                        if(滑块!=null){
+                            滑块图片 = 滑块.bounds()
+                            console.log(滑块图片);
+                            var X1 = 滑块图片.left
+                            var Y1 = 滑块图片.top
+                            var X2 = 滑块图片.right
+                            var Y2 = 滑块图片.bottom
+                            var 联众打码API = require('./联众API');
+                            var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
+                            坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
+                            if(坐标 != "打码失败"){
+                                拼图坐标 = 坐标.split(",")
+                                拼图坐标X = parseInt(拼图坐标[0])
+                                拼图坐标Y = parseInt(拼图坐标[1])
+                                log("拼图坐标X===>"+拼图坐标X);
+                                sleep(1000)
+                                var ra = new RootAutomator();
+                                ra.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+15,滑块按钮坐标Y1+10,2000)
+                                sleep(1000)
+                                ra.exit()
+                            }
+                            else{
+                                封装API.idCon("reload").click()//刷新按钮,更换图片
+                            }
+                        }
+                        else{
+                            封装API.idCon("reload").click()//刷新按钮,更换图片
+                        }
+                    }
+                    else{
+                        log("2号方案")
+                        滑块 = className("Image").idContains("slideBg").findOne(1000)
+                        if(滑块!=null){
+                            滑块图片 = 滑块.bounds()
+                            console.log(滑块图片);
+                            var X1 = 滑块图片.left
+                            var Y1 = 滑块图片.top
+                            var X2 = 滑块图片.right
+                            var Y2 = 滑块图片.bottom
+                            var 联众打码API = require('./联众API');
+                            var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
+                            坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
+                            if(坐标 != "打码失败"){
+                                拼图坐标 = 坐标.split(",")
+                                拼图坐标X = parseInt(拼图坐标[0])
+                                拼图坐标Y = parseInt(拼图坐标[1])
+                                log("拼图坐标X===>"+拼图坐标X);
+                                sleep(1000)
+                                var ra = new RootAutomator();
+                                ra.swipe(136,1279,拼图坐标X+15,1279,2000)
+                                sleep(1000)
+                                ra.exit()
+                            }
+                            else{
+                                封装API.idCon("reload").click()//刷新按钮,更换图片
+                            }
+                        }
+                        else{封装API.idCon("reload").click()}//刷新按钮,更换图片
+                    }
+                }
+                else{封装API.idCon("reload").click()}
+            }
+            else{break;}
+        }
     }
 }
 module.exports = 陌陌注册
