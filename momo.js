@@ -1008,6 +1008,7 @@ let 陌陌注册 = {
         toastLog("开始陌陌留痕...")
         封装API.等待(5000,10000)
         if(textContains("目前账号存在安全隐患").exists()==true){
+            toastLog("找到目前账号存在安全隐患...")
             封装API.idCon("auth_module_dialog_iv_close").click()
         }
         封装API.等待(3000,5000)
