@@ -413,9 +413,13 @@ let 陌陌注册 = {
                     封装API.text("允许").click();
                     break;
                 }
-                if(text("账号登录").exists==true){
+                if(text("手机号登录注册").exists()==true){
+                    封装API.id("img_qq").click();
                     break;
-                }        
+                } 
+                else if(text("账号登录").exists==true){
+                    break;
+                } 
             }
         }
     },
@@ -596,10 +600,9 @@ let 陌陌注册 = {
         log("QQ账号===>"+QQ账号)
         QQ密码 = Q跳数据[1]
         log("QQ密码===>"+QQ密码)
-        for(let a=0;a<90;a++){
+        for(let a=0;a<120;a++){
             sleep(1000)
             if(text("新用户注册").exists()==true){
-
                 setText(QQ账号)
                 sleep(500)
                 id("password").setText(QQ密码)
@@ -609,14 +612,17 @@ let 陌陌注册 = {
             if(textContains("拖动下方滑块完成拼图").exists()==true||descContains("拖动下方滑块完成拼图").exists()==true){
                 this.接码模块()
             }
-            if(text("登录失败").exists()==true){
+            else if(text("登录失败").exists()==true){
                 封装API.text("确定").click()
             }
-            if(text("授权并登录").exists()==true){
+            else if(text("流量保护提醒").exists()==true){
+                back();//此处可以改为等待wifi下载
+            }
+            else if(text("授权并登录").exists()==true){
                 封装API.text("授权并登录").click()
                 break;
             }
-            if(id("rl_birth").exists()==true){
+            else if(id("rl_birth").exists()==true){
                 封装API.id("rl_birth").click();//设置选择生日
                 break;
             }
@@ -669,6 +675,9 @@ let 陌陌注册 = {
         for(let a=0;a<20;a++){
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
             if(text("账号登录").exists()==true){封装API.text("手机号登录注册").click()}
+            if(textContains("拖动下方滑块完成拼图").exists()==true||descContains("拖动下方滑块完成拼图").exists()==true){
+                this.接码模块()
+            }
             if(text("手机号登录注册").exists()==true){
                 if(获取号码!=null){
                     sleep(1000)
@@ -1010,11 +1019,31 @@ let 陌陌注册 = {
     陌陌留痕:function(){
         toastLog("开始陌陌留痕...")
         封装API.等待(5000,10000)
-        if(textContains("目前账号存在安全隐患").exists()==true){
+        if(idContains("auth_module_dialog_iv_close").exists()==true){
             toastLog("找到目前账号存在安全隐患...")
             封装API.idCon("auth_module_dialog_iv_close").click()
         }
         封装API.等待(3000,5000)
+        while(text("消息").exists()!=true){
+            sleep(3000)
+            back();
+            //判断是否在主界面，如果在主界面则从新打开陌陌分身
+            if(text("电话").exists()==true){
+                封装API.等待(1000,2000)               
+                launchApp("多开分身")
+                for(let a=0;a<5;a++){
+                    封装API.等待(1000,2000)
+                    封装API.text("允许").click();
+                    if(id("iv_logo").exists()==true){
+                        封装API.id("iv_logo").click()
+                        sleep(1000)
+                        封装API.text("允许").click();
+                        break;
+                    }
+                    else{封装API.等待(1000,2000)}
+                }
+            }
+        }
         封装API.text("消息").click()
         封装API.等待(3000,5000)
         封装API.id("action_jump_contact").click();
