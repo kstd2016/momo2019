@@ -1007,6 +1007,10 @@ let 陌陌注册 = {
     陌陌留痕:function(){
         toastLog("开始陌陌留痕...")
         封装API.等待(5000,10000)
+        if(textContains("目前账号存在安全隐患").exists()==true){
+            封装API.idCon("auth_module_dialog_iv_close").click()
+        }
+        封装API.等待(3000,5000)
         封装API.text("消息").click()
         封装API.等待(3000,5000)
         封装API.id("action_jump_contact").click();
