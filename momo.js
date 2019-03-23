@@ -305,11 +305,13 @@ let 陌陌注册 = {
                 var Y2 = 陌陌分身坐标.bottom
                 console.log(陌陌分身坐标);
                 if(text("制作分身").boundsInside(X1,Y1,X2,Y2).exists() == true){
+                    log("制作分身1号代码")
                     let a =text("制作分身").boundsInside(X1,Y1,X2,Y2).findOne(1000);
                     封装API.setView(a).click();
                     break;
                 }
                 else{
+                    log("制作分身2号代码")
                     var 陌陌分身坐标 = text("MOMO陌陌").findOne(1000).parent().parent().bounds()
                     var X1 = 陌陌分身坐标.left
                     var Y1 = 陌陌分身坐标.top
