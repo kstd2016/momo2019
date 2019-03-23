@@ -607,7 +607,7 @@ let 陌陌注册 = {
                 sleep(500)
                 id("password").setText(QQ密码)
                 sleep(500)
-                封装API.text("登 录").click()
+                封装API.id("login").click()
             }
             if(textContains("拖动下方滑块完成拼图").exists()==true||descContains("拖动下方滑块完成拼图").exists()==true){
                 this.接码模块()
@@ -615,8 +615,8 @@ let 陌陌注册 = {
             else if(text("登录失败").exists()==true){
                 封装API.text("确定").click()
             }
-            else if(text("流量保护提醒").exists()==true){
-                back();//此处可以改为等待wifi下载
+            else if(textContains("流量保护提醒").exists()==true){
+                封装API.textCon("等待WLAN").click()
             }
             else if(text("授权并登录").exists()==true){
                 封装API.text("授权并登录").click()
@@ -921,8 +921,16 @@ let 陌陌注册 = {
     保存账号:function(){
         toastLog("开始保存账号...")
         时间 = this.中文时间()
-        files.ensureDir("/sdcard/陌陌账号.txt");
-        files.append("/sdcard/陌陌账号.txt",获取号码);
+        if(this.寻找字符串("接码注册")){
+            files.ensureDir("/sdcard/陌陌账号.txt");
+            files.append("/sdcard/陌陌账号.txt",获取号码);
+        }
+        else if(this.寻找字符串("Q跳注册")){
+            files.ensureDir("/sdcard/陌陌账号.txt");
+            files.append("/sdcard/陌陌账号.txt",QQ账号);
+            files.append("/sdcard/陌陌账号.txt","===>");
+            files.append("/sdcard/陌陌账号.txt",QQ密码);
+        }
         files.append("/sdcard/陌陌账号.txt","===>");
         files.append("/sdcard/陌陌账号.txt",昵称);
         files.append("/sdcard/陌陌账号.txt","===>");
@@ -1025,7 +1033,7 @@ let 陌陌注册 = {
         }
         封装API.等待(3000,5000)
         while(text("消息").exists()!=true){
-            sleep(3000)
+            sleep(6000)
             back();
             //判断是否在主界面，如果在主界面则从新打开陌陌分身
             if(text("电话").exists()==true){
@@ -1038,6 +1046,7 @@ let 陌陌注册 = {
                         封装API.id("iv_logo").click()
                         sleep(1000)
                         封装API.text("允许").click();
+                        this.陌陌留痕();
                         break;
                     }
                     else{封装API.等待(1000,2000)}
