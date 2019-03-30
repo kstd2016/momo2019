@@ -265,6 +265,10 @@ let 陌陌注册 = {
                 封装API.id("iv_btn_create").click();
                 break;
             }   
+            if(textContains("选择应用").exists()==true){
+                log("找到选择应用...")
+                break;
+            } 
             if(text("立即重试").exists()==true){
                 toastLog("网路连接有问题,准备切换IP...")
                 封装API.text("立即重试").click();
@@ -300,7 +304,7 @@ let 陌陌注册 = {
         for(let a=0;a<5;a++){
             sleep(1000)
             封装API.随机上滑()
-            sleep(1500)
+            sleep(2000)
             if(text("MOMO陌陌").exists()==true){
                 var 陌陌分身坐标 = text("MOMO陌陌").findOne(1000).parent().bounds()
                 var X1 = 陌陌分身坐标.left
