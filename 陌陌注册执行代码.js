@@ -267,15 +267,19 @@ let 陌陌注册 = {
             }   
             if(text("立即重试").exists()==true){
                 toastLog("网路连接有问题,准备切换IP...")
-                this.返回主界面()
-                if(this.寻找字符串("无极IP")){
-                    this.无极IP();
+                封装API.text("立即重试").click();
+                sleep(5000)
+                if(text("立即重试").exists()==true){
+                    this.返回主界面()
+                    if(this.寻找字符串("无极IP")){
+                        this.无极IP();
+                    }
+                    else if(this.寻找字符串("流量卡IP")){
+                        this.流量卡切换IP()
+                    }
+                    this.多开分身();
+                    break;  
                 }
-                else if(this.寻找字符串("流量卡IP")){
-                    this.流量卡切换IP()
-                }
-                this.多开分身();
-                break;  
             }
             else  if(text("电话").exists()==true){
                 log("判断在主页面...,准备重新打开")
