@@ -55,7 +55,7 @@ function onClick(脚本名称){
  ui.原有参数设定.on("click", ()=>{
     var i = 0
     var 同步参数 = []
-    var 读取文本 = files.read("/sdcard/脚本/soul参数.txt");
+    var 读取文本 = files.read("/sdcard/脚本/灵魂参数.txt");
     var 分割文本=读取文本.split("\n");
     分割文本.forEach(element => {
         log(element);
@@ -91,40 +91,40 @@ ui.完成并启动配置.on("click", ()=>{
     if(流量卡IP参数){流量卡IP参数 = "流量卡IP"}
     if(xx抹机参数){xx抹机参数 = "xx抹机"}
     if(多开分身参数){多开分身参数 = "多开分身"}
-    files.ensureDir("/sdcard/脚本/soul参数.txt");
-    files.write("/sdcard/脚本/soul参数.txt",易码账号);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
-    files.append("/sdcard/脚本/soul参数.txt",易码密码);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
-    files.append("/sdcard/脚本/soul参数.txt",联众账号);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
-    files.append("/sdcard/脚本/soul参数.txt",联众密码);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
-    files.append("/sdcard/脚本/soul参数.txt",打招呼话术);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
-    files.append("/sdcard/脚本/soul参数.txt",统一回复话术);
-    files.append("/sdcard/脚本/soul参数.txt","\n"); 
+    files.ensureDir("/sdcard/脚本/灵魂参数.txt");
+    files.write("/sdcard/脚本/灵魂参数.txt",易码账号);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
+    files.append("/sdcard/脚本/灵魂参数.txt",易码密码);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
+    files.append("/sdcard/脚本/灵魂参数.txt",联众账号);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
+    files.append("/sdcard/脚本/灵魂参数.txt",联众密码);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
+    files.append("/sdcard/脚本/灵魂参数.txt",打招呼话术);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
+    files.append("/sdcard/脚本/灵魂参数.txt",统一回复话术);
+    files.append("/sdcard/脚本/灵魂参数.txt","\n"); 
     if(无极IP参数!=null){
-        files.append("/sdcard/脚本/soul参数.txt",无极IP参数);
-        files.append("/sdcard/脚本/soul参数.txt","\n");   
+        files.append("/sdcard/脚本/灵魂参数.txt",无极IP参数);
+        files.append("/sdcard/脚本/灵魂参数.txt","\n");   
     }
     else if(流量卡IP参数!=null){
-        files.append("/sdcard/脚本/soul参数.txt",流量卡IP参数);
-        files.append("/sdcard/脚本/soul参数.txt","\n");  
+        files.append("/sdcard/脚本/灵魂参数.txt",流量卡IP参数);
+        files.append("/sdcard/脚本/灵魂参数.txt","\n");  
     }
     if(xx抹机参数!=null){
-        files.append("/sdcard/脚本/soul参数.txt",xx抹机参数);
-        files.append("/sdcard/脚本/soul参数.txt","\n");   
+        files.append("/sdcard/脚本/灵魂参数.txt",xx抹机参数);
+        files.append("/sdcard/脚本/灵魂参数.txt","\n");   
     }
     else if(多开分身参数!=null){
-        files.append("/sdcard/脚本/soul参数.txt",多开分身参数);
-        files.append("/sdcard/脚本/soul参数.txt","\n");  
+        files.append("/sdcard/脚本/灵魂参数.txt",多开分身参数);
+        files.append("/sdcard/脚本/灵魂参数.txt","\n");  
     }
     //=====启动脚本分割线=====
     console.setGlobalLogConfig({
         "file": "/sdcard/脚本/日志.txt"
     }); 
     toastLog("完成并启动脚本...");
-    onClick("soul执行器")
+    onClick("灵魂执行器")
     ui.finish();
 });
