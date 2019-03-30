@@ -249,13 +249,22 @@ let 陌陌注册 = {
         sleep(1000)
         launchApp("多开分身")
         sleep(2000)
+        var 多开分身添加变量 = 0 
         封装API.text("允许").click();
-        for(let a=0;a<10;a++){
-            封装API.等待(3000,4000)
+        for(let a=0;a<20;a++){
+            多开分身添加变量++
+            sleep(3000)
             scrollDown()
             if(text("立即体验").exists()==true){
-                break;
+                封装API.text("立即体验").click()
+                sleep(6000)
+                封装API.press(500,1750,500)
+                sleep(3000)
             }
+            if(id("iv_btn_create").exists()==true){
+                封装API.id("iv_btn_create").click();
+                break;
+            }   
             if(text("立即重试").exists()==true){
                 toastLog("网路连接有问题,准备切换IP...")
                 this.返回主界面()
@@ -265,38 +274,29 @@ let 陌陌注册 = {
                 else if(this.寻找字符串("流量卡IP")){
                     this.流量卡切换IP()
                 }
-            }        
-        }
-        封装API.text("立即体验").click()
-        sleep(6000)
-        封装API.press(500,1750,500)
-        sleep(3000)
-        var 多开分身添加变量 = 0       
-        while(id("iv_btn_create").exists()!=true){
-            log("没有找到添加分身的控件ID...,准备返回")
-            sleep(1000)
-            back();
-            sleep(1000)
-            if(text("电话").exists()==true){
+                this.多开分身();
+                break;  
+            }
+            else  if(text("电话").exists()==true){
                 log("判断在主页面...,准备重新打开")
-                launchApp("多开分身")
-                sleep(1000)
-                封装API.text("允许").click();
+                this.多开分身();
+                break;  
             }
-            //N次循环都没有找到,重新打开多开分身
-            多开分身添加变量++
-            if(多开分身添加变量>30){
+            if(多开分身添加变量>=15){
+                sleep(1000)
+                back();
+                sleep(1000) 
+            }
+            if(多开分身添加变量>=20){
                 this.返回主界面();
-                launchApp("多开分身")
-                sleep(1000)
-                封装API.text("允许").click();
+                this.多开分身();
+                break; 
             }
-        }
-        封装API.id("iv_btn_create").click();
+        }     
         for(let a=0;a<5;a++){
             sleep(1000)
             封装API.随机上滑()
-            sleep(1000)
+            sleep(1500)
             if(text("MOMO陌陌").exists()==true){
                 var 陌陌分身坐标 = text("MOMO陌陌").findOne(1000).parent().bounds()
                 var X1 = 陌陌分身坐标.left
