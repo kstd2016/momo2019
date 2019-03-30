@@ -830,6 +830,15 @@ let 陌陌注册 = {
                         this.年龄滑动_日()
                         封装API.等待(500,1000)
                     }
+                    for(let a=0;a<6;a++){
+                        captureScreen("/sdcard/A.png");
+                        封装API.等待(1000,2000)
+                        var point = findColor(images.read("/sdcard/A.png"), "#000000", {
+                            region: [590,1100,350,350],
+                            threads: 16
+                        });
+                        if(point){封装API.press(point.x,point.y);break;}
+                    }
                 }
                 封装API.text("女生").click()
                 封装API.text("下一步").click()
