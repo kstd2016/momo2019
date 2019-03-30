@@ -795,7 +795,7 @@ let 陌陌注册 = {
             封装API.等待(1000,2000)
             var point = findColor(images.read("/sdcard/A.png"), "#000000", {
                 region: [590,1100,350,350],
-                threads: 16
+                threads: 25
             });
             if(point){封装API.press(point.x,point.y);break;}
         }
@@ -835,7 +835,7 @@ let 陌陌注册 = {
                         封装API.等待(1000,2000)
                         var point = findColor(images.read("/sdcard/A.png"), "#000000", {
                             region: [590,1100,350,350],
-                            threads: 16
+                            threads: 25
                         });
                         if(point){封装API.press(point.x,point.y);break;}
                     }
@@ -1303,7 +1303,7 @@ let 陌陌注册 = {
             sleep(1000)
             var point = findColor(images.read("/sdcard/A.png"), "#FF642B", {
                 region: [880,1720,200,200],
-                threads: 16
+                threads: 25
             });
             if(point){封装API.press(point.x,point.y);break;}
         }
