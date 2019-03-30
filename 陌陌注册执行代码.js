@@ -856,12 +856,17 @@ let 陌陌注册 = {
         for(let a=0;a<28;a++){
             if(id("auth_module_dialog_iv_close").exists()==true){
                 封装API.id("auth_module_dialog_iv_close").click()
-            }            
+            }          
             if(text("跳过").exists()==true){
                 封装API.text("跳过").click();
                 break;
             }
-            else{sleep(6000)}
+            else if(text("消息").exists()==true){
+                break;
+            }
+            else{
+                sleep(6000);
+            }
         }
         封装API.id("citycard_close").click()
         封装API.等待(1000,2000)  
