@@ -1578,7 +1578,10 @@ let 陌陌注册 = {
             封装API.text("飞行模式").click();
             sleep(5000)
             封装API.text("飞行模式").click();
-            sleep(500)
+            sleep(2000)
+            封装API.text("飞行模式").click();
+            sleep(5000)
+            封装API.text("飞行模式").click();
         }
 
         this.返回主界面();
