@@ -591,6 +591,7 @@ let 陌陌注册 = {
         toastLog("无极IP运行完毕...")
     },
     陌陌Q跳注册:function(){
+        登陆失败变量 = 0
         for(let a=0;a<100;a++){
             sleep(3000)
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
@@ -602,67 +603,95 @@ let 陌陌注册 = {
                 封装API.text("登 录").click()
                 break;
             }
-        }
+        };
         this.Q跳账号();
-        QQ账号 = Q跳数据[0]
-        log("QQ账号===>"+QQ账号)
-        QQ密码 = Q跳数据[1]
-        log("QQ密码===>"+QQ密码)
+        QQ账号 = Q跳数据[0];
+        log("QQ账号===>"+QQ账号);
+        QQ密码 = Q跳数据[1];
+        log("QQ密码===>"+QQ密码);
         for(let a=0;a<120;a++){
-            sleep(1000)
+            sleep(1000);
+            log("判断检测===>"+a);
             if(text("新用户注册").exists()==true){
-                setText(QQ账号)
-                sleep(500)
-                id("password").setText(QQ密码)
-                sleep(500)
-                封装API.id("login").click()
+                setText(QQ账号);
+                sleep(500);
+                id("password").setText(QQ密码);
+                sleep(500);
+                封装API.id("login").click();
+                sleep(2000);
             }
             if(textContains("拖动下方滑块完成拼图").exists()==true||descContains("拖动下方滑块完成拼图").exists()==true){
-                this.接码模块()
+                this.接码模块();
+            }
+            else if(text("手机号登录注册").exists()==true){
+                封装API.id("img_qq").click();
+            }
+            else if(text("匹配手机通讯录").exists()==true){
+               封装API.text("关闭").click();
             }
             else if(text("登录失败").exists()==true){
-                封装API.text("确定").click()
+                登陆失败变量++;
+                封装API.text("确定").click();
+                if(登陆失败变量>=3){
+                    toastLog("连续3次登陆失败,判断为失败");
+                    陌陌账号参数="已被使用";
+                    break;
+                }
             }
             else if(textContains("等待WLAN").exists()==true){
-                封装API.textCon("等待WLAN").click()
+                封装API.textCon("等待WLAN").click();
             }
             else if(text("授权并登录").exists()==true){
-                封装API.text("授权并登录").click()
+                封装API.text("授权并登录").click();
+            }
+            else if(textContains("提升自身魅力").exists()==true){
+                toastLog("找到填写资料页面");
+                sleep(10000)
                 break;
             }
-            else if(id("rl_birth").exists()==true){
-                封装API.id("rl_birth").click();//设置选择生日
-                break;
+            else if(text("登录").exists()==true&&text("QQ登录").exists()==true){
+                toastLog("找到QQ登录&&登录控件...")
+                封装API.text("登录").click();
             }
-            else if(text("绑定手机").exists()==true){
-                陌陌账号参数="已被使用"
-                alert("该QQ号已被使用...")
+            if(text("绑定手机").exists()==true){
+                陌陌账号参数="已被使用";
+                toastLog("找到绑定手机,该QQ号已被使用...");
                 break;
             }
             else if(text("首页").exists()==true){
-                陌陌账号参数="已被使用"
-                alert("该QQ号已被使用...")
+                陌陌账号参数="已被使用";
+                toastLog("该QQ号已被使用...");
                 break;
             }
             else if(text("同步到动态").exists()==true){
-                alert("该QQ号已被使用...")
-                封装API.text("同步到动态").click()
-                陌陌账号参数 == "已被使用"
+                toastLog("该QQ号已被使用...");
+                封装API.text("同步到动态").click();
+                陌陌账号参数 = "已被使用";
                 break;
             }
-        }
+            else if(text("去安全中心").exists()==true||desc("去安全中心").exists()==true){
+                toastLog("该账号涉嫌违规注册...");
+                陌陌账号参数 = "已被使用";
+                break;
+            }
+            else if(text("完善资料").exists()==true&&text("性别").exists()==true){
+                home();
+                封装API.等待(2000,3000);
+                launchApp("MOMO陌陌分身");
+                封装API.等待(2000,3000);
+            }
+        };
         if(陌陌账号参数!="已被使用"){
             for(let a=0;a<90;a++){
-                sleep(1000)
+                sleep(1000);
                 if(textContains("提升自身魅力").exists()==true){
-                    if(id("rl_birth").exists()==true){
-                        封装API.id("rl_birth").click();//设置选择生日
-                        break;
-                    }
+                    toastLog("找到填写资料页面");
+                    封装API.id("rl_birth").click();//设置选择生日
+                    break;
                 }
             }
             this.陌陌填写资料();
-        }
+        };
         //id = auth_module_dialog_iv_close//绑定手机提示ID       
     },
     陌陌接码注册:function(){
@@ -968,7 +997,7 @@ let 陌陌注册 = {
         登陆 = TW短信API.登陆();
         sleep(1000)
         获取号码 = TW短信API.获取号码(登陆,"8","144");
-        封装API.id("login_account_clear").click()
+        封装API.idCon("login_account_clear").click()
         sleep(1000)
         for(let a=0;a<10;a++){
             if(text("手机号登录注册").exists()==true){
@@ -1199,7 +1228,37 @@ let 陌陌注册 = {
         }
     },
     斗地主:function(){
-        封装API.text("首页").click();
+        toastLog("===开始斗地主===");
+        封装API.等待(2000,5000)
+        封装API.text("首页").click()
+        封装API.等待(2000,5000)
+        var 陌陌首页变量 = 0
+        while(!this.是否在主页面()){
+            toastLog("未进入首页界面...");
+            封装API.等待(1000,3000)
+            back();
+            封装API.等待(1000,3000)
+            封装API.text("首页").click()
+            封装API.等待(1000,3000)
+            陌陌首页变量++
+            if(陌陌首页变量>20){
+                this.返回主界面();
+                this.清理内存(); 
+                封装API.等待(1000,2000)               
+                launchApp("多开分身")
+                for(let a=0;a<5;a++){
+                    封装API.等待(1000,2000)
+                    封装API.text("允许").click();
+                    if(id("iv_logo").exists()==true){
+                        封装API.id("iv_logo").click()
+                        sleep(1000)
+                        封装API.text("允许").click();
+                        break;
+                    }
+                    else{封装API.等待(1000,2000)}
+                }
+            }
+        }
         封装API.等待(2000,4000);
         封装API.text("首页").click();
         封装API.text("首页").click();
@@ -1207,7 +1266,28 @@ let 陌陌注册 = {
         封装API.text("全部").click();
         封装API.等待(2000,4000);
         封装API.text("斗地主").click();
-
+        封装API.等待(10000,15000);
+        if(text("首页").exists()==true){
+            陌陌账号判断 ="死号"
+        }
+        else{
+            back();
+            封装API.等待(2000,4000);
+            封装API.text("斗地主").click();
+            封装API.等待(10000,15000)
+            if(text("首页").exists()==true){
+                陌陌账号判断 ="死号"
+            }
+            else{陌陌账号判断 ="活号"}
+        }
+        if(陌陌账号判断=="活号"){
+            toastLog("该陌陌账号为活号...")
+            back();
+            封装API.等待(3000,6000);
+            this.保存账号();
+            this.Q跳更换头像();
+            this.退出账号();
+        }
     },
     陌陌修改密码:function(){
         封装API.等待(2000,3000)
@@ -1242,11 +1322,119 @@ let 陌陌注册 = {
     是否在主页面:function(){
         return text("全部").exists() == true; 
     },
+    是否在更多页面:function(){
+        return text("我的动态").exists() == true; 
+    },
+    Q跳更换头像:function(){
+        toastLog("===开始更换头像===");
+        封装API.等待(2000,3000)
+        封装API.text("更多").click()
+        封装API.等待(2000,3000)
+        封装API.idCon("simple_user_name").click()
+        封装API.等待(2000,3000)
+        封装API.descCon("修改资料").click()
+        封装API.等待(2000,3000)
+        封装API.idCon("editephoto_layout_add").click()
+        封装API.等待(2000,3000)
+        for(let a=0;a<60;a++){
+            sleep(1000)
+            if(id("img_photo").exists()==true){
+                封装API.id("img_photo").click();
+                封装API.等待(1000,2000)
+                for(let a=0;a<random(1,10);a++){
+                    封装API.快速上滑();
+                    封装API.等待(500,1000);
+                }
+            }
+            if(text("相册").exists()==true){
+                封装API.等待(500,1000)
+                a = className("android.widget.ImageView").find()
+                图片控件 = className("android.widget.ImageView").findOnce(random(0,a.length))
+                封装API.setView(图片控件).click()
+                封装API.等待(1000,2000)
+                if(text("确认").exists()==true){
+                    封装API.text("确认").click()
+                    break;
+                }
+            }
+        }
+        封装API.等待(2000,3000)
+        while(text("正在为你下载素材包，请稍等").exists()==true){
+            sleep(1000)
+            if(textContains("完成").exists()==true){
+                toastLog("找到完成控件...")
+                封装API.textCon("完成").click()
+                break;
+            }
+        }
+        封装API.text("确认").click()
+        封装API.等待(1000,2000)
+        封装API.textCon("完成").click()
+        封装API.等待(3000,4000)
+        if(text("编辑资料").exists()==true){
+            封装API.idCon("avatar_imageview").click()
+            封装API.等待(500,1000)
+            封装API.text("删除").click()
+            封装API.等待(500,1000)
+            封装API.text("保存").click()
+            for(let a=0;a<10;a++){
+                sleep(1000)
+                if(text("提示").exists()==true&&text("取消").exists()==true){
+                    封装API.text("取消").click()
+                    break;
+                }
+            }
+        }
+        封装API.等待(1000,2000)
+        back()
+        封装API.等待(1000,2000)
+    },
+    退出账号:function(){
+        if(是否在更多页面){
+            for(let a=0;a<20;a++){
+                封装API.等待(2000,3000)
+                if(text("设置").exists()==true&&text("退出陌陌").exists()!=true){
+                    封装API.text("设置").click();
+                }
+                else if(text("退出陌陌").exists()==true){
+                    封装API.text("退出陌陌").click();
+                }
+                else if(text("暂不绑定").exists()==true){
+                    封装API.text("暂不绑定").click()
+                }
+                else if(text("退出当前帐号").exists()==true){
+                    封装API.text("退出当前帐号").click()
+                }
+                else if(text("退出").exists()==true){
+                    封装API.text("退出").click()
+                    break;
+                }
+                else{
+                    封装API.随机上滑()
+                    封装API.等待(500,1000)
+                }
+            }
+        }
+    },
     陌陌注册善后:function(){
         封装API.等待(2000,3000)
         this.返回主界面();
-        封装API.text("多开分身").click()
-        封装API.等待(2000,3000)
+        launchApp("多开分身")
+        封装API.等待(3000,4000)
+        if(id("iv_btn_create").exists()==true&&text("推荐").exists()==true){
+            if(手机判断参数=="华为系统"){
+                log("没有找到管理控件...准备重新打开多开分身")
+                this.返回主界面();
+                sleep(1000);
+                recents();
+                sleep(2000);
+                封装API.id("recent_igmbutton_clear_all").click();
+                log("===清理手机系统内存===");
+                sleep(2000);
+                this.陌陌注册善后();
+                return
+            }
+        }
         封装API.text("管理").click() 
         封装API.等待(2000,3000)
         封装API.text("清理缓存").click() 
@@ -1257,25 +1445,36 @@ let 陌陌注册 = {
             }
             else{封装API.等待(2000,3000)}
         }
-        封装API.等待(1000,2000)
-        封装API.text("删除分身").click() 
-        封装API.等待(1000,2000)
-        封装API.text("确定").click() 
-        封装API.等待(3000,5000)
-        封装API.text("立即清理").click() 
-        for(let a=0;a<30;a++){
-            if(textContains("清理选中垃圾").exists()==true){
-                封装API.textCon("清理选中垃圾").click();
-                break
+        if(手机判断参数=="小米系统"){
+            toastLog("小米系统")
+            封装API.等待(1000,2000)
+            封装API.text("删除分身").click() 
+            封装API.等待(1000,2000)
+            封装API.text("确定").click() 
+            封装API.等待(3000,5000)
+            封装API.text("立即清理").click() 
+            for(let a=0;a<30;a++){
+                if(textContains("清理选中垃圾").exists()==true){
+                    封装API.textCon("清理选中垃圾").click();
+                    break
+                }
+                else{sleep(2000)}
             }
-            else{sleep(2000)}
+            for(let a=0;a<30;a++){
+                if(text("清理完成").exists()==true){
+                    封装API.text("清理完成").click();
+                    break
+                }
+                else{sleep(2000)}
+            }
         }
-        for(let a=0;a<30;a++){
-            if(text("清理完成").exists()==true){
-                封装API.text("清理完成").click();
-                break
-            }
-            else{sleep(2000)}
+        else if(手机判断参数=="华为系统"){
+            toastLog("华为系统")
+            封装API.等待(1000,2000)
+            封装API.text("删除分身").click() 
+            封装API.等待(1000,2000)
+            封装API.text("卸载").click() 
+            封装API.等待(3000,5000)
         }
         this.返回主界面();
     },
@@ -1289,8 +1488,8 @@ let 陌陌注册 = {
             封装API.textCon("点击跳过").click()   
         }
         for(let a=0;a<5;a++){
-            if(id("main_tab_right_btn_parent_ll").exists()==true){
-                封装API.id("main_tab_right_btn_parent_ll").click()
+            if(idContains("main_tab_right_btn_parent_ll").exists()==true){
+                封装API.idCon("main_tab_right_btn_parent_ll").click()
                 break;
             }
             else{sleep(1000);back()}
@@ -1363,16 +1562,25 @@ let 陌陌注册 = {
         this.返回主界面();
         launchApp("设置")
         sleep(500)
-        封装API.text("更多连接方式").click();
-        sleep(500)
-        封装API.text("飞行模式").click();
-        sleep(5000)
-        封装API.text("飞行模式").click();
-        for(let a=0;a<10;a++){
-            sleep(1000)
-            if(text("飞行模式").exists()!=true){back();}
-            else{break;}
+        if(手机判断参数=="小米系统"){
+            封装API.text("更多连接方式").click();
+            sleep(500)
+            封装API.text("飞行模式").click();
+            sleep(5000)
+            封装API.text("飞行模式").click();
+            for(let a=0;a<10;a++){
+                sleep(1000)
+                if(text("飞行模式").exists()!=true){back();}
+                else{break;}
+            }
         }
+        else if(手机判断参数=="华为系统"){
+            封装API.text("飞行模式").click();
+            sleep(5000)
+            封装API.text("飞行模式").click();
+            sleep(500)
+        }
+
         this.返回主界面();
     },
     接码模块:function(){
@@ -1407,127 +1615,21 @@ let 陌陌注册 = {
                                 拼图坐标Y = parseInt(拼图坐标[1])
                                 log("拼图坐标X===>"+拼图坐标X);
                                 sleep(1000)
-                                var ra = new RootAutomator();
-                                ra.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+15,滑块按钮坐标Y1+10,2000)
-                                sleep(1000)
-                                ra.exit()
+                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+15,滑块按钮坐标Y1+10,2000)
                             }
-                            else{
-                                封装API.idCon("reload").click()//刷新按钮,更换图片
-                            }
+                            else{封装API.idCon("reload").click();}//刷新按钮,更换图片
                         }
-                        else{
-                            封装API.idCon("reload").click()//刷新按钮,更换图片
-                        }
+                        else{封装API.idCon("reload").click();}//刷新按钮,更换图片
                     }
-                    else{
-                        log("2号方案")
-                        滑块 = className("Image").idContains("slideBg").findOne(1000)
-                        if(滑块!=null){
-                            滑块图片 = 滑块.bounds()
-                            console.log(滑块图片);
-                            var X1 = 滑块图片.left
-                            var Y1 = 滑块图片.top
-                            var X2 = 滑块图片.right
-                            var Y2 = 滑块图片.bottom
-                            var 联众打码API = require('./联众API');
-                            var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
-                            坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
-                            if(坐标 != "打码失败"){
-                                拼图坐标 = 坐标.split(",")
-                                拼图坐标X = parseInt(拼图坐标[0])
-                                拼图坐标Y = parseInt(拼图坐标[1])
-                                log("拼图坐标X===>"+拼图坐标X);
-                                sleep(1000)
-                                var ra = new RootAutomator();
-                                ra.swipe(136,1279,拼图坐标X+15,1279,2000)
-                                sleep(1000)
-                                ra.exit()
-                            }
-                            else{
-                                封装API.idCon("reload").click()//刷新按钮,更换图片
-                            }
-                        }
-                        else{封装API.idCon("reload").click()}//刷新按钮,更换图片
-                    }
+                    else{封装API.idCon("reload").click();}//刷新按钮,更换图片
                 }
                 else{封装API.idCon("reload").click()}
             }
-            else{break;}
+            else{
+                log("没有找到文字拖动下方滑块完成拼图...")
+                break;
+            }
         }
     }
 }
 module.exports = 陌陌注册
-/*文件清理华为版:function(){
-    Android文件夹变量 = 0
-    sleep(500)
-    封装API.text("文件管理").click();
-    sleep(1000)
-    while(text("分类").exists()!=true){
-        if(desc("拨号").exists()==true){break;}
-        else{back();sleep(500);}
-    }
-    sleep(500)
-    封装API.text("分类").click()
-    sleep(500)
-    //封装API.text("内部存储").click()//跟下面的ID是同一按键
-    封装API.id("layout_file_detail").click();
-    sleep(500)
-    if(desc("内部存储：").exists()==true)
-    for(let a=0;a<5;a++){
-        arrayA=className("TextView").id("file_name").find()
-        arrayA.forEach(element => {
-            if(element.text()=="immomo"){
-                封装API.longClickParent(element)
-                sleep(500)
-                封装API.text("删除").click()
-                sleep(500)
-                封装API.text("删除").click()
-                sleep(500)
-            }
-            else if(element.text()=="cvmomo"){
-                封装API.longClickParent(element)
-                sleep(1000)
-                封装API.text("删除").click()
-                sleep(500)
-                封装API.text("删除").click()
-                sleep(500)
-            }
-            else if(element.text()=="Android"){
-                if(Android文件夹变量 == 0){
-                    Android文件夹变量 = 1
-                    封装API.setView(element).click()
-                    sleep(500)
-                    封装API.text("data").click()
-                    sleep(500)
-                    for(let a=0;a<3;a++){
-                        arrayB=className("TextView").id("file_name").find()
-                        arrayB.forEach(element => {  
-                            if(element.text()=="com.immomo.momo"){
-                                封装API.longClickParent(element)
-                                sleep(500)
-                                封装API.text("删除").click()
-                                sleep(500)
-                                封装API.text("删除").click()
-                                sleep(500)
-                            }
-                        }); 
-                        sleep(500)
-                        className("ListView").scrollDown()
-                        sleep(500)
-                    }
-                    sleep(500)
-                    back();
-                    sleep(500)
-                    back();
-                    sleep(1000)
-                }
-                else if(Android文件夹变量 == 1){}
-            }
-    
-        });
-        sleep(1000)
-        className("ListView").scrollDown();
-        sleep(1000)    
-    }
-},*/
