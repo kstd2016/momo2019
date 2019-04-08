@@ -688,7 +688,7 @@ let 陌陌注册 = {
             }
             if(text("登录中").exists()==true){
                 登录中参数++
-                if(登陆中参数>=30){
+                if( 登录中参数>=30){
                     log("登录中时间超过30秒,准备返回...")
                     登录中参数 = 0
                     back();
@@ -1600,6 +1600,33 @@ let 陌陌注册 = {
 
         this.返回主界面();
     },
+    退出账号:function (){
+        if(是否在更多页面){
+            for(let a=0;a<20;a++){
+                封装API.等待(2000,3000)
+                if(text("设置").exists()==true&&text("退出陌陌").exists()!=true){
+                    封装API.text("设置").click();
+                }
+                else if(text("退出陌陌").exists()==true){
+                    封装API.text("退出陌陌").click();
+                }
+                else if(text("暂不绑定").exists()==true){
+                    封装API.text("暂不绑定").click()
+                }
+                else if(text("退出当前帐号").exists()==true){
+                    封装API.text("退出当前帐号").click()
+                }
+                else if(text("退出").exists()==true){
+                    封装API.text("退出").click()
+                    break;
+                }
+                else{
+                    封装API.随机上滑()
+                    封装API.等待(500,1000)
+                }
+            }
+        }
+    },
     接码模块:function(){
         for(let a=0;a<10;a++){
             sleep(2000)
@@ -1632,7 +1659,7 @@ let 陌陌注册 = {
                                 拼图坐标Y = parseInt(拼图坐标[1])
                                 log("拼图坐标X===>"+拼图坐标X);
                                 log("拼图坐标X===>"+拼图坐标Y);
-                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(0,20),滑块按钮坐标Y1+10,random(800,2000))
+                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(0,20),滑块按钮坐标Y1+10,random(1000,2000))
                             }
                             else{封装API.idCon("reload").click();}//刷新按钮更换图片
                         }
