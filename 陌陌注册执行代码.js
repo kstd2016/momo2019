@@ -592,6 +592,7 @@ let 陌陌注册 = {
     },
     陌陌Q跳注册:function(){
         登陆失败变量 = 0
+        登录中参数 = 0
         for(let a=0;a<100;a++){
             sleep(3000)
             if(text("注册/登录").exists()==true){封装API.text("注册/登录").click();}
@@ -605,10 +606,15 @@ let 陌陌注册 = {
             }
         };
         this.Q跳账号();
-        QQ账号 = Q跳数据[0];
+        QQ账号 = Q跳数据[0].replace(/\s+/g,"");
         log("QQ账号===>"+QQ账号);
-        QQ密码 = Q跳数据[1];
+        QQ密码 = Q跳数据[1].replace(/\s+/g,"");
         log("QQ密码===>"+QQ密码);
+        /*分割验证码 =num.split("")
+        for(let a=0;a<6;a++){
+            input(分割验证码[a])
+            封装API.等待(300,500)
+        }*/
         for(let a=0;a<120;a++){
             sleep(1000);
             log("判断检测===>"+a);
@@ -679,6 +685,14 @@ let 陌陌注册 = {
                 封装API.等待(2000,3000);
                 launchApp("MOMO陌陌分身");
                 封装API.等待(2000,3000);
+            }
+            if(text("登录中").exists()==true){
+                登录中参数++
+                if(登陆中参数>=30){
+                    log("登录中时间超过30秒,准备返回...")
+                    登录中参数 = 0
+                    back();
+                }
             }
         };
         if(陌陌账号参数!="已被使用"){
@@ -1588,9 +1602,9 @@ let 陌陌注册 = {
     },
     接码模块:function(){
         for(let a=0;a<10;a++){
-            sleep(3000)
+            sleep(2000)
             if(desc("拖动下方滑块完成拼图").exists()==true||text("拖动下方滑块完成拼图").exists()==true){
-                log("找到滑块,准备拼图...")
+                toastLog("找到滑块准备拼图...")
                 接码成功 = 1
                 滑块按钮 = className("android.view.View").idContains("tcaptcha_drag_button").findOne(1000)
                 if(滑块按钮!=null){
@@ -1610,21 +1624,21 @@ let 陌陌注册 = {
                             var X2 = 滑块图片.right
                             var Y2 = 滑块图片.bottom
                             var 联众打码API = require('./联众API');
-                            var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
+                            var 联众打码api = new 联众打码API(联众账号,联众密码);
                             坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
                             if(坐标 != "打码失败"){
                                 拼图坐标 = 坐标.split(",")
                                 拼图坐标X = parseInt(拼图坐标[0])
                                 拼图坐标Y = parseInt(拼图坐标[1])
                                 log("拼图坐标X===>"+拼图坐标X);
-                                sleep(1000)
-                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+15,滑块按钮坐标Y1+10,2000)
+                                log("拼图坐标X===>"+拼图坐标Y);
+                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(0,20),滑块按钮坐标Y1+10,random(800,2000))
                             }
-                            else{封装API.idCon("reload").click();}//刷新按钮,更换图片
+                            else{封装API.idCon("reload").click();}//刷新按钮更换图片
                         }
-                        else{封装API.idCon("reload").click();}//刷新按钮,更换图片
+                        else{封装API.idCon("reload").click();}//刷新按钮更换图片
                     }
-                    else{封装API.idCon("reload").click();}//刷新按钮,更换图片
+                    else{封装API.idCon("reload").click();}//刷新按钮更换图片
                 }
                 else{封装API.idCon("reload").click()}
             }
