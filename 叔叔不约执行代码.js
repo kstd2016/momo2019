@@ -105,8 +105,7 @@ function 全局变量(){
     联众账号 = 同步参数[5];
     联众密码 = 同步参数[6];*/
     套路回复 = [];
-    套路回复[1] = Array("好啊,шēī✘聊吧,说话方便些","好啊,шēī✘聊吗,说话方便点","老公不在家我一个人好怕啊 你能陪我语音吗 шēī✘聊","心情不好 又被妈妈骂了 你能陪我聊聊天吗 我шēī✘发给你"
-    ,"男朋友把我绿了 好难受 能陪我聊聊吗 我шēī✘","老公不在家，好想有个人聊天 你加我шēī✘吧")
+    套路回复[1] = Array("好啊,шēī✘污吧,说话方便些","好啊,шēī✘污吗,说话方便点","群内直播看小白兔哦，有兴趣来 我шēī✘","免费直播看小白兔哦，想看的来 我шēī✘")
     //套路回复[1] = "你好，小哥哥| 你好呀，小哥哥|小哥哥好".split("|")
     //套路回复[2] = "连麦玩吗？有点想|玩连麦爱爱吗? 有点想|连麦爱爱吗,我想试试".split("|")
     //套路回复[3] = "要么∨聊吧|薇聊吗,方便点|∨聊吧,方便点|要不薇聊吧".split("|")
@@ -209,6 +208,7 @@ function 进入叔叔不约(){
             break;
         }
         else if(text("听花开的树洞服务号").exists()==true||desc("听花开的树洞服务号").exists()==true){
+            log("找到听花开的树洞服务号...")
             返回浏览器主页 = className("TextView").boundsInside(598,1724,914,1920).findOne(2000)
             封装API.setView(返回浏览器主页).click()
             封装API.等待(1000,2000)
@@ -234,7 +234,12 @@ function 进入叔叔不约(){
             log("准备跳过进入叔叔不约模块...")
             return;
         }
+        else if(集成模块.找图点击(叔叔不约重新开始保存路径,0,1570,320,200)=="找图成功"){
+            log("准备跳过进入叔叔不约模块...")
+            return;
+        }
         else if(text("听花开的树洞服务号").exists()==true||desc("听花开的树洞服务号").exists()==true){
+            log("找到听花开的树洞服务号...")
             返回浏览器主页 = className("TextView").boundsInside(598,1724,914,1920).findOne(2000)
             封装API.setView(返回浏览器主页).click()
             封装API.等待(1000,2000)
@@ -324,8 +329,8 @@ function 开始聊天(){
     for(let b=1;b<套路回复.length;b++){
         回复参数 = 0
         时间变量 = 0 
-        集成模块.找图点击(叔叔不约重新开始保存路径,0,1570,320,200);
-        集成模块.找图点击(叔叔不约开始聊天保存路径,400,1250,300,200)
+        if(集成模块.找图点击(叔叔不约重新开始保存路径,0,1570,320,200)=="找图成功"){log("开始聊天模块找到图片重新开始...")}
+        else if(集成模块.找图点击(叔叔不约开始聊天保存路径,400,1250,300,200)=="找图成功"){log("开始聊天模块找到图片开始聊天...")}
         if(textContains("无响应").exists()&&textContains("确定").exists()){
             log("找到分身无响应...")
             封装API.textCon("确定").click();
@@ -425,7 +430,7 @@ function 输入微信号(){
     //超级点击("发送")
     //sleep(大延迟)
     toastLog("输入微信号结束...")
-    sleep(6000)
+    sleep(8000)
     超级点击("离开")
     超级点击("验证")
     sleep(1000)
@@ -446,14 +451,23 @@ function 固定时间回复(变量){
             封装API.等待(1000,2000)
             超级点击("开始聊天")
         }*/
+        if(desc("拖动下方滑块完成拼图").exists()==true||text("拖动下方滑块完成拼图").exists()==true){
+            log("找到拖动下方滑块完成拼图...");
+            接码模块();
+        }
+        else if(textContains("请点击").exists()==true||descContains("请点击").exists()==true&&idContains("reload").exists()==true){
+            log("找到请点击...");
+            接码模块();
+        }
+        else{超级点击("点击完成验证");}
         if(text("确定离开?").exists()==true||desc("确定离开?").exists()==true){
             超级点击("取消")
         }
-        if(text("分享设置").exists()==true||desc("分享设置").exists()==true){
+        else if(text("分享设置").exists()==true||desc("分享设置").exists()==true){
             超级点击("关闭")
             }
-        if(desc("重新开始").exists()==true||text("重新开始").exists()==true){
-            超级点击("重新开始")
+        else if(text("重新开始").exists()==true||desc("重新开始").exists()==true){
+            log("固定时间回复模块找到重新开始控件...")
             重新开始参数++
         }
         if(重新开始参数>=10){
@@ -468,6 +482,10 @@ function 固定时间回复(变量){
                 c++
                 if(element.text()=="对方离开了。"){
                     log("对方离开了...")
+                    聊天判断="对方离开了"
+                }
+                else if(element.text()==qq){
+                    log("已经发送微信号码，准备离开...")
                     聊天判断="对方离开了"
                 }
                 if(desc("重新开始").exists()==true||text("重新开始").exists()==true){
@@ -490,7 +508,10 @@ function 固定时间回复(变量){
                     if(element.desc()=="对方离开了。"){
                         log("对方离开了...")
                         聊天判断="对方离开了"
-    
+                    }
+                    else if(element.text()==qq){
+                        log("已经发送微信号码，准备离开...")
+                        聊天判断="对方离开了"
                     }
                     if(desc("重新开始").exists()==true||text("重新开始").exists()==true){
                         超级点击("重新开始")
@@ -654,6 +675,7 @@ function 容错(){
         }
     });
 }
+
 function 接码模块(){
     for(let a=0;a<10;a++){
         封装API.idCon("reload").click()
@@ -666,11 +688,7 @@ function 接码模块(){
             if(滑块按钮!=null){
                 滑块按钮坐标 = 滑块按钮.bounds()
                 var 滑块按钮坐标X1 = 滑块按钮坐标.left
-                log(滑块按钮坐标X1)
                 var 滑块按钮坐标Y1 = 滑块按钮坐标.top
-                log(滑块按钮坐标Y1)
-                if(滑块按钮坐标X1>="100"&&滑块按钮坐标X1<="200"){
-                    log("1号方案")
                     滑块 = className("Image").idContains("slideBg").findOne(1000)
                     if(滑块!=null){
                         滑块图片 = 滑块.bounds()
@@ -683,15 +701,17 @@ function 接码模块(){
                         var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
                         坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
                         if(坐标 != "打码失败"){
-                            拼图坐标 = 坐标.split(",")
-                            拼图坐标X = parseInt(拼图坐标[0])
-                            拼图坐标Y = parseInt(拼图坐标[1])
+                            拼图坐标 = 坐标.split(",");
+                            拼图坐标X = parseInt(拼图坐标[0]);
+                            拼图坐标Y = parseInt(拼图坐标[1]);
                             log("拼图坐标X===>"+拼图坐标X);
-                            sleep(1000)
-                            var ra = new RootAutomator();
-                            ra.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(5,15),滑块按钮坐标Y1+10+random(0,10),random(1500,3000))
-                            sleep(1000)
-                            ra.exit()
+                            if(滑块按钮坐标X1>="100"&&滑块按钮坐标X1<="150"){
+                                封装API.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(15,25),滑块按钮坐标Y1+10+random(0,10),random(2000,3000));
+                            }
+                            else{
+                                log("没有找到滑块按钮坐标,启用备用坐标...")
+                                封装API.swipe(136,1279,拼图坐标X+random(15,25),1279+random(0,10),random(2000,3000))
+                            }
                         }
                         else{
                             封装API.idCon("reload").click()//刷新按钮,更换图片
@@ -700,37 +720,6 @@ function 接码模块(){
                     else{
                         封装API.idCon("reload").click()//刷新按钮,更换图片
                     }
-                }
-                else{
-                    log("2号方案")
-                    滑块 = className("Image").idContains("slideBg").findOne(1000)
-                    if(滑块!=null){
-                        滑块图片 = 滑块.bounds()
-                        console.log(滑块图片);
-                        var X1 = 滑块图片.left
-                        var Y1 = 滑块图片.top
-                        var X2 = 滑块图片.right
-                        var Y2 = 滑块图片.bottom
-                        var 联众打码API = require('./联众API');
-                        var 联众打码api = new 联众打码API("kstd2016","Wentao1987223");
-                        坐标 = 联众打码api.打码(X1,Y1,X2-X1,Y2-Y1,"1318","1","1");
-                        if(坐标 != "打码失败"){
-                            拼图坐标 = 坐标.split(",")
-                            拼图坐标X = parseInt(拼图坐标[0])
-                            拼图坐标Y = parseInt(拼图坐标[1])
-                            log("拼图坐标X===>"+拼图坐标X);
-                            sleep(1000)
-                            var ra = new RootAutomator();
-                            ra.swipe(136,1279,拼图坐标X+random(5,15),1279+random(0,10),random(1500,3000))
-                            sleep(1000)
-                            ra.exit()
-                        }
-                        else{
-                            封装API.idCon("reload").click()//刷新按钮,更换图片
-                        }
-                    }
-                    else{封装API.idCon("reload").click()}//刷新按钮,更换图片
-                }
             }
             else{封装API.idCon("reload").click()}
         }
