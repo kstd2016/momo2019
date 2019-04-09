@@ -21,10 +21,14 @@ for(let a=1;a<9999;a++){
     else{
         log("聊天循环===>"+a)
         if(账号参数 == "账号已死"){
-            集成模块.流量卡切换IP(手机判断参数)
-            删除分身APP();
-            多开分身();
-            制作分身();
+            if(寻找字符串(APP,str)=="热点共享手机"){
+                toastLog("识别为热点共享手机,准备切换IP...");
+                集成模块.流量卡切换IP(手机判断参数);
+                打开流量共享();
+            }
+            集成模块.多开分身善后(手机判断参数)
+            集成模块.多开分身(切换IP方式,APP)
+            集成模块.制作分身(切换IP方式,手机判断参数,地理位置)
             进入叔叔不约();
             账号参数 = "新账号";
         }
@@ -45,6 +49,12 @@ function 全局变量(){
     获取号码参数 = 0;
     返回主页参数 = 0
     浏览器 = "QQ浏览器"
+    回复等待时长 = 5
+    打码总数量参数 = 0
+    
+    切换IP方式 = "流量卡IP"
+    地理位置 = "0"
+    APP = "猎豹浏览器"
 
     叔叔不约重新开始保存路径 = "/sdcard/脚本图片/叔叔不约重新开始.png"
     叔叔不约重新开始下载地址 = "http://a3.qpic.cn/psb?/V13HoQ6D224qoC/mXV9PcKh8SqJbGzJEuNndU.jLm4oWhO4Xxgp6Boxdjo!/b/dFIBAAAAAAAA&ek=1&kp=1&pt=0&bo=vAAsAAAAAAADF6I!&tl=1&vuin=1536343278&tm=1554541200&sce=60-1-1&rf=viewer_4"
@@ -95,7 +105,8 @@ function 全局变量(){
     联众账号 = 同步参数[5];
     联众密码 = 同步参数[6];*/
     套路回复 = [];
-    套路回复[1] = "好啊,we✘聊吧,说话方便些|好啊,we✘聊吗,说话方便点".split("|")
+    套路回复[1] = Array("好啊,шēī✘聊吧,说话方便些","好啊,шēī✘聊吗,说话方便点","老公不在家我一个人好怕啊 你能陪我语音吗 шēī✘聊","心情不好 又被妈妈骂了 你能陪我聊聊天吗 我шēī✘发给你"
+    ,"男朋友把我绿了 好难受 能陪我聊聊吗 我шēī✘","老公不在家，好想有个人聊天 你加我шēī✘吧")
     //套路回复[1] = "你好，小哥哥| 你好呀，小哥哥|小哥哥好".split("|")
     //套路回复[2] = "连麦玩吗？有点想|玩连麦爱爱吗? 有点想|连麦爱爱吗,我想试试".split("|")
     //套路回复[3] = "要么∨聊吧|薇聊吗,方便点|∨聊吧,方便点|要不薇聊吧".split("|")
@@ -112,6 +123,21 @@ function 全局变量(){
 function 超级点击(变量){
         if(descContains(变量).exists()==true){封装API.desc(变量).click()}
         else if(textContains(变量).exists()==true){封装API.text(变量).click()}
+}
+function 寻找字符串(APP,str){
+    var i = 0 
+    var 同步参数 = new Array()
+    var 读取文本 = files.read("/sdcard/脚本/"+APP+"参数.txt");
+    var 分割文本=读取文本.split("\n");
+    分割文本.forEach(element => {
+        同步参数[i] = element
+        i++
+    });
+    for(let a=0;a<同步参数.length;a++){
+        if(str==同步参数[a]){
+            return true
+        }
+    }
 }
 function 进入叔叔不约(){
     集成模块.清理手机缓存(手机判断参数)
@@ -293,28 +319,27 @@ function 进入叔叔不约(){
 }
 function 开始聊天(){
     聊天判断 = 0
-    回复等待时长 = 6
     变量A = 1
     聊天内容=[]
     for(let b=1;b<套路回复.length;b++){
         回复参数 = 0
         时间变量 = 0 
-        请稍等参数 = 0
         集成模块.找图点击(叔叔不约重新开始保存路径,0,1570,320,200);
         集成模块.找图点击(叔叔不约开始聊天保存路径,400,1250,300,200)
         if(textContains("无响应").exists()&&textContains("确定").exists()){
+            log("找到分身无响应...")
             封装API.textCon("确定").click();
             进入叔叔不约();
         }
         if(text("窗口").exists()==true&&text("菜单").exists()==true){
             toastLog("找到窗口还有菜单,判断在浏览器主页...")
-            this.进入叔叔不约();
+            进入叔叔不约();
             break;
         }
-        if(descContains("请稍等").exists()==true){
-            sleep(9999)
-            if(descContains("请稍等").exists()==true){
-                log("长时间找到请稍等控件,准备重新进入叔叔不约...")
+        if(descContains("请稍等").exists()==true||textContains("请稍等").exists()==true){
+            sleep(30*1000)
+            if(descContains("请稍等").exists()==true||textContains("请稍等").exists()==true){
+                toastLog("长时间找到请稍等控件,准备重新进入叔叔不约...")
                 进入叔叔不约()
             }
         }
@@ -358,15 +383,15 @@ function 开始聊天(){
     }
 }
 function 输入微信号(){
-    //str = qq.split("")
     延迟=1000
     大延迟 = 3000
     输入判断 = 0
     qq长度 = qq.length
+    //str = qq.split("")
     //qq.substring(0,2)
     //qq.substring(3,5)
     //qq.substring(6,8)
-    sleep(8000)
+
     /*setText(qq.substring(0,2));
     sleep(大延迟)
     超级点击("发送")
@@ -390,6 +415,7 @@ function 输入微信号(){
     else{
         setText(qq.substring(6,8));
     }*/
+    sleep(8000)
     setText(qq)
     sleep(延迟)
     超级点击("发送")
@@ -602,208 +628,21 @@ function 关键词回复模块(){
         return "无关键词回复"
     } 
 }
-function 多开分身(){
-    sleep(1000)
-    launchApp("多开分身")
+function 打开流量共享(){
+    集成模块.返回主界面();
+    toastLog("开始打开流量共享...")
+    launchApp("设置")
     sleep(2000)
-    封装API.text("允许").click();
-    sleep(3000)
-    var 多开分身添加变量 = 0       
-    while(id("iv_btn_create").exists()!=true){
-        log("没有找到添加分身的控件ID...,准备返回")
+    if(手机判断参数=="小米系统"){
+        封装API.text("个人热点").click();
         sleep(1000)
+        封装API.textCon("便携式").click();
+        sleep(2000)
         back();
-        sleep(1000)
-        if(text("电话").exists()==true){
-            log("判断在主页面...,准备重新打开")
-            launchApp("多开分身")
-            sleep(1000)
-            封装API.text("允许").click();
-        }
-        //N次循环都没有找到,重新打开多开分身
-        多开分身添加变量++
-        if(多开分身添加变量>30){
-            集成模块.返回主界面();
-            launchApp("多开分身")
-            sleep(1000)
-            封装API.text("允许").click();
-        }
-    }
-    封装API.id("iv_btn_create").click();
-    for(let a=0;a<5;a++){
-        sleep(1000)
-        if(text("猎豹浏览器").exists()==true){
-            var 陌陌分身坐标 = text("猎豹浏览器").findOne(1000).parent().bounds()
-            var X1 = 陌陌分身坐标.left
-            var Y1 = 陌陌分身坐标.top
-            var X2 = 陌陌分身坐标.right
-            var Y2 = 陌陌分身坐标.bottom
-            console.log(陌陌分身坐标);
-            if(text("制作分身").boundsInside(X1,Y1,X2,Y2).exists() == true){
-                let a =text("制作分身").boundsInside(X1,Y1,X2,Y2).findOne(1000);
-                封装API.setView(a).click();
-                break;
-            }
-            else{
-                var 陌陌分身坐标 = text("猎豹浏览器").findOne(1000).parent().parent().bounds()
-                var X1 = 陌陌分身坐标.left
-                var Y1 = 陌陌分身坐标.top
-                var X2 = 陌陌分身坐标.right
-                var Y2 = 陌陌分身坐标.bottom
-                if(text("制作分身").boundsInside(X1,Y1,X2,Y2).exists() == true){
-                    let a =text("制作分身").boundsInside(X1,Y1,X2,Y2).findOne(1000);
-                    封装API.setView(a).click();
-                    break;
-                }
-            }
-        }
-        sleep(1000)
-        封装API.随机上滑()
-
-    }
-    sleep(1000)
-}
-function 制作分身(){
-    sleep(1000)
-    while(text("开始制作").exists()!=true){
-        集成模块.返回主界面()
-        this.多开分身()
-    }
-    封装API.text("去LOGO水印").click();
-    sleep(500)
-    封装API.text("高级选项").click();
-    sleep(500)
-    封装API.text("虚拟化SD卡").click();
-    var 机型伪装坐标 = text("机型伪装").findOne(1000).parent().parent().bounds()
-    var X1 = 机型伪装坐标.left
-    var Y1 = 机型伪装坐标.top
-    var X2 = 机型伪装坐标.right
-    var Y2 = 机型伪装坐标.bottom
-    if(text("设置").boundsInside(X1,Y1,X2,Y2).exists() == true){
-        text("设置").boundsInside(X1,Y1,X2,Y2).findOne(1000).click();
-    }
-    sleep(1000)
-    this.机型伪装设置();
-    sleep(1000)
-    var 虚拟位置坐标 = text("虚拟定位").findOne(1000).parent().parent().bounds()
-    var X1 = 虚拟位置坐标.left
-    var Y1 = 虚拟位置坐标.top
-    var X2 = 虚拟位置坐标.right
-    var Y2 = 虚拟位置坐标.bottom
-    if(text("设置").boundsInside(X1,Y1,X2,Y2).exists() == true){
-        text("设置").boundsInside(X1,Y1,X2,Y2).findOne(1000).click();
-    }
-    sleep(1000)
-    this.虚拟定位设置();
-    sleep(1000)
-    if(text("开始制作").exists()==true){封装API.text("开始制作").click();}
-    else{
-        sleep(1000)
-        home();
-        sleep(1000)
-        this.多开分身();
-        this.制作分身();
-        return
-    }
-    while(text("安装").exists()!=true){
-        sleep(500);
-    }
-    for(let a=0;a<10;a++){
-        sleep(1000)
-        if(text("安装").exists()==true){
-            封装API.text("安装").click();  
-        }
-        else{break;}
-    }
-    while(text("打开").exists()!=true){
-        sleep(500);
-    }
-    封装API.text("打开").click();
-    for(let a=0;a<12;a++){
-        sleep(5000)
-        if(text("允许").exists()==true){
-            封装API.text("允许").click();
-        }
-        if(text("菜单").exists()==true){
-            封装API.text("允许").click();
-            break;
-        }
-    }
-}
-function 机型伪装设置(){
-    地址位置 = Array("浙江嘉兴","浙江湖州","浙江杭州","浙江绍兴","浙江宁波","浙江丽水","浙江台州","浙江温州","浙江金华","浙江衢州","浙江舟山")
-    封装API.id("spinnerBrand").click()
-    sleep(1500)
-    封装API.text("小米").click()
-    sleep(1500)
-    封装API.id("spinnerModel").click()
-    sleep(1500)
-    机型选择 = id("text1").find()
-    if(机型选择!=null){id("text1").findOnce(random(0,8)).click();}
-    else{
-        sleep(1500)
-        机型选择 = id("text1").find()
-        id("text1").findOnce(random(0,8)).click();
-    }
-    sleep(1500)
-    for(let a=0;a<5;a++){
-        封装API.text("换一换").click()
-        sleep(300)
-    }
-    封装API.text("启用机型伪装").click()
-}
-function 虚拟定位设置(){
-    sleep(1000);
-    if(text("请打开GPS").exists()==true){
+        sleep(2000)
         back();
-        sleep(500)
     }
-    封装API.id("tv_search").click()
-    sleep(1000)
-    setText(地址位置[random(0,地址位置.length-1)]+"中学")
-    for(let a=0;a<15;a++){
-        sleep(1000)
-        封装API.text("搜索").click();
-        sleep(1000)
-        if(text("搜索").exists() == true){
-            var 定位地址 = className("TextView").clickable(false).find()
-            if(定位地址==null){}
-            else{
-                封装API.setView(className("TextView").findOnce(random(0,18))).click();
-                sleep(1000)
-                if(text("定位到此").exists() == true){
-                    封装API.text("定位到此").click()
-                    break;
-                }
-            }
-        } 
-        else{sleep(1000)}  
-    }
-}
-function 删除分身APP(){
-    home()
-    sleep(2000)
-    launchApp("多开分身")
-    sleep(2000)
-    封装API.text("允许").click();
-    sleep(3000)
-    封装API.text("管理").click() 
-    sleep(3000)
-    封装API.text("清理缓存").click() 
-    for(let a=0;a<5;a++){
-        if(text("完成").exists()==true){
-            封装API.text("完成").click() 
-            break;
-        }
-        else{    sleep(3000)}
-    }
-    sleep(2000)
-    封装API.text("删除分身").click() 
-    sleep(2000)
-    封装API.text("确定").click() 
-    封装API.text("确定").click() 
-    sleep(2000)
-    home();
+    else{log("暂时还不支持该系统设置热点...")}
 }
 function 容错(){
     threads.start(function(){
@@ -819,6 +658,7 @@ function 接码模块(){
     for(let a=0;a<10;a++){
         封装API.idCon("reload").click()
         sleep(3000)
+        打码总数量参数++
         if(desc("拖动下方滑块完成拼图").exists()==true||text("拖动下方滑块完成拼图").exists()==true){
             log("找到滑块,准备拼图...")
             接码成功 = 1
@@ -849,7 +689,7 @@ function 接码模块(){
                             log("拼图坐标X===>"+拼图坐标X);
                             sleep(1000)
                             var ra = new RootAutomator();
-                            ra.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(0,20),滑块按钮坐标Y1+10+random(0,10),random(1500,2000))
+                            ra.swipe(滑块按钮坐标X1+10,滑块按钮坐标Y1+10,拼图坐标X+random(5,15),滑块按钮坐标Y1+10+random(0,10),random(1500,3000))
                             sleep(1000)
                             ra.exit()
                         }
@@ -881,7 +721,7 @@ function 接码模块(){
                             log("拼图坐标X===>"+拼图坐标X);
                             sleep(1000)
                             var ra = new RootAutomator();
-                            ra.swipe(136,1279,拼图坐标X+10+random(0,20),1279+random(0,10),random(1500,2000))
+                            ra.swipe(136,1279,拼图坐标X+random(5,15),1279+random(0,10),random(1500,3000))
                             sleep(1000)
                             ra.exit()
                         }
@@ -906,7 +746,7 @@ function 接码模块(){
                 var Y2 = 滑块图片.bottom
                 var 联众打码API = require('./联众API');
                 var 联众打码api = new 联众打码API(联众账号,联众密码);
-                坐标 = 联众打码api.打码(X1,Y1+35,X2-X1,Y2-Y1-253,"1303","1","1");
+                坐标 = 联众打码api.打码(X1,Y1+35,X2-X1,Y2-Y1-253,"1303","1","5");
                 log(坐标)
                 拼图坐标 = 坐标.split("|")
                 文字点击坐标=[]
@@ -919,7 +759,19 @@ function 接码模块(){
             }
         }
         else{break;}
-        if(a>=9){
+        if(打码总数量参数>=50){
+            打码总数量参数 = 0
+            if(寻找字符串(APP,str)=="热点共享手机"){
+                toastLog("识别为热点共享手机,准备切换IP...");
+                集成模块.流量卡切换IP(手机判断参数);
+                打开流量共享();
+            }
+            集成模块.多开分身善后(手机判断参数)
+            集成模块.多开分身(切换IP方式,APP)
+            集成模块.制作分身(切换IP方式,手机判断参数,地理位置)
+            进入叔叔不约();
+        }
+        else if(a>=9){
             log("连续接码模块失败,准备重新进入叔叔不约");
             进入叔叔不约();
         }
