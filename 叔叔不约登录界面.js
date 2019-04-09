@@ -47,7 +47,7 @@ function onClick(脚本名称){
     var path = engines.myEngine().cwd()+"/"+脚本名称+".js";
     engines.execScriptFile(path);
  }
- ui.原有参数设定.on("click", ()=>{
+ ui.热点参数.on("click", ()=>{
     toastLog("热点共享手机设置完成...");
     files.ensureDir("/sdcard/叔叔不约参数.txt")
     files.append("/sdcard/叔叔不约参数.txt","热点共享手机");
