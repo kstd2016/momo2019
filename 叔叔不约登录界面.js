@@ -30,7 +30,12 @@ ui.layout(
                 <input w="110" id="联众账号"  hint="联众账号 :"/>
                 <input w="110" id="联众密码"  hint="联众密码 :"/>
             </horizontal>  
+            <horizontal>
+                <input w="110" id="联众账号"  hint="联众账号 :"/>
+                <input w="110" id="联众密码"  hint="联众密码 :"/>
+            </horizontal>  
             <text text="话术文本名称必须为叔叔不约话术,话术文本必须放在根目录下否则不能运行,每一个话术必须用|分割,每一段话术必须用回车分割" textColor="red" textSize="16sp"/>
+                <button  id="热点参数" w="*" text="热点共享手机" textColor="red"/> 
                 <button  id="原有参数设定" w="*" text="加载原有设置" textColor="red"/>                         
                 <button id="启动配置" w="*" text="完成并启动配置" textColor="red"/>
             </vertical>
@@ -42,6 +47,11 @@ function onClick(脚本名称){
     var path = engines.myEngine().cwd()+"/"+脚本名称+".js";
     engines.execScriptFile(path);
  }
+ ui.原有参数设定.on("click", ()=>{
+    toastLog("热点共享手机设置完成...");
+    files.ensureDir("/sdcard/叔叔不约参数.txt")
+    files.append("/sdcard/叔叔不约参数.txt","热点共享手机");
+});
  ui.原有参数设定.on("click", ()=>{
     var i = 0
     var 同步参数 = []
