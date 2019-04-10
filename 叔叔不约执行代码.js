@@ -164,9 +164,8 @@ function 进入叔叔不约(){
                 break;
             }
         }
-        if(text("立即提速").exists()==true){
+        if(text("立即提速").exists()||text("立即安装").exists()){
             封装API.id("alh").click();
-            break;
         }
     }
     sleep(1000)
