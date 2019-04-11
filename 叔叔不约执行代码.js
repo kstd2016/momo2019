@@ -134,7 +134,7 @@ function 超级点击(变量){
         if(descContains(变量).exists()==true){封装API.desc(变量).click()}
         else if(textContains(变量).exists()==true){封装API.text(变量).click()}
 }
-function 超级判断(){
+function 超级判断(变量){
     if(descContains(变量).exists()==true||textContains(变量).exists()==true){return true}
     else{return false}
 }
