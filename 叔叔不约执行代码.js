@@ -47,7 +47,7 @@ function 全局变量(){
     易码密码 = "1987223";
     联众账号 = "kstd2016";
     联众密码 = "Wentao1987223";
-    qq = "шēī✘:ссЬЬ¹995º²"
+    qq = "ссЬЬ¹995º²"
 
     账号参数 = 0;
     接码成功 = 0;
@@ -80,6 +80,9 @@ function 全局变量(){
     叔叔不约X图标保存路径 = "/sdcard/脚本图片/叔叔不约X图标.png"
     叔叔不约X图标下载地址 = "http://m.qpic.cn/psb?/V13HoQ6D224qoC/pOMdHpbIPuHweybk2poG*sOayG1NDvQMVwY5qVPHhK8!/b/dL8AAAAAAAAA&bo=IgAiAAAAAAADByI!&rf=viewer_4"
     集成模块.网络图片下载(叔叔不约X图标下载地址,叔叔不约X图标保存路径)
+    叔叔不约首页查找保存路径 = "/sdcard/脚本图片/叔叔不约首页查找.png"
+    叔叔不约首页查找下载地址 = "http://m.qpic.cn/psb?/V13HoQ6D224qoC/JR6tGVGZiDE5Cnl6oDdkYAgEK7vYqPMiaLz*dhsN0y4!/b/dL8AAAAAAAAA&bo=LAArACwAKwADGTw!&rf=viewer_4"
+    集成模块.网络图片下载(叔叔不约首页查找下载地址,叔叔不约首页查找保存路径)
     /*var i = 0;
     var 同步参数 = []; 
     套路回复 = [];
@@ -123,8 +126,8 @@ function 全局变量(){
     套路回复 = [];
     //套路回复[1] = Array("有想看我小白兔跟内内吗，我шēī✘,","有互看的吗,我шēī✘,","群内免费看小白兔哦，有兴趣来 我шēī✘","免费看小白兔哦，想看的来 我шēī✘"
     //,"群内免费看性感秀 什么都能看见哦，有兴趣来 我шēī✘","免费看真人秀哦，想看的来 我шēī✘","有相互看的吗,我шēī✘,","老公不在家我一个人好怕啊 你能陪我语音吗 我шēī✘")
-    套路回复[1] = Array(叔叔不约表情[random(0,叔叔不约表情.length-1)]+"шēī✘玩吗",叔叔不约表情[random(0,叔叔不约表情.length-1)]+"有想шēī✘玩的吗,"
-    ,叔叔不约表情[random(0,叔叔不约表情.length-1)]+"有相互шēī✘玩的吗",叔叔不约表情[random(0,叔叔不约表情.length-1)]+"有шēī✘污的吗")
+    套路回复[1] = Array(叔叔不约表情[random(0,叔叔不约表情.length-1)]+"好啊,шēī✘玩吗",叔叔不约表情[random(0,叔叔不约表情.length-1)]+"好啊,шēī✘污吗,方便点"
+    ,叔叔不约表情[random(0,叔叔不约表情.length-1)]+"好啊,шēī✘污吗",叔叔不约表情[random(0,叔叔不约表情.length-1)]+"好啊,шēī✘污吗")
     //套路回复[1] = "你好，小哥哥| 你好呀，小哥哥|小哥哥好".split("|")
     //套路回复[2] = "连麦玩吗？有点想|玩连麦爱爱吗? 有点想|连麦爱爱吗,我想试试".split("|")
     //套路回复[3] = "要么∨聊吧|薇聊吗,方便点|∨聊吧,方便点|要不薇聊吧".split("|")
@@ -196,7 +199,8 @@ function 进入叔叔不约(){
     if(text("立即提速").exists()==true){
         集成模块.找图点击(叔叔不约X图标保存路径,800,600,200,200,相似度)
     }
-    封装API.id("lk").click()//id("lk")搜索框ID
+    封装API.等待(1000,2000)
+    集成模块.找图点击(叔叔不约首页查找保存路径,40,300,120,150,相似度)
     封装API.等待(1000,2000)
     setText("http://www.unclenoway.com/#") 
     封装API.text("前往").click()
@@ -260,6 +264,7 @@ function 进入叔叔不约(){
             break;
         } 
         else if(text("点击获取").exists()==true||desc("点击获取").exists()==true){
+            log("准备注册账号...")
             易码API = require('./易码API');
             登陆 = 易码API.登陆(易码账号,易码密码);
             sleep(500)
@@ -494,6 +499,8 @@ function 固定时间回复(变量){
             log("固定时间回复模块,找到聊天判断对方离开了...")
             集成模块.找图点击(叔叔不约离开保存路径,0,1570,320,200,相似度)
             sleep(1000)
+            超级点击("确定")
+            sleep(1000)
             集成模块.找图点击(叔叔不约重新开始保存路径,0,1570,320,200,相似度)
             sleep(1000)
             break;
@@ -507,52 +514,43 @@ function 固定时间回复(变量){
                 封装API.等待(500,1000)
                 超级点击("发送")
                 超级点击("留步")
+                超级点击("分享")
                 封装API.等待(5000,6000)
                 if(descContains("点击完成验证").exists()||textContains("点击完成验证").exists()){
                     setText(qq)
                     封装API.等待(500,1000)
                     超级点击("发送")
                     超级点击("留步")
+                    超级点击("分享")
                     封装API.等待(500,1000)
                     setText(套路回复[1][random(0,套路回复[1].length-1)])
                     封装API.等待(500,1000)
                     超级点击("发送")
                     超级点击("留步")
+                    超级点击("分享")
                     封装API.等待(500,1000)
                     setText(qq)
                     封装API.等待(500,1000)
                     超级点击("发送")
                     超级点击("留步")
+                    超级点击("分享")
                 }
                 else{
                     setText(qq)
                     封装API.等待(500,1000)
                     超级点击("发送")
                     超级点击("留步")
+                    超级点击("分享")
                     封装API.等待(5000,6000)
                     if(descContains("点击完成验证").exists()||textContains("点击完成验证").exists()){
                         setText(qq)
                         封装API.等待(500,1000)
                         超级点击("发送")
                         超级点击("留步")
+                        超级点击("分享")
                     }
 
                 }
-                /*封装API.等待(1000,1500)
-                setText(qq)
-                封装API.等待(1000,1500)
-                超级点击("发送")
-                超级点击("留步")
-                if(点击完成验证参数==1){点击完成验证参数 = 0}
-                else{
-                    封装API.等待(5000,6000)
-                    if(descContains("点击完成验证").exists()||textContains("点击完成验证").exists()){
-                        setText(qq)
-                        封装API.等待(500,1000)
-                        超级点击("发送")
-                        超级点击("留步")
-                    }
-                }*/
             }
         }
         else{
@@ -560,7 +558,7 @@ function 固定时间回复(变量){
             sleep(500)
             超级点击("发送")
             超级点击("留步")
-            return
+            超级点击("分享")
         }
 
     } 
@@ -721,10 +719,26 @@ function 打开流量共享(){
         封装API.text("个人热点").click();
         sleep(1000)
         封装API.textCon("便携式").click();
-        sleep(2000)
+        sleep(2500)
         back();
-        sleep(2000)
+        sleep(1500)
         back();
+    }
+    else if(手机判断参数=="华为系统"){
+        封装API.text("更多").click();
+        sleep(1000)
+        封装API.text("移动网络共享").click();
+        sleep(1000)
+        封装API.textCon("便携式").click();
+        sleep(1000)
+        封装API.idCon("widget_frame").click();
+        sleep(3000)
+        back();
+        sleep(1500)
+        back();
+        sleep(1500)
+        back();
+        sleep(1500)
     }
     else{log("暂时还不支持该系统设置热点...")}
 }
@@ -748,7 +762,7 @@ function 接码模块(){
         if(desc("拖动下方滑块完成拼图").exists()==true||text("拖动下方滑块完成拼图").exists()==true){
             log("找到滑块,准备拼图...")
             接码成功 = 1
-            滑块按钮 = className("android.view.View").idContains("tcaptcha_drag_button").packageName("com.ijinshan.browser_fast").findOne(1000)
+            滑块按钮 = className("android.view.View").idContains("tcaptcha_drag_button").findOne(1000)
             if(滑块按钮!=null){
                 滑块按钮坐标 = 滑块按钮.bounds()
                 var 滑块按钮坐标X1 = 滑块按钮坐标.left
@@ -774,7 +788,7 @@ function 接码模块(){
                             }
                             else{
                                 log("没有找到滑块按钮坐标,启用备用坐标...")
-                                封装API.swipe(136,1279,拼图坐标X+random(15,25),1279+random(0,10),random(2000,3000))
+                                封装API.swipe(136,1279,拼图坐标X+random(15,25),1279+random(0,10),random(1500,3000))
                             }
                         }
                         else{
@@ -840,5 +854,6 @@ function 接码模块(){
             进入叔叔不约();
             return
         }
+        封装API.等待(1000,1500)
     }
 }
