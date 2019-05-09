@@ -11,6 +11,7 @@ let soul星球匹配 = {
         this.容错()
         手机判断参数 = 集成模块.手机品牌判断();
         for(let a=0;a<20;a++){
+            this.循环变量()
             集成模块.流量卡切换IP(手机判断参数)
             //this.光子IP()
             this.XX抹机()
@@ -83,7 +84,7 @@ let soul星球匹配 = {
                     封装API.text("切换到上一个").click();
                 }
                 else if(环境切换模式==1){
-                    封装API.text("切换到上一个").click();
+                    封装API.text("切换到下一个").click();
                 }
                 sleep(1000)
                 while(!text("新建环境").exists()){
