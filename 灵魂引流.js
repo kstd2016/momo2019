@@ -10,36 +10,21 @@ let soul星球匹配 = {
         this.全局变量();
         this.容错()
         手机判断参数 = 集成模块.手机品牌判断();
-        for(let a=0;a<自定义名字.length;a++){
-            this.循环变量()
-            if(清理判断==1){
-                集成模块.流量卡切换IP(手机判断参数)
-                集成模块.文件清理("dkplugin");
-                集成模块.文件清理("soul");
-                //集成模块.清理手机缓存(手机判断参数)
-                集成模块.关闭应用("ES文件浏览器")
-                集成模块.返回主界面()
-                封装API.等待(1000)
-            }
-            运行程序 = 自定义名字[a]
-            launchApp(运行程序);
+        for(let a=0;a<20;a++){
+            集成模块.流量卡切换IP(手机判断参数)
+            //this.光子IP()
+            this.XX抹机()
             this.soul灵魂匹配();
             if(程序判断 == "重新开始"){log("找到程序判断重新开始...");}
             else{this.soul回复消息();}
-            集成模块.关闭应用(运行程序)
             集成模块.返回主界面()
             封装API.等待(1000)
         }
     },
     全局变量:function(){
         APP = "Soul"
-        自定义名字 = Array()
-        for(let a=23;a<26;a++){
-            自定义名字.push(APP+"分身"+a)
-        }
-        清理判断 = 1
+        环境切换模式 = 0
         文档判断 = 0
-        运行程序 = 0
         第一句 = Array("你好","你好呀","你好,小哥哥","你好哦,小哥哥","你好呀,小哥哥","hi~","嗨","hello"
         ,"嗨喽","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
         表情 = Array("😁","😊","😘","😍","😳","😅","😓","😎","😑","🙄","🤔","😉","🕺🏻"
@@ -78,6 +63,73 @@ let soul星球匹配 = {
         程序判断 = 0
         主界面判断 = 0
     },
+    光子IP:function(){
+        launchApp("光子·安卓变版")
+        for(let a=1;a<30;a++){
+            if(text("立即登录").exists()){
+                封装API.text("立即登录").click()
+            }
+        }
+
+    },
+    XX抹机:function(){
+        launchApp("xx抹机神器");
+        for(let a=0;a<30;a++){
+            sleep(1000);
+            if(text("新建环境").exists()){
+                封装API.idCon("iv_envlist").click();
+                sleep(1000)
+                if(环境切换模式==0){
+                    封装API.text("切换到上一个").click();
+                }
+                else if(环境切换模式==1){
+                    封装API.text("切换到上一个").click();
+                }
+                sleep(1000)
+                while(!text("新建环境").exists()){
+                    sleep(1000)
+                    if(text("没有环境了").exists()){
+                        if(环境切换模式==0){
+                            环境切换模式 = 1
+                            封装API.text("确定").click()
+                            this.XX抹机()
+                            return
+                        }
+                        else if(环境切换模式==1){
+                            环境切换模式 = 0
+                            封装API.text("确定").click()
+                            sleep(1000)
+                            this.XX抹机()
+                            return
+                        }
+                    }
+                }
+                sleep(1000)
+                运行环境 = idContains("tv_envName").findOne(1000)
+                if(运行环境!=null){
+                    运行环境名称 =  运行环境.text()
+                }
+                图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
+                封装API.setView(图标).click()
+                sleep(1000);
+                封装API.text("启动").click();
+                break;
+            }
+        }
+    },
+    打开当前soul:function(){
+        launchApp("xx抹机神器");
+        for(let a=0;a<30;a++){
+            sleep(1000);
+            if(text("新建环境").exists()){
+                图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
+                封装API.setView(图标).click()
+                sleep(1000);
+                封装API.text("启动").click();
+                break;
+            }
+        }
+    },
     soul灵魂匹配:function(){
         暂时不在线重复次数 = 0
         log("开始soul灵魂匹配...")
@@ -103,14 +155,14 @@ let soul星球匹配 = {
             else if(idContains("etPhone").exists()){
                 log("该账号已死,准备开始下一个...")
                 文档判断++
-                files.ensureDir("/sdcard/灵魂账号.txt");
+                files.ensureDir("/sdcard/脚本参数/灵魂账号已死.txt");
                 if(文档判断==1){
-                    files.write("/sdcard/灵魂账号.txt",运行程序);
-                    files.append("/sdcard/灵魂账号.txt","\n"); 
+                    files.write("/sdcard/脚本参数/灵魂账号已死.txt",运行环境名称);
+                    files.append("/sdcard/脚本参数/灵魂账号已死.txt","\n"); 
                 }
                 else{
-                    files.append("/sdcard/灵魂账号.txt",运行程序);
-                    files.append("/sdcard/灵魂账号.txt","\n"); 
+                    files.append("/sdcard/脚本参数/灵魂账号已死.txt",运行环境名称);
+                    files.append("/sdcard/脚本参数/灵魂账号已死.txt","\n"); 
                 }
                 程序判断 = "重新开始"
                 break;
@@ -267,101 +319,6 @@ let soul星球匹配 = {
             log("没有找到灵魂匹配...")
         }
     },
-    /*soul群发消息:function(){
-        log("开始群发消息...");
-        if(text("星球").exists()&&text("广场").exists()){
-            log("找到灵魂首页面...");
-        }
-        封装API.等待(1000,1500); 
-        封装API.idCon("main_tab_msg").click();
-        封装API.等待(1000,1500); 
-        if(textContains("允许匹配").exists()==true){}
-        else{alert("不在信息界面...");};
-        if(text("Soul官方").exists()){log("找到Soul官方...");}
-        else{};
-        for(let a=0;a<10;a++){
-            聊天内容 = 0;
-            聊天内容重复次数 = 0;
-            let X1 = 封装API.随机数(100,300);
-            let Y1 = 封装API.随机数(1450,1550);
-            let X2 = 封装API.随机数(800,1000);
-            let Y2 = 封装API.随机数(280,320);
-            if(idContains("left_layout").exists()==true&&idContains("right_layout").exists()==true){
-                封装API.idCon("left_layout").click();
-                封装API.等待(500,1000);
-            }
-            聊天人员集 = idContains("name").find();
-            //新消息ID id("unread_msg_number")
-            log(a.length);
-            if(text("发现新版本").exists()==true){
-                封装API.text("忽略").click();
-            }
-            聊天人员集.forEach(element => {
-                if(element.bounds().centerX() >= 0 && element.bounds().centerY() >= 0){
-                    封装API.setView(element).click();
-                    封装API.等待(1000,1200);
-                    聊天内容集 = idContains("tv_chatcontent").find();
-                    聊天内容集.forEach(element => {
-                        if(element.text()==统一回复话术){
-                            聊天内容 = "找到";
-                            聊天内容重复次数++;
-                        }
-                    });
-                    if(聊天内容 =="找到"){
-                            log("聊天内容重复次数===>"+聊天内容重复次数);
-                            封装API.等待(500);
-                            封装API.idCon("left_layout").click();
-                            封装API.等待(500);
-                            聊天内容 = 0;
-                    }
-                    else{
-                        if(idContains("setting_back_ivbtn").exists()==true){
-                            封装API.idCon("setting_back_ivbtn").click();
-                        }
-                        else{
-                            this.回复话术();
-                        }
-                    }
-                }
-                else{
-                    log("消息框坐标为负...");
-                }
-            });
-else{
-                captureScreen("/sdcard/脚本参数/A.png");
-                封装API.等待(1000);
-                封装API.随机上滑();
-                封装API.等待(1000);
-                captureScreen("/sdcard/脚本参数/B.png");
-                var templ1 = images.read("/sdcard/脚本参数/A.png");
-                var templ2 = images.read("/sdcard/脚本参数/B.png");
-                var p = findImage(templ1, templ2,{threshold:0.9});
-                if(p){
-                    toastLog("已经到达聊天界面最底部...");
-                    聊天界面底部参数++
-                    if(聊天界面底部参数>=4){
-                        toastLog("已经到达聊天界面判断返回次数...");
-                        return;
-                    }
-                    if(textContains("允许匹配").exists()==true){
-                        while(!text("Soul官方").exists()){
-                            封装API.等待(500);
-                            封装API.随机下滑();
-                            封装API.等待(1000);
-                        }
-                    }
-                    else{log("不在聊天消息列表...")}
-
-                }
-                else{
-                    toastLog("正在寻找新消息..");
-                    封装API.等待(1000);
-                }
-                templ1.recycle();// 回收图片
-                templ2.recycle();// 回收图片
-            }
-        
-    },*/
     soul回复消息:function(){
         新消息参数 = 0
         log("开始回复消息...");
@@ -376,9 +333,9 @@ else{
         else{
             while(!idContains("main_tab_msg").exists()&&!idContains("main_tab_planet").exists()){
                 log("不在信息界面...");
-                集成模块.清理手机缓存(手机判断参数);
-                launchApp(运行程序);
-                封装API.等待(6666)
+                集成模块.返回主界面();
+                this.打开当前soul();
+                封装API.等待(9999)
                 if(text("点我签到").exists()==true){
                     log("找到点击签到框,准备关闭...");
                     封装API.idCon("img_close").click();
