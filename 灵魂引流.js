@@ -3,6 +3,7 @@ let 集成模块 = require(engines.myEngine().cwd() +"/集成模块.js");
 let soul星球匹配 = {
     开始:function(){
         log("执行代码开始运行...")
+        files.ensureDir("/sdcard/脚本参数/灵魂账号已死.txt");
         if(!requestScreenCapture()){
             toast("请求截图失败");
             exit();
