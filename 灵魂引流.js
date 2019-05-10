@@ -370,7 +370,14 @@ let soul星球匹配 = {
                 log("找到自己页面...")
                 封装API.idCon("main_tab_msg").click();
                 封装API.等待(1000);
-            }            
+            }      
+            if(idContains("systemNotice").exists()){
+                log("找到soul官方新消息。。。")
+                封装API.idCon("systemNotice").click()
+                封装API.等待(1000);
+                封装API.idCon("setting_back_ivbtn").click();
+                封装API.等待(1000);
+            }    
             var 新消息 = classNameContains("TextView").idContains("unread_msg_number").findOne(1000)
             if(新消息!=null&&新消息.bounds().centerY() < 1770){
                 封装API.setView(新消息).click()
