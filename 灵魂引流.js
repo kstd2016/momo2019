@@ -10,7 +10,7 @@ let soul星球匹配 = {
         this.全局变量();
         this.容错()
         手机判断参数 = 集成模块.手机品牌判断();
-        for(let a=0;a<20;a++){
+        for(let a=0;a<99;a++){
             this.循环变量()
             集成模块.流量卡切换IP(手机判断参数)
             //this.光子IP()
@@ -405,8 +405,14 @@ let soul星球匹配 = {
             else{
                 封装API.等待(2000,5000)
                 封装API.idCon("main_tab_msg").click();
-                封装API.等待(10,100)
+                封装API.等待(10,50)
                 封装API.idCon("main_tab_msg").click();
+                封装API.等待(1000)
+                var 新消息 = classNameContains("TextView").idContains("unread_msg_number").findOne(1000)
+                if(新消息==null){
+                    封装API.随机下滑()
+                    封装API.等待(1000)
+                }
             }
         }
     },
