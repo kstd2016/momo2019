@@ -199,6 +199,12 @@ let soul星球匹配 = {
                 封装API.text("忽略").click()
                 封装API.等待(500)
             }
+            封装API.idCon("soul_match_filter").click()
+            封装API.等待(1000)
+            封装API.text("男").click()
+            封装API.等待(1000)
+            封装API.text("确定").click()
+            封装API.等待(1000)
             封装API.idCon("soul_match").click()
             while(idContains("right_layout").exists()!=true){
                 sleep(1000)
