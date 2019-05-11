@@ -119,7 +119,7 @@ let soul星球匹配 = {
         Swipe(800,420,200,420)
         sleep(2000)
         封装API.text("删除").click()
-        sleep(2000)
+        sleep(3000)
         封装API.desc("转到上一层级").click()
         sleep(2000)
     },
@@ -178,7 +178,13 @@ let soul星球匹配 = {
         }
         //星球页面ID...
         封装API.idCon("main_tab_planet").click()
-        封装API.等待(1000,1500) 
+        封装API.等待(1000)
+        封装API.idCon("soul_match_filter").click()
+        封装API.等待(1000)
+        封装API.text("男").click()
+        封装API.等待(1000)
+        封装API.text("确定").click()
+        封装API.等待(1000)
         for(let a=0;a<20;a++){
             log("灵魂匹配===>"+a)
             匹配界面重复次数 = 0
@@ -199,12 +205,6 @@ let soul星球匹配 = {
                 封装API.text("忽略").click()
                 封装API.等待(500)
             }
-            封装API.idCon("soul_match_filter").click()
-            封装API.等待(1000)
-            封装API.text("男").click()
-            封装API.等待(1000)
-            封装API.text("确定").click()
-            封装API.等待(1000)
             封装API.idCon("soul_match").click()
             while(idContains("right_layout").exists()!=true){
                 sleep(1000)
