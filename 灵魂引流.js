@@ -116,6 +116,10 @@ let soul星球匹配 = {
             }
         }
         sleep(2000)
+        Swipe(800,420,200,420)
+        sleep(2000)
+        封装API.text("删除").click()
+        sleep(2000)
         封装API.desc("转到上一层级").click()
         sleep(2000)
     },
