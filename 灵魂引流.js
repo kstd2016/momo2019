@@ -19,14 +19,14 @@ let soul星球匹配 = {
             this.soul灵魂匹配();
             if(程序判断 == "重新开始"){log("找到程序判断重新开始...");}
             else{this.soul回复消息();}
+
             集成模块.返回主界面()
             封装API.等待(1000)
         }
     },
     全局变量:function(){
+        帐号判断 = 0
         APP = "Soul"
-        环境切换模式 = 0
-        文档判断 = 0
         第一句 = Array("你好","你好呀","你好,小哥哥","你好哦,小哥哥","你好呀,小哥哥","hi~","嗨","hello"
         ,"嗨喽","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
         表情 = Array("😁","😊","😘","😍","😳","😅","😓","😎","😑","🙄","🤔","😉","🕺🏻"
@@ -71,44 +71,15 @@ let soul星球匹配 = {
                 封装API.text("立即登录").click()
             }
         }
-
     },
     XX抹机:function(){
         launchApp("xx抹机神器");
         for(let a=0;a<30;a++){
             sleep(1000);
             if(text("新建环境").exists()){
-                封装API.idCon("iv_envlist").click();
                 sleep(1000)
-                if(环境切换模式==0){
-                    封装API.text("切换到上一个").click();
-                }
-                else if(环境切换模式==1){
-                    封装API.text("切换到下一个").click();
-                }
-                sleep(1000)
-                while(!text("新建环境").exists()){
-                    sleep(1000)
-                    if(text("没有环境了").exists()){
-                        if(环境切换模式==0){
-                            环境切换模式 = 1
-                            封装API.text("确定").click()
-                            this.XX抹机()
-                            return
-                        }
-                        else if(环境切换模式==1){
-                            环境切换模式 = 0
-                            封装API.text("确定").click()
-                            sleep(1000)
-                            this.XX抹机()
-                            return
-                        }
-                    }
-                }
-                sleep(1000)
-                运行环境 = idContains("tv_envName").findOne(1000)
-                if(运行环境!=null){
-                    运行环境名称 =  运行环境.text()
+                if(帐号判断 == "帐号已死"){
+                    this.XX抹机更换环境()
                 }
                 图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
                 封装API.setView(图标).click()
@@ -117,6 +88,35 @@ let soul星球匹配 = {
                 break;
             }
         }
+    },
+    XX抹机更换环境:function(){
+        帐号判断 = 0
+        封装API.idCon("iv_envlist").click();
+        sleep(2000)
+        Swipe(700,400,100,400)
+        sleep(2000)
+        封装API.text("删除").click()
+        sleep(2000)
+        封装API.idCon("iv_envlist").click();
+        sleep(2000)
+        封装API.text("云环境管理").click()
+        sleep(2000)
+        云环境 = id("tv_name").textContains("环境").findOne(1000)
+        封装API.setView(云环境).click()
+        sleep(2000)
+        封装API.text("下载").click()
+        for(let a=0;a<90;a++){
+            if(text("切换为当前环境").exists()){
+                封装API.text("切换为当前环境").click()
+            }
+            if(text("已切换为当前环境").exists()){
+                封装API.text("确定").click()
+                break;
+            }
+        }
+        sleep(2000)
+        封装API.desc("转到上一层级").click()
+        sleep(2000)
     },
     打开当前soul:function(){
         launchApp("xx抹机神器");
@@ -153,18 +153,9 @@ let soul星球匹配 = {
                 log("找到跳过...")
                 封装API.textCon("跳过").click()
             }
-            else if(idContains("etPhone").exists()){
+            else if(idContains("etPhone").exists()||text("进入星球").exists()){
                 log("该账号已死,准备开始下一个...")
-                文档判断++
-                files.ensureDir("/sdcard/脚本参数/灵魂账号已死.txt");
-                if(文档判断==1){
-                    files.write("/sdcard/脚本参数/灵魂账号已死.txt",运行环境名称);
-                    files.append("/sdcard/脚本参数/灵魂账号已死.txt","\n"); 
-                }
-                else{
-                    files.append("/sdcard/脚本参数/灵魂账号已死.txt",运行环境名称);
-                    files.append("/sdcard/脚本参数/灵魂账号已死.txt","\n"); 
-                }
+                帐号判断 = "帐号已死"
                 程序判断 = "重新开始"
                 break;
             }
