@@ -153,7 +153,7 @@ let soul星球匹配 = {
                 log("找到跳过...")
                 封装API.textCon("跳过").click()
             }
-            else if(idContains("etPhone").exists()||text("进入星球").exists()){
+            else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
                 log("该账号已死,准备开始下一个...")
                 帐号判断 = "帐号已死"
                 程序判断 = "重新开始"
