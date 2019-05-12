@@ -453,7 +453,7 @@ let soul注册 ={
             else if(idContains("etPhone").exists()){
                 log("找到登陆初始界面,准备结束...")
                 程序判断 =  "重新开始"
-                return 
+                break;
             }
             else if(idContains("txtStart").exists()){
                 log("找到开始鉴定...")
@@ -519,13 +519,17 @@ let soul注册 ={
         if(idContains("etPwd").exists()||idContains("etPhone").exists()||textContains("手机验证码").exists()){
             log("判断没有进入该函数界面,准备重新开始")
             程序判断 =  "重新开始"
-            return
+            break;
         }
         this.更改性别()
         for(let a=0;a<2;a++){
             log("灵魂匹配===>"+a)
             匹配界面重复次数 = 0
             封装API.等待(500)
+            if(程序判断 == "重新开始"){
+                log("找到重新开始判断...")
+                break;
+            }
             if(text("点我签到").exists()){
                 log("soul灵魂匹配找到点击签到框,准备关闭...")
                 封装API.idCon("img_close").click()
@@ -578,7 +582,7 @@ let soul注册 ={
                 if(textContains("被多人举报").exists()){
                     toastLog("账号异常...")
                     程序判断 = "重新开始"
-                    return 
+                    break;
                 }
                 setText(第一句[random(0,第一句.length-1)]);
                 封装API.idCon("btn_send").click();
@@ -592,6 +596,10 @@ let soul注册 ={
             //随机点击星球好友聊天...
             for(let a=0;a<2;a++){
                 log("星球匹配===>"+a)
+                if(程序判断 == "重新开始"){
+                    log("找到重新开始判断...")
+                    break;
+                }
                 封装API.等待(500);
                 封装API.press(random(45,1035),random(270,1260),200)
                 封装API.等待(500);
@@ -630,8 +638,7 @@ let soul注册 ={
                         else if(textContains("被多人举报").exists()){
                             toastLog("账号异常...")
                             程序判断 = "重新开始"
-                            this.保存异常账号()
-                            return 
+                            break;
                         }
                     }
                     封装API.等待(500)
@@ -752,15 +759,29 @@ let soul注册 ={
         封装API.等待(500,1000)
         封装API.textCon("完成").click()
     },
-    中文时间: function(){
-        var da = new Date().getTime()
-        var da = new Date(da);
-        var year = da.getFullYear()+'年';
-        var month = da.getMonth()+1+'月';
-        var date = da.getDate()+'日';
-        var hour = da.getHours()+'时'
-        var minute = da.getMinutes()+'分'
-        return [year,month,date,hour,minute].join('-')
+    容错:function(){
+        thread = threads.start(function(){
+            while(true){
+                sleep(1000)
+                if(textContains("恋爱铃上线啦").exists()&&textContains("知道了").exists()){
+                    封装API.textCon("知道了").click()
+                }
+                if(text("发现新版本").exists()==true){
+                    封装API.text("忽略").click();
+                }
+                if(textContains("温馨提示").exists()){
+                    封装API.text("确定").click()
+                }
+                if(id("iv_match_close").exists()){
+                    封装API.id("iv_match_close").click()
+                }
+                if(textContains("被多人举报").exists()){
+                    toastLog("被多人举报...");
+                    程序判断 = "重新开始";
+                    封装API.text("确定").click()
+                }
+            }
+        });
     },
     接码模块:function(){
         //单纯图片ID
