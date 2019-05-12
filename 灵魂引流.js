@@ -115,7 +115,7 @@ let soul星球匹配 = {
         封装API.text("下载").click()
         for(let a=0;a<90;a++){
             封装API.等待(1000)
-            if(textContains("环境不存在").exists()){
+            if(textContains("环境不存在").exists()||textContains("下载失败").exists()){
                 封装API.text("确定").click()
                 sleep(2000)
                 封装API.desc("转到上一层级").click()
