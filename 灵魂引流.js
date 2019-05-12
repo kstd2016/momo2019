@@ -95,6 +95,19 @@ let soul星球匹配 = {
                 封装API.text("启动").click();
                 break;
             }
+            else if(text("网络连接失败").exists()){
+                封装API.text("确定").click();
+                封装API.等待(1000)
+                launchApp("设置")
+                封装API.等待(2000)
+                if(手机判断参数=="华为系统"){
+                    封装API.text("飞行模式").click();
+                    封装API.等待(2000)
+                    launchApp("xx抹机神器");
+                    封装API.等待(2000)
+                }
+                else{toastLog("没有找到该手机判断参数")}
+            }
         }
     },
     XX抹机更换环境:function(){
