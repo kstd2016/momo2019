@@ -84,6 +84,14 @@ let soul星球匹配 = {
                 图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
                 封装API.setView(图标).click()
                 sleep(1000);
+                if(textContains("当前无环境").exists()){
+                    封装API.text("确定").click()
+                    封装API.等待(1000)
+                    this.XX抹机更换环境()
+                    图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
+                    封装API.setView(图标).click()
+                    sleep(1000);
+                }
                 封装API.text("启动").click();
                 break;
             }
@@ -172,6 +180,7 @@ let soul星球匹配 = {
                     主界面判断 = 0
                     清理判断 = 0;
                     程序判断 = "重新开始"
+                    帐号判断 = "帐号已死"
                     break;
                 }
             }
@@ -293,6 +302,7 @@ let soul星球匹配 = {
                             else if(textContains("被多人举报").exists()){
                                 toastLog("账号异常...")
                                 程序判断 = "重新开始"
+                                帐号判断 = "帐号已死"
                                 break;
                             }
                             else{
@@ -570,6 +580,7 @@ let soul星球匹配 = {
                 if(textContains("被多人举报").exists()){
                     toastLog("被多人举报...");
                     程序判断 = "重新开始";
+                    帐号判断 = "帐号已死"
                     封装API.text("确定").click()
                 }
             }
