@@ -115,6 +115,18 @@ let soul星球匹配 = {
         封装API.text("下载").click()
         for(let a=0;a<90;a++){
             封装API.等待(1000)
+            if(textContains("环境不存在").exists()){
+                封装API.text("确定").click()
+                sleep(2000)
+                封装API.desc("转到上一层级").click()
+                sleep(2000)
+                封装API.text("云环境管理").click()
+                sleep(2000)
+                云环境 = id("tv_name").textContains("环境").findOne(1000)
+                封装API.setView(云环境).click()
+                sleep(2000)
+                封装API.text("下载").click()
+            }
             if(textContains("切换为当前环境").exists()){
                 封装API.textCon("切换为当前环境").click()
             }
