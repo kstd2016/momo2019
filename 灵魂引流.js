@@ -17,16 +17,18 @@ let soul星球匹配 = {
             //this.光子IP()
             this.XX抹机()
             for(let b=0;b<2;b++){
-                this.soul灵魂匹配();
                 if(程序判断 == "重新开始"){log("找到程序判断重新开始...");}
-                else{this.soul回复消息();}
+                else{
+                    this.soul灵魂匹配();
+                    this.soul回复消息();
+                }
             }
             集成模块.返回主界面()
             封装API.等待(1000)
         }
     },
     全局变量:function(){
-        帐号判断 = 0
+        程序判断 = 0
         APP = "Soul"
         第一句 = Array("你好","你好呀","你好,小哥哥","你好哦,小哥哥","你好呀,小哥哥","hi~","嗨","hello"
         ,"嗨喽","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
@@ -62,7 +64,6 @@ let soul星球匹配 = {
         }
     },
     循环变量:function(){
-        程序判断 = 0
         主界面判断 = 0
     },
     光子IP:function(){
@@ -79,7 +80,7 @@ let soul星球匹配 = {
             sleep(1000);
             if(text("新建环境").exists()){
                 sleep(1000)
-                if(帐号判断 == "帐号已死"){
+                if(程序判断 == "重新开始"){
                     this.XX抹机更换环境()
                 }
                 图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
@@ -112,7 +113,7 @@ let soul星球匹配 = {
         }
     },
     XX抹机更换环境:function(){
-        帐号判断 = 0
+        程序判断 = 0
         封装API.idCon("iv_envlist").click();
         sleep(2000)
         Swipe(700,400,100,400)
@@ -194,7 +195,6 @@ let soul星球匹配 = {
             }
             else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
                 log("该账号已死,准备开始下一个...")
-                帐号判断 = "帐号已死"
                 程序判断 = "重新开始"
                 break;
             }
@@ -206,7 +206,6 @@ let soul星球匹配 = {
                     主界面判断 = 0
                     清理判断 = 0;
                     程序判断 = "重新开始"
-                    帐号判断 = "帐号已死"
                     break;
                 }
             }
@@ -328,7 +327,6 @@ let soul星球匹配 = {
                             else if(textContains("被多人举报").exists()){
                                 toastLog("账号异常...")
                                 程序判断 = "重新开始"
-                                帐号判断 = "帐号已死"
                                 break;
                             }
                             else{
@@ -378,6 +376,11 @@ let soul星球匹配 = {
                 if(text("点我签到").exists()==true){
                     log("找到点击签到框,准备关闭...");
                     封装API.idCon("img_close").click();
+                }
+                else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
+                    log("该账号已死,准备开始下一个...")
+                    程序判断 = "重新开始"
+                    break;
                 }
                 封装API.等待(1000);
                 if(idContains("main_tab_msg").exists()&&idContains("main_tab_planet").exists()){
@@ -606,7 +609,6 @@ let soul星球匹配 = {
                 if(textContains("被多人举报").exists()){
                     toastLog("被多人举报...");
                     程序判断 = "重新开始";
-                    帐号判断 = "帐号已死"
                     封装API.text("确定").click()
                 }
             }
