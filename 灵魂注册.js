@@ -77,7 +77,7 @@ let soul注册 ={
         launchApp("光子·安卓变版");
         for(let a=0;a<30;a++){
             封装API.等待(1000)
-            if(text("退出帐号").exists()){
+            if(text("退出账号").exists()){
                 封装API.id("apv_switch").click()
                 封装API.等待(9999)
                 break;
