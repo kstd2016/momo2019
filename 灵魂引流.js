@@ -98,6 +98,7 @@ let soul星球匹配 = {
     },
     循环变量:function(){
         主界面判断 = 0
+        昵称数组 = Array()
     },
     光子IP:function(){
         launchApp("光子·安卓变版")
@@ -525,7 +526,15 @@ let soul星球匹配 = {
                     封装API.idCon("left_layout").click();
                 }
                 else{
-                    this.回复话术();
+                    var 昵称控件 = classNameContains("TextView").id("title").findOne(1000)
+                    var 昵称 = 昵称控件.text()
+                    console.log(昵称);
+                    if(昵称数组.indexOf(昵称) != -1){
+                        log("找到该昵称...")
+                    }
+                    else{
+                        this.回复话术();
+                    }
                     封装API.等待(500)
                 }
             }
@@ -534,9 +543,8 @@ let soul星球匹配 = {
                 封装API.idCon("main_tab_msg").click();
                 封装API.等待(10,50)
                 封装API.idCon("main_tab_msg").click();
-                封装API.等待(1000)
-                var 新消息 = classNameContains("TextView").idContains("unread_msg_number").findOne(1000)
-                if(新消息==null){
+                封装API.等待(500)
+                if(1==random(1,2)){
                     封装API.随机下滑()
                     封装API.等待(1000)
                 }
@@ -570,6 +578,10 @@ let soul星球匹配 = {
             封装API.idCon("btn_send").click();
             if(引流参数==1){
                 封装API.等待(1000);
+                var 昵称控件 = classNameContains("TextView").id("title").findOne(1000)
+                var 昵称 = 昵称控件.text()
+                console.log(昵称);
+                昵称数组.push(昵称)
                 this.录制语音("发送微信");
                 封装API.等待(500);
             }
@@ -622,6 +634,25 @@ let soul星球匹配 = {
         }
         else{
             return 套路回复[max+1][random(0,套路回复[max+1].length-1)]
+        }
+    },
+    昵称判断:function(){
+        if(idContains("left_layout").exists()&&idContains("right_layout").exists()&&idContains("menu_tab_voice").exists()){
+            var 昵称控件 = classNameContains("TextView").id("title").findOne(1000)
+            var 昵称 = 昵称控件.text()
+            console.log(昵称);
+            if(昵称数组.indexOf(昵称) != -1){
+                log("找到该昵称...")
+                return false
+            }
+            else{
+                昵称数组.push(昵称)
+                return true
+            }
+        }
+        else{
+            log("不在聊天界面...");
+            return "不在聊天界面"
         }
     },
     录制语音:function(语音文件){
