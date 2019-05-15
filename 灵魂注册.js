@@ -785,7 +785,7 @@ let soul注册 ={
         thread = threads.start(function(){
             while(true){
                 sleep(1000)
-                if(textContains("恋爱铃上线啦").exists()&&textContains("知道了").exists()){
+                if(textContains("知道了").exists()){
                     封装API.textCon("知道了").click()
                 }
                 if(text("发现新版本").exists()==true){
