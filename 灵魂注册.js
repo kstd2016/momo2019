@@ -517,6 +517,10 @@ let soul注册 ={
                         封装API.textCon("进入星球").click()
                         break;
                     }
+                    else if(descContains("进入星球").exists()){
+                        封装API.descCon("进入星球").click()
+                        break;
+                    }
                 }
             } 
             if(textContains("灵魂匹配").exists()){
