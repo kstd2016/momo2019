@@ -10,12 +10,10 @@ let soul注册 ={
             exit();
         }
         this.全局变量();
-        if(手机判断参数 == "逍遥模拟器"){}//this.光子IP();
-        else{手机判断参数 = 集成模块.手机品牌判断();}
+        手机判断参数 = 集成模块.手机品牌判断();
         for(let a=0;a<99;a++){
             this.循环变量();
-            if(手机判断参数 == "逍遥模拟器"){}
-            //else{集成模块.流量卡切换IP(手机判断参数)}
+            集成模块.流量卡切换IP(手机判断参数)
             this.新建环境();
             this.注册soul();
             if(程序判断=="重新开始"){}
@@ -24,10 +22,7 @@ let soul注册 ={
     },
     全局变量:function(){
         封装API.等待(1000)
-        if(text("逍遥市场").exists()){
-            手机判断参数 = "逍遥模拟器"
-        }
-        else{手机判断参数 = 0}
+        账号判断 = 0
         易码账号 = "kstd2016";
         易码密码 = "1987223";
         联众账号 = "kstd2016";
@@ -98,7 +93,8 @@ let soul注册 ={
                     while(text("新建环境").exists()!=true){
                         sleep(1000)
                     }
-                    this.上传云环境()
+                    if(账号判断=="账号已死"){账号判断=0}
+                    else{this.上传云环境()}
                     sleep(1500);
                     封装API.text("虚拟定位").click();
                     sleep(1000);
@@ -117,25 +113,6 @@ let soul注册 ={
                             }
                         }
                     }
-                    sleep(2000);
-                    启动 = text("启动").findOne(1000)
-                    封装API.clickParent(启动)
-                    break;
-                }
-            }
-        }
-        else if(手机判断参数=="逍遥模拟器"){
-            for(let a=0;a<30;a++){
-                sleep(1000);
-                if(text("新建环境").exists()){
-                    封装API.text("新建环境").click();
-                    sleep(1000)
-                    while(text("新建环境").exists()!=true){
-                        sleep(1000)
-                    }
-                    sleep(1500);
-                    图标 = classNameContains("LinearLayout").clickable(true).boundsInside(18,176,117,270).findOne(2000)
-                    封装API.setView(图标).click()
                     sleep(2000);
                     启动 = text("启动").findOne(1000)
                     封装API.clickParent(启动)
@@ -204,12 +181,9 @@ let soul注册 ={
                 sleep(1000);
                 console.log(获取号码);
                 setText(获取号码);
-                sleep(1000);
-                if(手机判断参数 == "逍遥模拟器"){}
-                else{                
-                    back()
-                    封装API.等待(500,1000)
-                }
+                sleep(1000);              
+                back()
+                封装API.等待(500,1000)
                 封装API.idCon("rlConfirm").click();//主页确定按钮ID
                 break;
             }
@@ -260,12 +234,9 @@ let soul注册 ={
                         log("找到输入密码页面...")
                         soul随机密码 = soul密码[random(0,soul密码.length)]
                         idContains("etPwd").setText(soul随机密码);
+                        封装API.等待(500,1000);               
+                        back()
                         封装API.等待(500,1000);
-                        if(手机判断参数 == "逍遥模拟器"){}
-                        else{                
-                            back()
-                            封装API.等待(500,1000);
-                        }
                         封装API.text("确定").click();
                         封装API.等待(2000)
                         break;
@@ -296,11 +267,8 @@ let soul注册 ={
     注册第三循环:function(){
         for(let a3=0;a3<120;a3++){
             log("注册第三循环"+a3)
-            封装API.等待(1000)
-            if(手机判断参数 == "逍遥模拟器"){}
-            else{                
-                集成模块.找图点击(华为键盘图标保存路径,910,950,170,400)
-            }
+            封装API.等待(1000)              
+            集成模块.找图点击(华为键盘图标保存路径,910,950,170,400)
             if(textContains("智能验证检测中").exists()){
                 log("注册第三循环找到智能验证检测中...")
                     back()
@@ -434,15 +402,9 @@ let soul注册 ={
             }
             if(textContains("请设置头像").exists()){
                 封装API.idCon("userinfo_bg").click()
-                封装API.等待(1000)
-                if(手机判断参数 == "逍遥模拟器"){
-                    var 男 = className("android.widget.LinearLayout").clickable(true).boundsInside(16,1737,1064,1828).findOne(1000)
-                    封装API.setView(男).click()
-                }
-                else{     
-                    //集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)           
-                    集成模块.找图点击(灵魂性别女保存路径,450,1450,175,470)
-                }
+                封装API.等待(1000)   
+                //集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)           
+                集成模块.找图点击(灵魂性别女保存路径,450,1450,175,470)
                 封装API.等待(2000,3000);
                 a = className("Image").boundsInside(60,1068,1020,1350).findOne(2000);
                 封装API.等待(2000,3000);
@@ -475,11 +437,8 @@ let soul注册 ={
             else if(idContains("txtStart").exists()){
                 log("找到开始鉴定...")
                 封装API.idCon("txtStart").click()
-                封装API.等待(1000,2000)
-                if(手机判断参数 == "逍遥模拟器"){}
-                else{                
-                    集成模块.找图点击(华为键盘图标保存路径,910,950,170,400)
-                }
+                封装API.等待(1000,2000)               
+                集成模块.找图点击(华为键盘图标保存路径,910,950,170,400)
                 for(let a=0;a<60;a++){
                     封装API.等待(1000,2000)
                     if(textContains("先逛逛").exists()){
@@ -608,6 +567,7 @@ let soul注册 ={
                         else if(textContains("被多人举报").exists()){
                             toastLog("账号异常...")
                             程序判断 = "重新开始"
+                            账号判断 = "账号已死"
                             break;
                         }
                     }
