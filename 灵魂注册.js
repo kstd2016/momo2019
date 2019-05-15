@@ -547,83 +547,28 @@ let soul注册 ={
             程序判断 =  "重新开始"
         }
         //this.更改性别()
-        for(let a=0;a<2;a++){
-            log("灵魂匹配===>"+a)
-            匹配界面重复次数 = 0
-            封装API.等待(500)
-            if(程序判断 == "重新开始"){
-                log("找到重新开始判断...")
-                break;
-            }
-            if(text("点我签到").exists()){
-                log("soul灵魂匹配找到点击签到框,准备关闭...")
-                封装API.idCon("img_close").click()
-            }
-            if(text("趣味测试").exists()){
-                log("找到趣味测试,准备返回...")
-                封装API.idCon("img_toolbar_back").click()     
-                封装API.等待(1000,1500)             
-            }
-            else if(text("发现新版本").exists()){
-                封装API.text("忽略").click()
-                封装API.等待(500)
-            }
-            封装API.idCon("soul_match").click()
-            while(idContains("right_layout").exists()!=true){
-                sleep(1000)
-                匹配界面重复次数++
-                if(匹配界面重复次数>=15){
-                    log("在匹配界面超过15秒,准备返回...")
-                    暂时不在线重复次数++
-                    log("暂时不在线重复次数===>"+暂时不在线重复次数++)
-                    break;
-                }
-                if(textContains("你要找的人暂时不在线呢").exists()){
-                    暂时不在线重复次数++
-                    log("暂时不在线重复次数===>"+暂时不在线重复次数++)
-                    封装API.idCon("titlebar_back_ivbtn").click() 
-                    封装API.等待(1000) 
-                    if(暂时不在线重复次数>=4){
-                        log("暂时不在线次数大于等于4次.退出该循环...")
-                        封装API.idCon("titlebar_back_ivbtn").click() 
-                        break;
-                    }
-                    else{封装API.text("灵魂匹配").click()}    
-                }
-                if(idContains("robot_gif").exists()){
-                    //log("找到robot_gif...");//暂时不做处理            
-                }
-            }
-            if(暂时不在线重复次数>=4){
-                log("暂时不在线次数大于等于4次.退出该循环...")
-                封装API.idCon("titlebar_back_ivbtn").click() 
-                break;
-            }
-            else if(匹配界面重复次数>=15){
-                匹配界面重复次数 = 0
-                封装API.idCon("titlebar_back_ivbtn").click() 
-            }
-            else{
-                if(textContains("被多人举报").exists()){
-                    toastLog("账号异常...")
-                    程序判断 = "重新开始"
-                    break;
-                }
-                setText(第一句[random(0,第一句.length-1)]);
-                封装API.idCon("btn_send").click();
-                封装API.等待(500)
-                封装API.idCon("left_layout").click();
-                封装API.等待(500)
-            }
-        }
+        封装API.idCon("main_tab_planet").click()
         封装API.等待(1000,1500)  
         if(textContains("灵魂匹配").exists()){
             //随机点击星球好友聊天...
-            for(let a=0;a<2;a++){
+            for(let a=0;a<3;a++){
                 log("星球匹配===>"+a)
                 if(程序判断 == "重新开始"){
                     log("找到重新开始判断...")
                     break;
+                }
+                if(text("点我签到").exists()){
+                    log("soul灵魂匹配找到点击签到框,准备关闭...")
+                    封装API.idCon("img_close").click()
+                }
+                if(text("趣味测试").exists()){
+                    log("找到趣味测试,准备返回...")
+                    封装API.idCon("img_toolbar_back").click()     
+                    封装API.等待(1000,1500)             
+                }
+                else if(text("发现新版本").exists()){
+                    封装API.text("忽略").click()
+                    封装API.等待(500)
                 }
                 封装API.等待(500);
                 封装API.press(random(45,1035),random(270,1260),200)
