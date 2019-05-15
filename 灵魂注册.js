@@ -96,10 +96,11 @@ let soul注册 ={
                     if(账号判断=="账号已死"){账号判断=0}
                     else{this.上传云环境()}
                     sleep(1500);
-                    封装API.text("虚拟定位").click();
+                    //随机虚拟定位
+                    /*封装API.text("虚拟定位").click();
                     sleep(1000);
                     封装API.press(500,1700,300)
-                    sleep(5000);
+                    sleep(5000);*/
                     for(let b=0;b<30;b++){
                         sleep(1000);
                         if(textContains("系统繁忙").exists()){
