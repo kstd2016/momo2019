@@ -532,7 +532,7 @@ let soul注册 ={
                 封装API.idCon("img_close").click()
                 break;
             }
-            this.切换SDK()
+            //this.切换SDK()
         }
     },
     soul灵魂匹配:function(){
