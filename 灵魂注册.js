@@ -10,12 +10,12 @@ let soul注册 ={
             exit();
         }
         this.全局变量();
-        if(手机判断参数 == "逍遥模拟器"){this.光子IP();}
+        if(手机判断参数 == "逍遥模拟器"){}//this.光子IP();
         else{手机判断参数 = 集成模块.手机品牌判断();}
         for(let a=0;a<99;a++){
             this.循环变量();
             if(手机判断参数 == "逍遥模拟器"){}
-            else{集成模块.流量卡切换IP(手机判断参数)}//
+            //else{集成模块.流量卡切换IP(手机判断参数)}
             this.新建环境();
             this.注册soul();
             if(程序判断=="重新开始"){}
@@ -159,6 +159,22 @@ let soul注册 ={
                 封装API.等待(1000)
                 封装API.idCon("iv_envlist").click()
                 break;
+            }
+        }
+    },
+    切换SDK:function(){
+        sleep(9999);
+        launchApp("xx抹机神器");
+        if(手机判断参数=="逍遥模拟器"){
+            for(let a=0;a<30;a++){
+                sleep(1000);
+                if(text("新建环境").exists()){
+                    封装API.text("新建环境").click();
+                    sleep(1000)
+                    while(text("新建环境").exists()!=true){
+                        sleep(1000)
+                    }
+                }
             }
         }
     },
@@ -354,7 +370,7 @@ let soul注册 ={
                 封装API.等待(500,1000)
                 封装API.textCon("完成").click()
             }
-            if(集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)=="找图成功"){
+            if(集成模块.找图点击(灵魂性别女保存路径,450,1450,175,470)=="找图成功"){
                 封装API.等待(1000,2000)
                 设置年 = random(1992,1999)
                 设置月 = random(2,12)
@@ -423,8 +439,9 @@ let soul注册 ={
                     var 男 = className("android.widget.LinearLayout").clickable(true).boundsInside(16,1737,1064,1828).findOne(1000)
                     封装API.setView(男).click()
                 }
-                else{                
-                    集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)
+                else{     
+                    //集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)           
+                    集成模块.找图点击(灵魂性别女保存路径,450,1450,175,470)
                 }
                 封装API.等待(2000,3000);
                 a = className("Image").boundsInside(60,1068,1020,1350).findOne(2000);
@@ -496,6 +513,10 @@ let soul注册 ={
                         log("找到灵魂首页面...");
                         break;
                     }
+                    if(textContains("进入星球").exists()){
+                        封装API.textCon("进入星球").click()
+                        break;
+                    }
                 }
             } 
             if(textContains("灵魂匹配").exists()){
@@ -511,6 +532,7 @@ let soul注册 ={
                 封装API.idCon("img_close").click()
                 break;
             }
+            this.切换SDK()
         }
     },
     soul灵魂匹配:function(){
@@ -520,7 +542,7 @@ let soul注册 ={
             log("判断没有进入该函数界面,准备重新开始")
             程序判断 =  "重新开始"
         }
-        this.更改性别()
+        //this.更改性别()
         for(let a=0;a<2;a++){
             log("灵魂匹配===>"+a)
             匹配界面重复次数 = 0
@@ -712,9 +734,10 @@ let soul注册 ={
             定制头像参数++
             封装API.idCon("userinfo_bg").click()
             封装API.等待(1000)
-            var 男 = className("android.widget.LinearLayout").clickable(true).boundsInside(16,1737,1064,1828).findOne(1000)
-            封装API.setView(男).click()
+            //var 男 = className("android.widget.LinearLayout").clickable(true).boundsInside(16,1737,1064,1828).findOne(1000)
+            //封装API.setView(男).click()
             //集成模块.找图点击(灵魂性别男保存路径,450,1450,175,470)
+            集成模块.找图点击(灵魂性别女保存路径,450,1450,175,470)
             封装API.等待(2000,3000);
             a = className("Image").boundsInside(60,1068,1020,1450).findOne(2000);
             封装API.等待(2000,3000);
