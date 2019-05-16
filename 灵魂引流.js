@@ -568,7 +568,7 @@ let soul星球匹配 = {
             封装API.等待(1000);
             封装API.idCon("btn_send").click();
             封装API.等待(1000);
-            this.录制语音("发送微信");
+            //this.录制语音("发送微信");
             封装API.等待(1000);
             封装API.idCon("left_layout").click();//聊天界面返回控件ID
         }
@@ -587,7 +587,7 @@ let soul星球匹配 = {
                 var 昵称 = 昵称控件.text()
                 console.log(昵称);
                 昵称数组.push(昵称)
-                this.录制语音("发送微信");
+                //this.录制语音("发送微信");
                 封装API.等待(500);
             }
             封装API.等待(500)
