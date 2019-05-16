@@ -430,6 +430,11 @@ let soul星球匹配 = {
                                 break;
                             }
                         }
+                        else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
+                            log("该账号已死,准备开始下一个...")
+                            程序判断 = "重新开始"
+                            break;
+                        }
                     }
                     封装API.等待(500)
                     封装API.idCon("left_layout").click();
@@ -722,11 +727,11 @@ let soul星球匹配 = {
                 if(id("iv_match_close").exists()){
                     封装API.id("iv_match_close").click()
                 }
-                if(textContains("被多人举报").exists()){
+                /*if(textContains("被多人举报").exists()){
                     toastLog("被多人举报...");
                     程序判断 = "重新开始";
                     封装API.text("确定").click()
-                }
+                }*/
                 if(idContains("close_dialog").exists()){
                     toastLog("搜狗输入法升级提示");
                     封装API.idCon("close_dialog").click()
