@@ -71,7 +71,8 @@ let soul星球匹配 = {
         ,"别对我忽冷忽热的，毕竟我抵抗力不好容易感冒。"
         ,"经常被自己蠢哭 但又不能揍自己")
 
-
+        语音要不微信聊吧 = 4
+        语音微信 = 6
         套路回复=[]
         组合A = []
         组合B = []
@@ -568,7 +569,8 @@ let soul星球匹配 = {
             封装API.等待(1000);
             封装API.idCon("btn_send").click();
             封装API.等待(1000);
-            this.录制语音("发送微信");
+            this.录制语音("要不微信聊吧"+random(1,语音要不微信聊吧));
+            this.录制语音("语音微信"+random(1,语音微信));           
             封装API.等待(1000);
             封装API.idCon("left_layout").click();//聊天界面返回控件ID
         }
@@ -587,7 +589,8 @@ let soul星球匹配 = {
                 var 昵称 = 昵称控件.text()
                 console.log(昵称);
                 昵称数组.push(昵称)
-                this.录制语音("发送微信");
+                this.录制语音("要不微信聊吧"+random(1,语音要不微信聊吧));
+                this.录制语音("语音微信"+random(1,语音微信));      
                 封装API.等待(500);
             }
             封装API.等待(500)
@@ -663,6 +666,7 @@ let soul星球匹配 = {
     录制语音:function(语音文件){
         //语音图标ID
         this.替换语音(语音文件)
+        封装API.等待(1000)
         封装API.idCon("menu_tab_voice").click()
         封装API.等待(3000)
         //录音录制ID
@@ -683,7 +687,7 @@ let soul星球匹配 = {
         log("开始替换语音文件")
         var dir = "/data/local/tmp";
         var 替换路径 = "/sdcard/脚本图片/"+语音文件+".pcm";
-        log(files.copy(替换路径,dir+"/"+"1.pcm"));
+        log(files.copy(替换路径,dir+"/"+"2.pcm"));
     },
     语音文件:function(){
         jsFiles = files.listDir(dir, function(name){
