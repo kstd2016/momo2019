@@ -32,7 +32,7 @@ let soul星球匹配 = {
         程序判断 = 0
         APP = "Soul"
         第一句 = Array("你好","你好呀","你好,小哥哥","你好哦,小哥哥","你好呀,小哥哥","hi~","嗨","hello"
-        ,"嗨喽","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
+        ,"嗨喽","hi~,小哥哥","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
         表情 = Array("😁","😊","😘","😍","😳","😅","😓","😎","😑","🙄","🤔","😉","🕺🏻"
         ,"😆","😤","😨","😈","🌝","😒","😔","🙂","🙃","💋","🌹","👍🏼","🎉","😩","😕","😐"
         ,"😠","😴","😌","😋","😝","👋🏼","🙏🏼","💪🏼","🤢","🤪","😷","😲","🤩","🤤","🤗"
@@ -305,7 +305,7 @@ let soul星球匹配 = {
         封装API.等待(1000)
         封装API.text("确定").click()
         封装API.等待(1000)
-        for(let a=0;a<20;a++){
+        for(let a=0;a<10;a++){
             log("灵魂匹配===>"+a)
             匹配界面重复次数 = 0
             封装API.等待(500)
@@ -381,7 +381,7 @@ let soul星球匹配 = {
         
         if(textContains("灵魂匹配").exists()==true){
             //随机点击星球好友聊天...
-            for(let a=0;a<20;a++){
+            for(let a=0;a<10;a++){
                 log("星球匹配===>"+a)
                 封装API.等待(500);
                 封装API.press(random(45,1035),random(270,1260),200)
@@ -568,7 +568,7 @@ let soul星球匹配 = {
             封装API.等待(1000);
             封装API.idCon("btn_send").click();
             封装API.等待(1000);
-            //this.录制语音("发送微信");
+            this.录制语音("发送微信");
             封装API.等待(1000);
             封装API.idCon("left_layout").click();//聊天界面返回控件ID
         }
@@ -587,7 +587,7 @@ let soul星球匹配 = {
                 var 昵称 = 昵称控件.text()
                 console.log(昵称);
                 昵称数组.push(昵称)
-                //this.录制语音("发送微信");
+                this.录制语音("发送微信");
                 封装API.等待(500);
             }
             封装API.等待(500)
@@ -662,6 +662,7 @@ let soul星球匹配 = {
     },
     录制语音:function(语音文件){
         //语音图标ID
+        this.替换语音(语音文件)
         封装API.idCon("menu_tab_voice").click()
         封装API.等待(3000)
         //录音录制ID
@@ -674,37 +675,15 @@ let soul星球匹配 = {
             封装API.idCon("status").click()
         }
         封装API.等待(1000)
-        //this.替换语音(语音文件)
-        //alert("请试听")
         封装API.等待(1000)
         封装API.idCon("confirm").click()//发送语音控件ID
         封装API.等待(1000)
     },
     替换语音:function(语音文件){
-        dir = "/sdcard/soul/imaudio";
-        var 替换路径 = "/sdcard/"+语音文件+".wav";
-        this.语音文件()
-        if(jsFiles.length==0){
-            log("开始设定第二路径")
-            大路径 = "/sdcard/dk_sdcard"
-            大路径集合 = files.listDir(大路径)
-            小路径 = "/soul/imaudio"
-            for(let a=0;a<大路径集合.length;a++){
-                dir = 大路径+"/"+大路径集合[a]+小路径
-                this.语音文件()
-                if(jsFiles.length==0){}
-                else{break;}
-            }
-        };
-        //删除原有语音文件
-        log(jsFiles)
-        for(let a=0;a<jsFiles.length;a++){
-            sleep(50);
-            files.remove(dir+"/"+jsFiles[a]);
-        };
-        //复制替换语音文件到文件夹
-        log("开始替换语音文件...")
-        log(files.copy(替换路径,dir+"/"+jsFiles[jsFiles.length-1]));
+        log("开始替换语音文件")
+        var dir = "/data/local/tmp";
+        var 替换路径 = "/sdcard/脚本图片/"+语音文件+".pcm";
+        log(files.copy(替换路径,dir+"/"+"1.pcm"));
     },
     语音文件:function(){
         jsFiles = files.listDir(dir, function(name){
