@@ -16,7 +16,7 @@ let soul星球匹配 = {
             集成模块.流量卡切换IP(手机判断参数)
             //this.光子IP()
             this.XX抹机()
-            for(let b=0;b<2;b++){
+            for(let b=0;b<4;b++){
                 if(程序判断 == "重新开始"){log("找到程序判断重新开始...");}
                 else{
                     this.发表动态();
