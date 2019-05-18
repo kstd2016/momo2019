@@ -123,6 +123,7 @@ let soul星球匹配 = {
     循环变量:function(){
         主界面判断 = 0
         昵称数组 = Array()
+        程序判断 = 0
     },
     光子IP:function(){
         launchApp("光子·安卓变版")
@@ -302,32 +303,9 @@ let soul星球匹配 = {
                 log("找到灵魂首页面...")
                 break;
             }
-            else if(text("点我签到").exists()==true){
-                log("找到点击签到框,准备关闭...")
-                封装API.idCon("img_close").click()
-            }
-            else if(text("立刻添加").exists()==true){
-                log("找到立刻添加框,准备关闭...")
-                封装API.idCon("img_close").click()
-            }
-            else if(textContains("跳过").exists()){
-                log("找到跳过...")
-                封装API.textCon("跳过").click()
-            }
-            else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
-                log("该账号已死,准备开始下一个...")
-                程序判断 = "重新开始"
-                break;
-            }
-            else if(desc("拨号").exists()){
-                主界面判断++
-                if(主界面判断>=10){
-                    log("该分身号已删除,准备开始下一个...");
-                    主界面判断 = 0
-                    清理判断 = 0;
-                    程序判断 = "重新开始"
-                    break;
-                }
+            else{
+                back();
+                封装API.等待(1000)
             }
         }
         //星球页面ID...
