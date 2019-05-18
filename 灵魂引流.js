@@ -8,8 +8,8 @@ let soul星球匹配 = {
             toast("请求截图失败");
             exit();
         }
-        分身起始 = rawInput("你输入你要创建的起始")
-        分身结束 = rawInput("你输入你要创建的结束")
+        分身起始 = rawInput("你输入你要开始的第一个分身")
+        分身结束 = rawInput("你输入你要结束的最后一个分身")
         this.全局变量();
         this.容错()
         手机判断参数 = 集成模块.手机品牌判断();
@@ -441,6 +441,15 @@ let soul星球匹配 = {
                                 }
                                 break;
                             }
+                        }
+                        else if(textContains("对方因违反").exists()){
+                            封装API.text("确定").click()
+                            break;
+                        }
+                        else if(textContains("被多人举报").exists()){
+                            toastLog("账号异常...")
+                            程序判断 = "重新开始"
+                            break;
                         }
                         else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
                             log("该账号已死,准备开始下一个...")
