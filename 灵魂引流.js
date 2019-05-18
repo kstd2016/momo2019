@@ -500,6 +500,11 @@ let soul星球匹配 = {
                     程序判断 = "重新开始"
                     break;
                 }
+                else if(textContains("被多人举报").exists()){
+                    toastLog("账号异常...")
+                    程序判断 = "重新开始"
+                    break;
+                }
                 封装API.等待(1000);
                 if(idContains("main_tab_msg").exists()&&idContains("main_tab_planet").exists()){
                     log("找到灵魂首页面...");
