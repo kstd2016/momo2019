@@ -8,29 +8,47 @@ let soul星球匹配 = {
             toast("请求截图失败");
             exit();
         }
+        分身起始 = rawInput("你输入你要创建的起始")
+        分身结束 = rawInput("你输入你要创建的结束")
         this.全局变量();
         this.容错()
         手机判断参数 = 集成模块.手机品牌判断();
-        for(let a=0;a<99;a++){
+        for(let a=0;a<自定义名字.length;a++){
             this.循环变量()
             集成模块.流量卡切换IP(手机判断参数)
             //this.光子IP()
-            this.XX抹机()
+            if(引流方式 == "XX抹机"){
+                this.XX抹机()
+            }
+            else if(引流方式 == "多开分身"){
+                封装API.等待(500);
+                toastLog("准备删除目录文件夹")
+                path = "/sdcard/Android/data"
+                log(files.removeDir(path))
+                path = "/sdcard/dk_sdcard"
+                log(files.removeDir(path))
+                封装API.等待(500);
+                集成模块.文件清理("soul")
+                运行程序 = 自定义名字[a]
+                launchApp(运行程序);
+                this.发表动态();
+            }
             for(let b=0;b<4;b++){
                 if(程序判断 == "重新开始"){log("找到程序判断重新开始...");}
                 else{
-                    this.发表动态();
                     this.soul灵魂匹配();
                     this.soul回复消息();
                 }
             }
+            集成模块.关闭应用(运行程序)
             集成模块.返回主界面()
             封装API.等待(1000)
         }
     },
     全局变量:function(){
+        引流方式 = "多开分身"
+        文档判断 = 0
         程序判断 = 0
-        APP = "Soul"
         第一句 = Array("你好","你好呀","你好,小哥哥","你好哦,小哥哥","你好呀,小哥哥","hi~","嗨","hello"
         ,"嗨喽","hi~,小哥哥","嗨喽,小哥哥","嗨,小哥哥","hello,小哥哥")
         表情 = Array("😁","😊","😘","😍","😳","😅","😓","😎","😑","🙄","🤔","😉","🕺🏻"
@@ -95,6 +113,11 @@ let soul星球匹配 = {
                     套路回复[c].push(组合A[c][a].concat(组合B[c][b]))
                 }
             }
+        }
+        APP = "Soul"
+        自定义名字 = Array()
+        for(let a=分身起始;a<分身结束+1;a++){
+            自定义名字.push(APP+"分身"+a)
         }
     },
     循环变量:function(){
@@ -227,6 +250,16 @@ let soul星球匹配 = {
             }
             else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
                 log("该账号已死,准备开始下一个...")
+                文档判断++
+                files.ensureDir("/sdcard/脚本图片/灵魂异常账号.txt");
+                if(文档判断==1){
+                    files.write("/sdcard/脚本图片/灵魂异常账号.txt",运行程序);
+                    files.append("/sdcard/脚本图片/灵魂异常账号.txt","\n"); 
+                }
+                else{
+                    files.append("/sdcard/脚本图片/灵魂异常账号.txt",运行程序);
+                    files.append("/sdcard/脚本图片/灵魂异常账号.txt","\n"); 
+                }
                 程序判断 = "重新开始"
                 break;
             }
