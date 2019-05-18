@@ -236,6 +236,7 @@ let soul星球匹配 = {
         }
     },
     发表动态:function(){
+        toastLog("开始发表动态")
         for(let a=0;a<60;a++){
             封装API.等待(1000)
             if(text("星球").exists()&&text("广场").exists()){
@@ -287,7 +288,7 @@ let soul星球匹配 = {
             if(textContains("发表瞬间").exists()){
                 封装API.text("发表瞬间").click();
             }
-            if(text("发布").exists()){
+            if(textContains("发布").exists()){
                 封装API.等待(1000)
                 setText(动态[random(0,动态.length-1)])
                 封装API.等待(1000)
