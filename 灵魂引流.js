@@ -308,6 +308,11 @@ let soul星球匹配 = {
                 log("找到灵魂首页面...")
                 break;
             }
+            else if(textContains("被多人举报").exists()){
+                toastLog("账号异常...")
+                程序判断 = "重新开始"
+                break;
+            }
             else{
                 back();
                 封装API.等待(1000)
