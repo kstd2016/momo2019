@@ -9,6 +9,8 @@ let soul注册 ={
             toast("请求截图失败");
             exit();
         }
+        分身起始 = rawInput("你输入你要创建的起始")
+        分身结束 = rawInput("你输入你要创建的结束")
         this.全局变量();
         手机判断参数 = 集成模块.手机品牌判断();
         for(let a=0;a<自定义名字.length;a++){
@@ -65,11 +67,11 @@ let soul注册 ={
         引流号 = Array("ССЬЬ¹995º²","ССЬЬ¹995º²")
         qq = 引流号[random(0,引流号.length-1)]
 
-
+        分身起始 = parseInt(分身起始)
+        分身结束 = parseInt(分身结束)
         APP = "Soul"
         自定义名字 = Array()
-        分身数量 = 36
-        for(let a=2;a<分身数量+1;a++){
+        for(let a=分身起始;a<分身结束+1;a++){
             自定义名字.push(APP+"分身"+a)
         }
         log(自定义名字)
