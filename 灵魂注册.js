@@ -36,13 +36,14 @@ let soul注册 ={
             this.注册soul();
             if(程序判断=="重新开始"){}
             else{this.soul灵魂匹配();}
+            if(程序判断== "重新开始"){}
+            else{this.保存账号();}
             集成模块.关闭应用(运行程序)
         }
     },
     全局变量:function(){
         封装API.等待(1000)
         注册方式 = "多开分身"
-        账号判断 = 0
         易码账号 = "kstd2016";
         易码密码 = "1987223";
         联众账号 = "kstd2016";
@@ -120,7 +121,7 @@ let soul注册 ={
                     while(text("新建环境").exists()!=true){
                         sleep(1000)
                     }
-                    if(账号判断=="账号已死"){账号判断=0}
+                    if(程序判断=="重新开始"){程序判断=0}
                     else{this.上传云环境()}
                     sleep(1500);
                     //随机虚拟定位
@@ -595,7 +596,6 @@ let soul注册 ={
                         else if(textContains("被多人举报").exists()){
                             toastLog("账号异常...")
                             程序判断 = "重新开始"
-                            账号判断 = "账号已死"
                             break;
                         }
                     }
@@ -609,7 +609,6 @@ let soul注册 ={
         else{
             log("没有找到灵魂匹配...")
         }
-        this.保存账号();
     },
     更改性别:function(){
         封装API.idCon("main_tab_me").click()
