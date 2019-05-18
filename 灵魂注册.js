@@ -22,8 +22,9 @@ let soul注册 ={
                 toastLog("准备删除目录文件夹")
                 path = "/sdcard/Android/data"
                 log(files.removeDir(path))
+                path = "/sdcard/dk_sdcard"
+                log(files.removeDir(path))
                 封装API.等待(500);
-                集成模块.文件清理("dkplugin")
                 集成模块.文件清理("soul")
                 集成模块.多开分身(切换IP方式,APP,"不善后")
                 运行程序 = 自定义名字[a]
@@ -32,6 +33,7 @@ let soul注册 ={
             this.注册soul();
             if(程序判断=="重新开始"){}
             else{this.soul灵魂匹配();}
+            集成模块.关闭应用(运行程序)
         }
     },
     全局变量:function(){
@@ -67,7 +69,7 @@ let soul注册 ={
         APP = "Soul"
         自定义名字 = Array()
         分身数量 = 36
-        for(let a=1;a<分身数量+1;a++){
+        for(let a=2;a<分身数量+1;a++){
             自定义名字.push(APP+"分身"+a)
         }
         log(自定义名字)
