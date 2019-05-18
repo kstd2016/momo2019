@@ -15,7 +15,8 @@ let soul注册 ={
         手机判断参数 = 集成模块.手机品牌判断();
         for(let a=0;a<自定义名字.length;a++){
             this.循环变量();
-            集成模块.流量卡切换IP(手机判断参数)
+            if(切换IP方式 == "光子切换IP"){集成模块.光子IP()}
+            else if(切换IP方式 == "流量卡切换IP"){集成模块.流量卡切换IP(手机判断参数)}
             if(注册方式 == "XX抹机"){
                 this.新建环境();
             }
@@ -66,7 +67,7 @@ let soul注册 ={
         微信 = Array("шēī✘","шēī♥","шēī❤","徽✘","徵♥","徾❤","幑♡","徴♡","шēī信","薇❤","薇♡","薇✘")
         引流号 = Array("ССЬЬ¹995º²","ССЬЬ¹995º²")
         qq = 引流号[random(0,引流号.length-1)]
-
+        切换IP方式 = "流量卡切换IP"
         分身起始 = parseInt(分身起始)
         分身结束 = parseInt(分身结束)
         APP = "Soul"
@@ -608,6 +609,7 @@ let soul注册 ={
         else{
             log("没有找到灵魂匹配...")
         }
+        this.保存账号();
     },
     更改性别:function(){
         封装API.idCon("main_tab_me").click()
@@ -716,6 +718,17 @@ let soul注册 ={
         setText(签名[random(0,签名.length-1)])
         封装API.等待(500,1000)
         封装API.textCon("完成").click()
+    },
+    保存账号:function(){
+        toastLog("开始保存账号...");
+        时间 = this.中文时间();
+        files.ensureDir("/sdcard/脚本参数/灵魂账号.txt")
+        files.append("/sdcard/脚本参数/灵魂账号.txt",保存号码);
+        files.append("/sdcard/脚本参数/灵魂账号.txt","----");
+        files.append("/sdcard/脚本参数/灵魂账号.txt",soul随机密码);
+        files.append("/sdcard/脚本参数/灵魂账号.txt","----");
+        files.append("/sdcard/脚本参数/灵魂账号.txt",时间);
+        files.append("/sdcard/脚本参数/灵魂账号.txt","\n");
     },
     容错:function(){
         thread = threads.start(function(){
