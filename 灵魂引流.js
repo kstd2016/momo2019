@@ -218,16 +218,21 @@ let soul星球匹配 = {
         sleep(2000)
     },
     打开当前soul:function(){
-        launchApp("xx抹机神器");
-        for(let a=0;a<30;a++){
-            sleep(1000);
-            if(text("新建环境").exists()){
-                图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
-                封装API.setView(图标).click()
+        if(引流方式 == "XX抹机"){
+            launchApp("xx抹机神器");
+            for(let a=0;a<30;a++){
                 sleep(1000);
-                封装API.text("启动").click();
-                break;
+                if(text("新建环境").exists()){
+                    图标 = classNameContains("LinearLayout").clickable(true).boundsInside(30,312,195,492).findOne(2000)
+                    封装API.setView(图标).click()
+                    sleep(1000);
+                    封装API.text("启动").click();
+                    break;
+                }
             }
+        }
+        else if(引流方式 == "多开分身"){
+            launchApp(运行程序);
         }
     },
     发表动态:function(){
