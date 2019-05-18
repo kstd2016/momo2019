@@ -730,6 +730,16 @@ let soul注册 ={
         files.append("/sdcard/脚本参数/灵魂账号.txt",时间);
         files.append("/sdcard/脚本参数/灵魂账号.txt","\n");
     },
+    中文时间:function(){
+        var da = new Date().getTime()
+        da = new Date(da);
+        var year = da.getFullYear()+'年';
+        var month = da.getMonth()+1+'月';
+        var date = da.getDate()+'日';
+        var hour = da.getHours()+'时'
+        var minute = da.getMinutes()+'分'
+        return [year,month,date,hour,minute].join('-')
+    },
     容错:function(){
         thread = threads.start(function(){
             while(true){
