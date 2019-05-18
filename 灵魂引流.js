@@ -371,6 +371,7 @@ let soul星球匹配 = {
             if(暂时不在线重复次数>=4){
                 log("暂时不在线次数大于等于4次.退出该循环...")
                 封装API.idCon("titlebar_back_ivbtn").click() 
+                程序判断 = "重新开始"
                 break;
             }
             else if(匹配界面重复次数>=15){
