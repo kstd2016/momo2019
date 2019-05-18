@@ -408,6 +408,15 @@ let soul星球匹配 = {
                     log("找到重新开始判断...")
                     break;
                 }
+                else if(textContains("对方因违反").exists()){
+                    封装API.text("确定").click()
+                    break;
+                }
+                else if(textContains("被多人举报").exists()){
+                    toastLog("账号异常...")
+                    程序判断 = "重新开始"
+                    break;
+                }
                 if(id("iv_match_close").exists()){
                     封装API.id("iv_match_close").click()
                 }
@@ -447,15 +456,6 @@ let soul星球匹配 = {
                                 }
                                 break;
                             }
-                        }
-                        else if(textContains("对方因违反").exists()){
-                            封装API.text("确定").click()
-                            break;
-                        }
-                        else if(textContains("被多人举报").exists()){
-                            toastLog("账号异常...")
-                            程序判断 = "重新开始"
-                            break;
                         }
                         else if(idContains("etPhone").exists()||idContains("btn_newUser").exists()){
                             log("该账号已死,准备开始下一个...")
