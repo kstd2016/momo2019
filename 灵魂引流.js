@@ -116,6 +116,8 @@ let soul星球匹配 = {
         }
         APP = "Soul"
         自定义名字 = Array()
+        分身起始 = parseInt(分身起始)
+        分身结束 = parseInt(分身结束)
         for(let a=分身起始;a<分身结束+1;a++){
             自定义名字.push(APP+"分身"+a)
         }
