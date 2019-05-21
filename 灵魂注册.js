@@ -234,7 +234,7 @@ let soul注册 ={
                         }
                     }
                     sleep(1500);
-                    随机虚拟定位
+                    //随机虚拟定位
                     封装API.text("虚拟定位").click();
                     sleep(1000);
                     封装API.press(500,1700,300)
